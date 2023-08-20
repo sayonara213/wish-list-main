@@ -20,6 +20,7 @@
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
     "framer-motion": "^10.16.0",
+    "material-icons": "^1.13.10",
     "next": "13.4.19",
     "postcss": "8.4.28",
     "preline": "^1.9.0",
