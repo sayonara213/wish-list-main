@@ -1,31 +1,43 @@
 import type { Config } from 'tailwindcss';
+import defaultTheme from 'tailwindcss/defaultTheme';
+import colors from 'tailwindcss/colors';
 
 const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    'node_modules/preline/dist/*.js',
   ],
   theme: {
-    colors: {
-      black: '#050505',
-      gray: '#0b0b0b',
-      'light-gray': '#a9a9a9',
-      orange: '#ff7849',
-      green: '#13ce66',
-      yellow: '#ffc82c',
-    },
-    fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
-      serif: ['Merriweather', 'serif'],
-    },
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      fontFamily: {
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+      },
+      colors: {
+        primary: {
+          '50': '#f1f2fc',
+          '100': '#e5e9fa',
+          '200': '#d0d5f5',
+          '300': '#b3baee',
+          '400': '#9597e4',
+          '500': '#7e7bd9',
+          '600': '#6e62cb',
+          '700': '#5e50b2',
+          '800': '#4c4390',
+          '900': '#413c73',
+          '950': '#272343',
+        },
+        secondary: colors.indigo,
+        accent: '#2a2b2f',
+        subAccent: '#222327',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+    require('preline/plugin'),
+  ],
 };
 export default config;
