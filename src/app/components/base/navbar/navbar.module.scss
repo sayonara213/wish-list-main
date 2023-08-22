@@ -1,0 +1,19 @@
+.navbar {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+  height: 100vh;
+
+  background-color: var(--color-secondary);
+
+  ul {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+    height: max-content;
+  }
+}

@@ -1,0 +1,41 @@
+.wrapper {
+  margin-bottom: 16px;
+}
+
+.item {
+  box-sizing: content-box;
+  display: flex;
+  padding: 8px;
+  align-items: center;
+  border-radius: 8px;
+  transition-property: color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 8px;
+
+  cursor: pointer;
+  user-select: none;
+
+  height: 24px;
+
+  span {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
+.hover {
+}
+
+.subWrapper {
+  display: flex;
+  overflow-y: scroll;
+  padding-left: 8px;
+  padding-right: 8px;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  border-left-width: 2px;
+  max-height: 140px;
+}
