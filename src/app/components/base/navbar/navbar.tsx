@@ -2,6 +2,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { useState } from 'react';
 import { Icon } from '../../ui/icon/icon';
 import { Heading } from './heading/heading';
+import { NavbarItem } from './navbar-item/navbar-item';
+import { ThemeSwitch } from './theme-switch/theme-switch';
 
 export const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -11,13 +13,13 @@ export const Navbar = () => {
   };
 
   const sidebarVariants = {
-    expanded: { width: '250px' },
-    collapsed: { width: '90px' },
+    expanded: { width: '270px' },
+    collapsed: { width: '80px' },
   };
 
   const textVariants = {
-    show: { opacity: 1, x: 0 },
-    hide: { opacity: 0, x: -30 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.3, delay: 0.3 } },
+    hide: { opacity: 0, x: -30, transition: { duration: 0.3 } },
   };
 
   return (
@@ -25,28 +27,41 @@ export const Navbar = () => {
       initial='expanded'
       animate={isExpanded ? 'expanded' : 'collapsed'}
       variants={sidebarVariants}
-      transition={{ duration: 0.5 }}
-      className='bg-subAccent h-screen overflow-hidden p-5'
+      transition={{ duration: 0.5, ease: 'backInOut' }}
+      className='bg-subAccentLight flex h-screen flex-col rounded-r-2xl p-5 shadow-[0_3px_10px_rgb(0,0,0,0.2)] dark:bg-subAccent'
     >
       <Heading variants={textVariants} isExpanded={isExpanded} toggleNav={toggleNav} />
-      <ul>
-        <li className='flex items-center space-x-2 '>
-          <Icon name='home' className='5ms transition-all' />
-          <AnimatePresence>
-            {isExpanded && (
-              <motion.span
-                initial='hide'
-                animate='show'
-                exit='hide'
-                variants={textVariants}
-                transition={{ duration: 0.3 }}
-              >
-                <p className='text-white text-xl font-bold'>Home</p>
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </li>
-        {/* ... Repeat for other nav items */}
+      <ul className='flex h-max flex-grow flex-col justify-between overflow-hidden'>
+        <div>
+          <NavbarItem
+            name='Shared wishlists'
+            icon='favorite'
+            variants={textVariants}
+            isExpanded={isExpanded}
+          />
+          <NavbarItem
+            name='profile'
+            icon='person'
+            variants={textVariants}
+            isExpanded={isExpanded}
+          />
+          <NavbarItem
+            name='profile'
+            icon='person'
+            variants={textVariants}
+            isExpanded={isExpanded}
+          />
+        </div>
+        <div>
+          <NavbarItem
+            name='log out'
+            icon='logout'
+            variants={textVariants}
+            isExpanded={isExpanded}
+            onClick={() => console.log('clicked')}
+          />
+          <ThemeSwitch variants={textVariants} isExpanded={isExpanded} />
+        </div>
       </ul>
     </motion.div>
   );

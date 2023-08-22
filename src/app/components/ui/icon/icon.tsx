@@ -7,6 +7,7 @@ interface IIconProps extends React.HTMLAttributes<HTMLParagraphElement> {
   size?: 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
   color?: 'primary' | 'secondary';
   logo?: boolean;
+  classes?: string;
 }
 
 const colors = {
@@ -16,14 +17,17 @@ const colors = {
 
 export const Icon: React.FC<IIconProps> = ({
   name = 'home',
-  size = '4xl',
+  size = '2xl',
   color = 'primary',
   logo = false,
+  classes,
 }) => {
   return logo ? (
-    <Image src={IMAGES.logo} alt='Logo' width={32} height={32} priority />
+    <Image src={IMAGES.logo} alt='Logo' width={24} height={24} priority objectFit='cover' />
   ) : (
-    <span className={`text-${size} ${colors[color]} material-icons-round leading-none`}>
+    <span
+      className={`text-${size} ${colors[color]} ${classes} material-icons-outlined leading-none`}
+    >
       {name}
     </span>
   );

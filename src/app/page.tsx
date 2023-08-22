@@ -1,7 +1,6 @@
 'use client';
 
 import { Navbar } from './components/base/navbar/navbar';
-import { Button } from './components/ui/button/button';
 
 export default function Home() {
   return (

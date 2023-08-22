@@ -26,6 +26,7 @@
     "preline": "^1.9.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "tailwind-scrollbar": "^3.0.5",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6"
   },
