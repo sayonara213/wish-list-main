@@ -9,6 +9,7 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     'node_modules/preline/dist/*.js',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       fontFamily: {
@@ -28,9 +29,16 @@ const config: Config = {
           '900': '#413c73',
           '950': '#272343',
         },
-        secondary: colors.indigo,
         accent: '#2a2b2f',
         subAccent: '#222327',
+        accentLight: '#FFFFFF',
+        subAccentLight: '#FFFFFF',
+
+        border: '#38393c',
+        borderLight: '#e9e9e9',
+
+        subText: '#909193',
+        subTextLight: '#8e8e91',
       },
     },
   },
@@ -38,6 +46,7 @@ const config: Config = {
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
     require('preline/plugin'),
+    require('tailwind-scrollbar'),
   ],
 };
 export default config;
