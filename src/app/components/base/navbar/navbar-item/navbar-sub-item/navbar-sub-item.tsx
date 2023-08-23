@@ -9,11 +9,5 @@ interface INavbarSubItemProps {
 }
 
 export const NavbarSubItem: React.FC<INavbarSubItemProps> = ({ name, link }) => {
-  return (
-    <button className={styles.item}>
-      <Paragraph weight='medium' color='muted'>
-        {toNormalCase(name)}
-      </Paragraph>
-    </button>
-  );
+  return <button className={styles.item}>{toNormalCase(name)}</button>;
 };

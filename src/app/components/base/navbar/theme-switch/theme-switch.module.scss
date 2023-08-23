@@ -3,12 +3,25 @@
   display: flex;
   padding: 8px;
   align-items: center;
-  border-radius: 6px;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+  border-radius: 8px;
+
   gap: 8px;
-  cursor: pointer;
   user-select: none;
   height: 24px;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  cursor: pointer;
+  transition-property: background-color color;
+  transition: var(--transition-duration) var(--transition-timing-function);
+
+  &:hover {
+    background-color: var(--color-accent);
+  }
 }

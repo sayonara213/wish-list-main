@@ -55,6 +55,7 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
               exit='hide'
               variants={variants}
               transition={{ duration: 0.3, delay: 0.15 }}
+              className={styles.span}
             >
               <Paragraph weight='medium'>{toNormalCase(name)}</Paragraph>
             </motion.div>
@@ -73,7 +74,7 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
             >
               <NavbarSubItem name='Firt wishlist' />
               <NavbarSubItem name='Second wishlist' />
-              <NavbarSubItem name='Third wishlist' />
+              <NavbarSubItem name='Third wishlist12312312314234' />
               <NavbarSubItem name='Third wishlist' />
             </motion.div>
           )}

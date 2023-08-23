@@ -21,6 +21,15 @@
   --size-medium: 20px;
   --size-big: 24px;
   --size-large: 30px;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --transition-duration: 150ms;
+  --transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-theme='dark'] {

@@ -20,11 +20,11 @@ export const Heading: React.FC<IHeadingProps> = ({ variants, isExpanded, toggleN
         <Icon logo />
         <AnimatePresence>
           {isExpanded && (
-            <motion.span initial='hide' animate='show' exit='hide' variants={variants}>
+            <motion.div initial='hide' animate='show' exit='hide' variants={variants}>
               <Paragraph size='lg' weight='bold'>
                 Wishy
               </Paragraph>
-            </motion.span>
+            </motion.div>
           )}
         </AnimatePresence>
       </div>

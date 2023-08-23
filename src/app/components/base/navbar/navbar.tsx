@@ -1,6 +1,5 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import React, { useState } from 'react';
-import { Icon } from '../../ui/icon/icon';
 import { Heading } from './heading/heading';
 import { NavbarItem } from './navbar-item/navbar-item';
 import { ThemeSwitch } from './theme-switch/theme-switch';

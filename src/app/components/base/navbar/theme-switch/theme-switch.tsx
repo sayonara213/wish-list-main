@@ -3,6 +3,7 @@ import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Switch } from 'antd';
 import styles from './theme-switch.module.scss';
+import { classes } from '@/app/services/styles';
 
 interface IThemeSwitchProps {
   variants: Variants;
@@ -10,8 +11,8 @@ interface IThemeSwitchProps {
 }
 
 const iconVariants: Variants = {
-  show: { opacity: 1, x: 0, transition: { duration: 0.3, delay: 0.3 } },
-  hide: { opacity: 0, x: -30, transition: { duration: 0.3 } },
+  show: { opacity: 1, x: 0, transition: { duration: 0.3, ease: 'backInOut' } },
+  hide: { opacity: 0, x: -30, transition: { duration: 0.3, ease: 'backInOut' } },
 };
 
 export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded }) => {
@@ -41,7 +42,7 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
   };
 
   return (
-    <li className={styles.wrapper}>
+    <li className={classes(styles.wrapper, !isExpanded && styles.button)} onClick={toggleTheme}>
       <AnimatePresence mode='wait'>
         {isDark ? (
           <motion.div
@@ -50,7 +51,7 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
             animate='show'
             exit='hide'
             variants={iconVariants}
-            className='flex items-center justify-center'
+            className={styles.icon}
           >
             <Icon name='dark_mode' />
           </motion.div>
@@ -61,7 +62,7 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
             animate='show'
             exit='hide'
             variants={iconVariants}
-            className='flex items-center justify-center'
+            className={styles.icon}
           >
             <Icon name='light_mode' />
           </motion.div>
