@@ -19,7 +19,7 @@ const iconVariants: Variants = {
 };
 
 export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded }) => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
@@ -29,15 +29,13 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
   }, []);
 
   useEffect(() => {
-    const root = document.documentElement;
+    const root = document.body;
+    const theme = isDark ? 'dark' : 'light';
 
-    if (isDark) {
-      root.setAttribute('data-theme', 'dark');
-    } else {
-      root.setAttribute('data-theme', 'light');
+    if (isDark && root.dataset.theme !== theme) {
+      localStorage.setItem('theme', theme);
+      root.dataset.theme = theme;
     }
-
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
   }, [isDark]);
 
   const toggleTheme = () => {
