@@ -1,10 +1,13 @@
-import { Icon } from '@/app/components/ui/icon/icon';
-import { toNormalCase } from '@/app/services/text';
-import { AnimatePresence, Variants, motion } from 'framer-motion';
 import React from 'react';
-import { NavbarSubItem } from './navbar-sub-item/navbar-sub-item';
+
+import { toNormalCase } from '@utils/text';
+import { AnimatePresence, Variants, motion } from 'framer-motion';
+
+import { Icon } from '@components/ui/icon/icon';
+import { Paragraph } from '@components/ui/text/text';
+
 import styles from './navbar-item.module.scss';
-import { Paragraph } from '@/app/components/ui/text/text';
+import { NavbarSubItem } from './navbar-sub-item/navbar-sub-item';
 
 interface INavbarItemProps {
   name: string;

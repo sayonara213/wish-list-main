@@ -1,9 +1,11 @@
-import { motion } from 'framer-motion';
 import React, { useState } from 'react';
+
+import { motion } from 'framer-motion';
+
 import { Heading } from './heading/heading';
 import { NavbarItem } from './navbar-item/navbar-item';
-import { ThemeSwitch } from './theme-switch/theme-switch';
 import styles from './navbar.module.scss';
+import { ThemeSwitch } from './theme-switch/theme-switch';
 
 export const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(true);
