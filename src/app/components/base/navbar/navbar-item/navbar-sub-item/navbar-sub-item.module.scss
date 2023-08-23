@@ -1,0 +1,35 @@
+.item {
+  max-width: 100%;
+  padding: 8px 18px;
+
+  border-radius: 12px;
+  height: 40px;
+
+  transition-property: background-color color;
+  transition: var(--transition-duration) var(--transition-timing-function);
+
+  background-color: transparent;
+  border: none;
+
+  color: var(--color-text-muted);
+  font-weight: var(--width-medium);
+  font-size: var(--size-normal);
+
+  &:hover {
+    color: var(--color-text);
+    background-color: var(--color-accent);
+  }
+
+  margin-bottom: 4px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+
+  cursor: pointer;
+}

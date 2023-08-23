@@ -1,0 +1,43 @@
+.sm {
+  font-size: var(--size-small);
+}
+
+.base {
+  font-size: var(--size-normal);
+}
+
+.md {
+  font-size: var(--size-medium);
+}
+
+.bg {
+  font-size: var(--size-big);
+}
+
+.lg {
+  font-size: var(--size-large);
+}
+
+.default {
+  color: var(--color-text);
+}
+
+.muted {
+  color: var(--color-text-muted);
+}
+
+.link {
+  color: var(--color-accent);
+}
+
+.normal {
+  font-weight: var(--width-regular);
+}
+
+.medium {
+  font-weight: var(--width-medium);
+}
+
+.bold {
+  font-weight: var(--width-bold);
+}

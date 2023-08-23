@@ -1,32 +1,29 @@
 import { IMAGES } from '@/app/constants/images';
 import Image from 'next/image';
 import React from 'react';
+import { ITextProps } from '../text/text';
+import styles from '@/app/components/ui/text/text.module.scss';
 
 interface IIconProps extends React.HTMLAttributes<HTMLParagraphElement> {
   name?: string;
-  size?: 'sm' | 'base' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
-  color?: 'primary' | 'secondary';
   logo?: boolean;
-  classes?: string;
+  size?: number;
+  color?: ITextProps['color'];
 }
-
-const colors = {
-  primary: 'text-black dark:text-white',
-  secondary: 'text-gray-500 dark:text-gray-400',
-};
 
 export const Icon: React.FC<IIconProps> = ({
   name = 'home',
-  size = '2xl',
-  color = 'primary',
+  size = '24px',
+  color = 'default',
   logo = false,
-  classes,
+  ...props
 }) => {
   return logo ? (
     <Image src={IMAGES.logo} alt='Logo' width={24} height={24} priority objectFit='cover' />
   ) : (
     <span
-      className={`text-${size} ${colors[color]} ${classes} material-icons-outlined leading-none`}
+      style={{ fontSize: size }}
+      className={`${styles[color]} material-icons-outlined leading-none`}
     >
       {name}
     </span>

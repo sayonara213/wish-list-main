@@ -1,9 +1,9 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import React, { useState } from 'react';
-import { Icon } from '../../ui/icon/icon';
 import { Heading } from './heading/heading';
 import { NavbarItem } from './navbar-item/navbar-item';
 import { ThemeSwitch } from './theme-switch/theme-switch';
+import styles from './navbar.module.scss';
 
 export const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -28,10 +28,10 @@ export const Navbar = () => {
       animate={isExpanded ? 'expanded' : 'collapsed'}
       variants={sidebarVariants}
       transition={{ duration: 0.5, ease: 'backInOut' }}
-      className='bg-subAccentLight flex h-screen flex-col rounded-r-2xl p-5 shadow-[0_3px_10px_rgb(0,0,0,0.2)] dark:bg-subAccent'
+      className={styles.navbar}
     >
       <Heading variants={textVariants} isExpanded={isExpanded} toggleNav={toggleNav} />
-      <ul className='flex h-max flex-grow flex-col justify-between overflow-hidden'>
+      <ul>
         <div>
           <NavbarItem
             name='Shared wishlists'

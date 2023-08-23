@@ -3,7 +3,8 @@ import { toNormalCase } from '@/app/services/text';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import React from 'react';
 import { NavbarSubItem } from './navbar-sub-item/navbar-sub-item';
-import './navbar-item.css';
+import styles from './navbar-item.module.scss';
+import { Paragraph } from '@/app/components/ui/text/text';
 
 interface INavbarItemProps {
   name: string;
@@ -43,25 +44,21 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
   };
 
   return (
-    <li className='mb-4 flex-col'>
-      <div
-        className={`box-content flex h-[24px] cursor-pointer select-none items-center space-x-2 rounded-md p-2 transition-colors duration-150 ease-in-out ${
-          onClick && 'hover:bg-primary-500'
-        }`}
-      >
+    <li className={styles.wrapper}>
+      <div className={`${styles.item} ${onClick && styles.hover}`}>
         <Icon name={icon} className='5ms transition-all' />
         <AnimatePresence>
           {isExpanded && (
-            <motion.span
+            <motion.div
               initial='hide'
               animate='show'
               exit='hide'
               variants={variants}
               transition={{ duration: 0.3, delay: 0.15 }}
-              className='w-full overflow-hidden whitespace-nowrap'
+              className={styles.span}
             >
-              <p className='text-xl font-bold text-black dark:text-white'>{toNormalCase(name)}</p>
-            </motion.span>
+              <Paragraph weight='medium'>{toNormalCase(name)}</Paragraph>
+            </motion.div>
           )}
         </AnimatePresence>
       </div>
@@ -73,11 +70,11 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
               animate='show'
               exit='hide'
               variants={liVariants}
-              className='border-l-borderLight scroll scrollbar-thumb-primary-500 flex max-h-[140px] flex-col items-start gap-2 overflow-y-scroll border-l-2 px-4 dark:border-border'
+              className={styles.subWrapper}
             >
               <NavbarSubItem name='Firt wishlist' />
               <NavbarSubItem name='Second wishlist' />
-              <NavbarSubItem name='Third wishlist' />
+              <NavbarSubItem name='Third wishlist12312312314234' />
               <NavbarSubItem name='Third wishlist' />
             </motion.div>
           )}

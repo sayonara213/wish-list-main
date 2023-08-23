@@ -1,6 +1,9 @@
 import { Icon } from '@/app/components/ui/icon/icon';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+import { Switch } from 'antd';
+import styles from './theme-switch.module.scss';
+import { classes } from '@/app/services/styles';
 
 interface IThemeSwitchProps {
   variants: Variants;
@@ -8,8 +11,8 @@ interface IThemeSwitchProps {
 }
 
 const iconVariants: Variants = {
-  show: { opacity: 1, x: 0, transition: { duration: 0.3, delay: 0.3 } },
-  hide: { opacity: 0, x: -30, transition: { duration: 0.3 } },
+  show: { opacity: 1, x: 0, transition: { duration: 0.3, ease: 'backInOut' } },
+  hide: { opacity: 0, x: -30, transition: { duration: 0.3, ease: 'backInOut' } },
 };
 
 export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded }) => {
@@ -23,12 +26,12 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
   }, []);
 
   useEffect(() => {
-    const htmlEl = document.documentElement;
+    const root = document.documentElement;
 
     if (isDark) {
-      htmlEl.classList.add('dark');
+      root.setAttribute('data-theme', 'dark');
     } else {
-      htmlEl.classList.remove('dark');
+      root.setAttribute('data-theme', 'light');
     }
 
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
@@ -39,7 +42,7 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
   };
 
   return (
-    <li className='box-content flex h-[24px] cursor-pointer select-none items-center space-x-2 rounded-md p-2 transition-colors duration-150'>
+    <li className={classes(styles.wrapper, !isExpanded && styles.button)} onClick={toggleTheme}>
       <AnimatePresence mode='wait'>
         {isDark ? (
           <motion.div
@@ -48,7 +51,7 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
             animate='show'
             exit='hide'
             variants={iconVariants}
-            className='flex items-center justify-center'
+            className={styles.icon}
           >
             <Icon name='dark_mode' />
           </motion.div>
@@ -59,7 +62,7 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
             animate='show'
             exit='hide'
             variants={iconVariants}
-            className='flex items-center justify-center'
+            className={styles.icon}
           >
             <Icon name='light_mode' />
           </motion.div>
@@ -67,17 +70,9 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
       </AnimatePresence>
       <AnimatePresence>
         {isExpanded && (
-          <motion.input
-            initial='hide'
-            animate='show'
-            exit='hide'
-            variants={variants}
-            type='checkbox'
-            id='hs-basic-usage'
-            className='relative h-7 w-[3.25rem] cursor-pointer appearance-none rounded-full border-2 border-transparent bg-gray-100 ring-1 ring-transparent ring-offset-white transition-colors duration-200 ease-in-out before:inline-block before:h-6 before:w-6 before:translate-x-0 before:transform before:rounded-full before:bg-white before:shadow before:ring-0 before:transition before:duration-200 before:ease-in-out checked:bg-primary-600 checked:bg-none checked:before:translate-x-full checked:before:bg-blue-200 focus:border-primary-500 focus:outline-none focus:ring-primary-600 dark:bg-gray-700 dark:before:bg-gray-400 dark:checked:bg-primary-600 dark:checked:before:bg-primary-200 dark:focus:ring-offset-gray-800'
-            checked={isDark}
-            onChange={toggleTheme}
-          />
+          <motion.div initial='hide' animate='show' exit='hide' variants={variants}>
+            <Switch checked={isDark} onChange={toggleTheme} />
+          </motion.div>
         )}
       </AnimatePresence>
     </li>
