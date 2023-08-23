@@ -1,9 +1,12 @@
-import { Icon } from '@/app/components/ui/icon/icon';
-import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
+
 import { Switch } from 'antd';
+import { AnimatePresence, Variants, motion } from 'framer-motion';
+
+import { Icon } from '@/app/components/ui/icon/icon';
+import { classes } from '@/app/utils/styles';
+
 import styles from './theme-switch.module.scss';
-import { classes } from '@/app/services/styles';
 
 interface IThemeSwitchProps {
   variants: Variants;

@@ -1,8 +1,11 @@
-import { IMAGES } from '@/app/constants/images';
-import Image from 'next/image';
 import React from 'react';
-import { ITextProps } from '../text/text';
+
+import Image from 'next/image';
+
 import styles from '@/app/components/ui/text/text.module.scss';
+import { IMAGES } from '@/app/constants/images';
+
+import { ITextProps } from '../text/text';
 
 interface IIconProps extends React.HTMLAttributes<HTMLParagraphElement> {
   name?: string;

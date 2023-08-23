@@ -1,8 +1,11 @@
 'use client';
 
+import React from 'react';
+
 import { ConfigProvider } from 'antd';
-import { Navbar } from './components/base/navbar/navbar';
-import theme from './styles/themeConfig';
+
+import { Navbar } from '@components/base/navbar/navbar';
+import theme from '@styles/themeConfig';
 
 export default function Home() {
   return (

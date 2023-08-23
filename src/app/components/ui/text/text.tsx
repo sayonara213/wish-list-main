@@ -1,7 +1,8 @@
 import React from 'react';
 
+import { classes } from '@/app/utils/styles';
+
 import styles from './text.module.scss';
-import { classes } from '@/app/services/styles';
 
 export interface ITextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode;
@@ -17,5 +18,9 @@ export const Paragraph: React.FC<ITextProps> = ({
   weight = 'normal',
   ...props
 }) => {
-  return <p className={classes(styles[size], styles[color], styles[weight])}>{children}</p>;
+  return (
+    <p className={classes(styles[size], styles[color], styles[weight])} {...props}>
+      {children}
+    </p>
+  );
 };
