@@ -1,15 +1,13 @@
 import React from 'react';
 
 import { Inter } from 'next/font/google';
-
-import '@styles/globals.scss';
-
 import { cookies } from 'next/headers';
-
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
 import AuthProvider from '@/components/base/navbar/auth/auth-provider';
 import Mantine from '@/components/base/provider/mantine';
+
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import '@/styles/globals.scss';
 
 const inter = Inter({ subsets: ['latin'] });
 

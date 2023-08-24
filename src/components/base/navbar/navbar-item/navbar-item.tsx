@@ -1,14 +1,13 @@
 import React from 'react';
 
-import { AnimatePresence, Variants, motion } from 'framer-motion';
-
-import { toNormalCase } from '@utils/text';
+import styles from './navbar-item.module.scss';
+import { NavbarSubItem } from './navbar-sub-item/navbar-sub-item';
 
 import { Icon } from '@/components/ui/icon/icon';
 import { Paragraph } from '@/components/ui/text/text';
+import { toNormalCase } from '@/utils/text';
 
-import styles from './navbar-item.module.scss';
-import { NavbarSubItem } from './navbar-sub-item/navbar-sub-item';
+import { AnimatePresence, Variants, motion } from 'framer-motion';
 
 interface INavbarItemProps {
   name: string;
@@ -48,7 +47,7 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
   };
 
   return (
-    <li className={styles.wrapper}>
+    <li className={styles.wrapper} onClick={click}>
       <div className={`${styles.item} ${onClick && styles.hover}`}>
         <Icon name={icon} className='5ms transition-all' />
         <AnimatePresence>

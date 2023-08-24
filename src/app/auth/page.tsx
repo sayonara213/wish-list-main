@@ -1,44 +1,21 @@
-'use client';
+import React from 'react';
 
-import React, { useState } from 'react';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-import { useRouter } from 'next/navigation';
+import Auth from '@/components/base/auth/auth';
 
-import { Database } from '@lib/schema';
-import { Button, Input, PasswordInput } from '@mantine/core';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
-import styles from './auth.module.scss';
-import { Paragraph } from '../../components/ui/text/text';
+const AuthPage = async () => {
+  const supabase = createServerComponentClient({ cookies });
+  const { data } = await supabase.auth.getSession();
 
-const Auth: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const router = useRouter();
-  const supabase = createClientComponentClient<Database>();
+  if (data?.session) {
+    redirect('/');
+  }
 
-  const handleSignIn = async () => {
-    await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-    router.refresh();
-  };
-
-  return (
-    <div className={styles.wrapper}>
-      <form className={styles.form}>
-        <Paragraph size='bg' style={{ width: '100%', textAlign: 'center' }}>
-          Sign up
-        </Paragraph>
-        <Input placeholder='email' onChange={(e: any) => setEmail(e.target.value)} />
-        <PasswordInput placeholder='password' onChange={(e: any) => setPassword(e.target.value)} />
-        <Button variant='light' fullWidth onClick={handleSignIn}>
-          Sign up
-        </Button>
-      </form>
-    </div>
-  );
+  return <Auth />;
 };
 
-export default Auth;
+export default AuthPage;

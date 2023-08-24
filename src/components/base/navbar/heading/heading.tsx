@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { AnimatePresence, Variants, motion } from 'framer-motion';
+import styles from './heading.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
 import { Paragraph } from '@/components/ui/text/text';
 
-import styles from './heading.module.scss';
+import { AnimatePresence, Variants, motion } from 'framer-motion';
 
 interface IHeadingProps {
   variants: Variants;

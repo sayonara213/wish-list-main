@@ -6,7 +6,16 @@
     "import/order": [
       "warn",
       {
-        "groups": [["builtin", "external"], "internal"],
+        "groups": [
+          "builtin",
+          "index",
+          "sibling",
+          "parent",
+          "internal",
+          "external",
+          "object",
+          "type"
+        ],
         "pathGroups": [
           {
             "pattern": "react",
@@ -17,11 +26,6 @@
             "pattern": "next/**",
             "group": "builtin",
             "position": "before"
-          },
-          {
-            "pattern": "@/**",
-            "group": "internal",
-            "position": "after"
           }
         ],
         "pathGroupsExcludedImportTypes": ["builtin"],

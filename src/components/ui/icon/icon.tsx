@@ -2,8 +2,8 @@ import React from 'react';
 
 import Image from 'next/image';
 
-import styles from '@components/ui/text/text.module.scss';
-import { IMAGES } from '@constants/images';
+import styles from '@/components/ui/text/text.module.scss';
+import { IMAGES } from '@/constants/images';
 
 interface IIconProps extends React.HTMLAttributes<HTMLParagraphElement> {
   name?: string;

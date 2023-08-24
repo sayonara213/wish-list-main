@@ -1,13 +1,12 @@
 import { useState, useEffect } from 'react';
 
-import { Switch } from '@mantine/core';
-import { AnimatePresence, Variants, motion } from 'framer-motion';
-
-import { classes } from '@utils/styles';
+import styles from './theme-switch.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
+import { classes } from '@/utils/styles';
 
-import styles from './theme-switch.module.scss';
+import { Switch } from '@mantine/core';
+import { AnimatePresence, Variants, motion } from 'framer-motion';
 
 interface IThemeSwitchProps {
   variants: Variants;

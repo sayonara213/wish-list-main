@@ -2,9 +2,9 @@
 
 import React, { ReactNode } from 'react';
 
-import { MantineProvider } from '@mantine/core';
-
 import { theme } from '@/styles/themeConfig';
+
+import { MantineProvider } from '@mantine/core';
 
 interface IProviders {
   children: ReactNode;
