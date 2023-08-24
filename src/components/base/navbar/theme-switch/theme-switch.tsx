@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 
-import { Switch } from 'antd';
+import { Switch } from '@mantine/core';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 
-import { Icon } from '@/app/components/ui/icon/icon';
-import { classes } from '@/app/utils/styles';
+import { classes } from '@utils/styles';
+
+import { Icon } from '@/components/ui/icon/icon';
 
 import styles from './theme-switch.module.scss';
 
@@ -31,8 +32,7 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
   useEffect(() => {
     const root = document.body;
     const theme = isDark ? 'dark' : 'light';
-
-    if (isDark && root.dataset.theme !== theme) {
+    if (isDark !== undefined && root.dataset.theme !== theme) {
       localStorage.setItem('theme', theme);
       root.dataset.theme = theme;
     }
@@ -43,7 +43,7 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
   };
 
   return (
-    <li className={classes(styles.wrapper, !isExpanded && styles.button)} onClick={toggleTheme}>
+    <li className={classes(styles.wrapper, !isExpanded && styles.button)}>
       <AnimatePresence mode='wait'>
         {isDark ? (
           <motion.div
@@ -53,6 +53,7 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
             exit='hide'
             variants={iconVariants}
             className={styles.icon}
+            onClick={toggleTheme}
           >
             <Icon name='dark_mode' />
           </motion.div>
@@ -64,6 +65,7 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
             exit='hide'
             variants={iconVariants}
             className={styles.icon}
+            onClick={toggleTheme}
           >
             <Icon name='light_mode' />
           </motion.div>

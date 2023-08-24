@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 
 import { motion } from 'framer-motion';
@@ -8,7 +10,7 @@ import styles from './navbar.module.scss';
 import { ThemeSwitch } from './theme-switch/theme-switch';
 
 export const Navbar = () => {
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleNav = () => {
     setIsExpanded(!isExpanded);
@@ -26,7 +28,7 @@ export const Navbar = () => {
 
   return (
     <motion.div
-      initial='expanded'
+      initial='collapsed'
       animate={isExpanded ? 'expanded' : 'collapsed'}
       variants={sidebarVariants}
       transition={{ duration: 0.5, ease: 'backInOut' }}

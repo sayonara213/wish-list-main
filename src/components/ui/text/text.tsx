@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { classes } from '@/app/utils/styles';
+import { classes } from '@utils/styles';
 
 import styles from './text.module.scss';
 

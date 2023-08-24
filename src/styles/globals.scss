@@ -4,9 +4,14 @@
 
 body {
   color: var(--color-white);
-  background-color: var(--color-primary);
   font-weight: var(--width-medium);
-  background-color: var(--color-primary);
+  background: rgb(42, 43, 47);
+  background: var(--bg-gradient);
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: #ffffff;
+  }
 }
 
 html {

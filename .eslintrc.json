@@ -4,7 +4,7 @@
   "rules": {
     "no-unused-vars": "warn",
     "import/order": [
-      "error",
+      "warn",
       {
         "groups": [["builtin", "external"], "internal"],
         "pathGroups": [
@@ -17,6 +17,11 @@
             "pattern": "next/**",
             "group": "builtin",
             "position": "before"
+          },
+          {
+            "pattern": "@/**",
+            "group": "internal",
+            "position": "after"
           }
         ],
         "pathGroupsExcludedImportTypes": ["builtin"],

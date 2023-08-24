@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { toNormalCase } from '@utils/text';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 
-import { Icon } from '@components/ui/icon/icon';
-import { Paragraph } from '@components/ui/text/text';
+import { toNormalCase } from '@utils/text';
+
+import { Icon } from '@/components/ui/icon/icon';
+import { Paragraph } from '@/components/ui/text/text';
 
 import styles from './navbar-item.module.scss';
 import { NavbarSubItem } from './navbar-sub-item/navbar-sub-item';

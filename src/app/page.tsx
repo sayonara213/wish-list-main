@@ -1,18 +1,26 @@
-'use client';
-
 import React from 'react';
 
-import { ConfigProvider } from 'antd';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-import { Navbar } from '@components/base/navbar/navbar';
-import theme from '@styles/themeConfig';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
-export default function Home() {
+import { Navbar } from '@/components/base/navbar/navbar';
+
+export default async function Home() {
+  const supabase = createServerComponentClient({ cookies });
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect('/auth');
+  }
+
   return (
-    <ConfigProvider theme={theme}>
-      <main className='min-h-screen flex-row items-center justify-between'>
-        <Navbar />
-      </main>
-    </ConfigProvider>
+    <main>
+      <Navbar />
+    </main>
   );
 }

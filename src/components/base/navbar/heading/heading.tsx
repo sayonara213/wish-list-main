@@ -2,8 +2,8 @@ import React from 'react';
 
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 
-import { Icon } from '@components/ui/icon/icon';
-import { Paragraph } from '@components/ui/text/text';
+import { Icon } from '@/components/ui/icon/icon';
+import { Paragraph } from '@/components/ui/text/text';
 
 import styles from './heading.module.scss';
 
