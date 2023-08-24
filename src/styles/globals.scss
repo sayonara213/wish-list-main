@@ -1,0 +1,25 @@
+@import './reset.scss';
+@import './variables.scss';
+@import '~material-icons/iconfont/material-icons.css';
+
+body {
+  color: var(--color-white);
+  font-weight: var(--width-medium);
+  background: rgb(42, 43, 47);
+  background: var(--bg-gradient);
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: #ffffff;
+  }
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}

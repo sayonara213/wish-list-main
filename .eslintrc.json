@@ -4,9 +4,18 @@
   "rules": {
     "no-unused-vars": "warn",
     "import/order": [
-      "error",
+      "warn",
       {
-        "groups": [["builtin", "external"], "internal"],
+        "groups": [
+          "builtin",
+          "index",
+          "sibling",
+          "parent",
+          "internal",
+          "external",
+          "object",
+          "type"
+        ],
         "pathGroups": [
           {
             "pattern": "react",
