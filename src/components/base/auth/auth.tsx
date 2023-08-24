@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import styles from './auth.module.scss';
 import { SignIn } from './sign-in/sign-in';
-import { SignUp } from './sign-up/sign-in';
+import { SignUp } from './sign-up/sign-up';
 
 import { Database } from '@/lib/schema';
 import { IAuthForm } from '@/types/form.types';

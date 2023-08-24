@@ -49,7 +49,7 @@ export const SignUp: React.FC<IAuthFormProps> = ({ next, handleSignUp, isLoading
           error={errors['password'] && 'Password is required'}
         />
         <Button variant='light' fullWidth type='submit'>
-          Sign up
+          {isLoading ? 'Loading...' : 'Sign up'}
         </Button>
         <Button variant='outline' fullWidth onClick={next} loading={isLoading}>
           Go to sign in
