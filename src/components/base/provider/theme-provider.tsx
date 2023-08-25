@@ -49,7 +49,7 @@ const ThemeProvider = ({ children }: IProviders) => {
       <MantineProvider
         withGlobalStyles
         withNormalizeCSS
-        theme={{ ...themeMantine, colorScheme: theme === 'dark' ? 'dark' : 'light' }}
+        theme={{ ...themeMantine, colorScheme: theme === 'light' ? 'light' : 'dark' }}
       >
         {children}
       </MantineProvider>
