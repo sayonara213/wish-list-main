@@ -1,9 +1,11 @@
+@import '@/styles/mixins';
+
 .item {
-  max-width: 100%;
+  width: 100%;
   padding: 8px 18px;
 
-  border-radius: 12px;
-  height: 40px;
+  border-radius: var(--radius-sm);
+  height: 36px;
 
   transition-property: background-color color;
   transition: var(--transition-duration) var(--transition-timing-function);
@@ -13,12 +15,7 @@
 
   color: var(--color-text-muted);
   font-weight: var(--width-medium);
-  font-size: var(--size-normal);
-
-  &:hover {
-    color: var(--color-text);
-    background-color: var(--color-accent);
-  }
+  font-size: var(--size-small);
 
   margin-bottom: 4px;
 
@@ -32,4 +29,6 @@
   text-align: left;
 
   cursor: pointer;
+
+  @include hover-item-accent();
 }

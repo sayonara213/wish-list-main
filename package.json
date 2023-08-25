@@ -31,7 +31,7 @@
     "material-icons": "^1.13.10",
     "next": "13.4.19",
     "node-sass": "^9.0.0",
-    "postcss": "8.4.28",
+    "postcss": "^8.4.28",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "eslint-config-prettier": "^9.0.0",
+    "postcss-100vh-fix": "^1.0.2",
     "prettier": "^3.0.2"
   }
 }

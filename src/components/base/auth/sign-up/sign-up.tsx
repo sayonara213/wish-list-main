@@ -48,10 +48,10 @@ export const SignUp: React.FC<IAuthFormProps> = ({ next, handleSignUp, isLoading
           {...(register && register('password', { required: true }))}
           error={errors['password'] && 'Password is required'}
         />
-        <Button variant='light' fullWidth type='submit'>
+        <Button variant='light' fullWidth type='submit' loading={isLoading}>
           {isLoading ? 'Loading...' : 'Sign up'}
         </Button>
-        <Button variant='outline' fullWidth onClick={next} loading={isLoading}>
+        <Button variant='outline' fullWidth onClick={next}>
           Go to sign in
         </Button>
         <Paragraph size='sm' style={{ width: '100%', textAlign: 'center' }} color='muted'>

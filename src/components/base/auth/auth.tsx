@@ -51,7 +51,7 @@ const Auth: React.FC = () => {
     const { email, password } = values;
     setIsLoading(true);
     try {
-      await supabase.auth.signInWithPassword({
+      await supabase.auth.signUp({
         email,
         password,
       });

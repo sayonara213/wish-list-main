@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
-
 import styles from './theme-switch.module.scss';
 
+import { useTheme } from '@/components/base/provider/theme-provider';
 import { Icon } from '@/components/ui/icon/icon';
 import { classes } from '@/utils/styles';
 
@@ -19,32 +18,12 @@ const iconVariants: Variants = {
 };
 
 export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded }) => {
-  const [isDark, setIsDark] = useState<boolean | undefined>(undefined);
-
-  useEffect(() => {
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme) {
-      setIsDark(storedTheme === 'dark');
-    }
-  }, []);
-
-  useEffect(() => {
-    const root = document.body;
-    const theme = isDark ? 'dark' : 'light';
-    if (isDark !== undefined && root.dataset.theme !== theme) {
-      localStorage.setItem('theme', theme);
-      root.dataset.theme = theme;
-    }
-  }, [isDark]);
-
-  const toggleTheme = () => {
-    setIsDark(!isDark);
-  };
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <li className={classes(styles.wrapper, !isExpanded && styles.button)}>
       <AnimatePresence mode='wait'>
-        {isDark ? (
+        {theme === 'dark' ? (
           <motion.div
             key='dark_mode'
             initial='hide'
@@ -73,7 +52,7 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
       <AnimatePresence>
         {isExpanded && (
           <motion.div initial='hide' animate='show' exit='hide' variants={variants}>
-            <Switch checked={isDark} onChange={toggleTheme} />
+            <Switch checked={theme === 'dark'} onChange={toggleTheme} />
           </motion.div>
         )}
       </AnimatePresence>
