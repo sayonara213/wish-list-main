@@ -1,0 +1,30 @@
+@import '@/styles/mixins';
+
+.wrapper {
+  cursor: pointer;
+  user-select: none;
+  min-width: 80px;
+  aspect-ratio: 1/1;
+  padding: 6px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 12px;
+
+  border: 2px solid var(--color-accent);
+
+  transition: backgr;
+
+  &:hover {
+    @include hover-item-accent();
+  }
+
+  a: {
+    all: unset;
+    display: block;
+    text-decoration: none;
+  }
+}

@@ -93,11 +93,40 @@ export interface Database {
           },
         ];
       };
+      shops: {
+        Row: {
+          id: number;
+          link_name: string | null;
+          link_url: string;
+          user_id: string;
+        };
+        Insert: {
+          id?: number;
+          link_name?: string | null;
+          link_url: string;
+          user_id: string;
+        };
+        Update: {
+          id?: number;
+          link_name?: string | null;
+          link_url?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'shops_user_id_fkey';
+            columns: ['user_id'];
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       wishlists: {
         Row: {
           created_at: string;
           description: string | null;
           id: number;
+          is_shared: boolean;
           owner_id: string;
           title: string;
         };
@@ -105,6 +134,7 @@ export interface Database {
           created_at?: string;
           description?: string | null;
           id?: number;
+          is_shared?: boolean;
           owner_id: string;
           title: string;
         };
@@ -112,6 +142,7 @@ export interface Database {
           created_at?: string;
           description?: string | null;
           id?: number;
+          is_shared?: boolean;
           owner_id?: string;
           title?: string;
         };

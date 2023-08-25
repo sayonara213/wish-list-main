@@ -8,6 +8,13 @@ body {
   background: rgb(42, 43, 47);
   background: var(--bg-gradient);
 
+  // background-image: url('../assets/images/bg.svg');
+  // background-repeat: no-repeat;
+  // background-position: center;
+  // background-size: cover;
+
+  // backdrop-filter: blur(200px);
+
   ::selection {
     background-color: var(--color-accent);
     color: #ffffff;
