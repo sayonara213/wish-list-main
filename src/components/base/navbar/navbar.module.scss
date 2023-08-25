@@ -1,12 +1,16 @@
 .navbar {
+  position: absolute;
+  left: 0;
+  top: 0;
+
   display: flex;
   padding: 20px;
   flex-direction: column;
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
-  height: 100vh;
+  height: 100%;
 
-  background-color: var(--color-secondary);
+  background-color: var(--color-primary);
   box-shadow: var(--shadow-smooth);
 
   ul {

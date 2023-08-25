@@ -1,3 +1,5 @@
+@import '@/styles/mixins';
+
 .wrapper {
   margin-bottom: 16px;
 }
@@ -22,24 +24,5 @@
 }
 
 .hover {
-  transition-property: background-color color;
-  transition: var(--transition-duration) var(--transition-timing-function);
-
-  &:hover {
-    color: var(--color-text);
-    background-color: var(--color-accent);
-  }
-}
-
-.subWrapper {
-  max-height: 128px;
-
-  overflow-y: scroll;
-
-  padding: 0 8px;
-  border-left: solid 2px var(--color-border-light);
-
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
+  @include hover-item-accent();
 }

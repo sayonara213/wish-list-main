@@ -1,13 +1,12 @@
-import React from 'react';
-
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import { Navbar } from '@/components/base/navbar/navbar';
+import container from '@/styles/container.module.scss';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
-export default async function Home() {
+const AppLayout = async ({ children }: { children: React.ReactNode }) => {
   const supabase = createServerComponentClient({ cookies });
 
   const {
@@ -19,8 +18,11 @@ export default async function Home() {
   }
 
   return (
-    <main>
+    <div className={container.container}>
       <Navbar />
-    </main>
+      {children}
+    </div>
   );
-}
+};
+
+export default AppLayout;

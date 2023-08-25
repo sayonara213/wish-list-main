@@ -1,7 +1,6 @@
 import React from 'react';
 
 import styles from './navbar-item.module.scss';
-import { NavbarSubItem } from './navbar-sub-item/navbar-sub-item';
 
 import { Icon } from '@/components/ui/icon/icon';
 import { Paragraph } from '@/components/ui/text/text';
@@ -16,6 +15,7 @@ interface INavbarItemProps {
   onClick?: () => void;
   isExpanded: boolean;
   variants: Variants;
+  children?: React.ReactNode;
 }
 
 const liVariants = {
@@ -41,6 +41,7 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
   onClick,
   isExpanded,
   variants,
+  children,
 }) => {
   const click = () => {
     onClick && onClick();
@@ -65,20 +66,11 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
           )}
         </AnimatePresence>
       </div>
-      {name === 'profile' && (
+      {children && (
         <AnimatePresence>
           {isExpanded && (
-            <motion.div
-              initial='hide'
-              animate='show'
-              exit='hide'
-              variants={liVariants}
-              className={styles.subWrapper}
-            >
-              <NavbarSubItem name='Firt wishlist' />
-              <NavbarSubItem name='Second wishlist' />
-              <NavbarSubItem name='Third wishlist12312312314234' />
-              <NavbarSubItem name='Third wishlist' />
+            <motion.div initial='hide' animate='show' exit='hide' variants={liVariants}>
+              {children}
             </motion.div>
           )}
         </AnimatePresence>

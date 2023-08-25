@@ -1,7 +1,6 @@
 import { MantineThemeOverride } from '@mantine/core';
 
-export const theme: MantineThemeOverride = {
-  colorScheme: 'dark',
+export const themeMantine: MantineThemeOverride = {
   colors: {
     accent: [
       '#f1f3fc',

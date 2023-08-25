@@ -4,9 +4,10 @@ import { Inter } from 'next/font/google';
 import { cookies } from 'next/headers';
 
 import AuthProvider from '@/components/base/navbar/auth/auth-provider';
-import Mantine from '@/components/base/provider/mantine';
+import ThemeProvider from '@/components/base/provider/theme-provider';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+
 import '@/styles/globals.scss';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -29,7 +30,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           }}
         ></script>
         <AuthProvider accessToken={accessToken}>
-          <Mantine>{children}</Mantine>
+          <ThemeProvider>{children}</ThemeProvider>
         </AuthProvider>
       </body>
     </html>

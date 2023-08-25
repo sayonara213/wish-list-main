@@ -1,16 +1,19 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Heading } from './heading/heading';
 import { NavbarItem } from './navbar-item/navbar-item';
 import styles from './navbar.module.scss';
 import { ThemeSwitch } from './theme-switch/theme-switch';
+import { NavbarWishlists } from './wishlists/wishlists';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { motion } from 'framer-motion';
 
 export const Navbar = () => {
+  const [wishlists, setWishlists] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const supabase = createClientComponentClient();
 
@@ -36,6 +39,35 @@ export const Navbar = () => {
     }
   }
 
+  const fetchWishlists = async () => {
+    setIsLoading(true);
+
+    const { data, error } = await supabase.from('wishlists').select('*');
+    if (error) {
+      console.error('ERROR:', error);
+    }
+
+    if (!data) return;
+
+    setWishlists(data);
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchWishlists();
+  }, []);
+
+  const navbarItems = [
+    { name: 'profile', icon: 'person' },
+    {
+      name: 'personal wishlists',
+      icon: 'feed',
+      children: <NavbarWishlists wishlists={wishlists} />,
+    },
+    { name: 'shared wishlists', icon: 'favorite' },
+  ];
+
   return (
     <motion.div
       initial='collapsed'
@@ -47,24 +79,17 @@ export const Navbar = () => {
       <Heading variants={textVariants} isExpanded={isExpanded} toggleNav={toggleNav} />
       <ul>
         <div>
-          <NavbarItem
-            name='Shared wishlists'
-            icon='favorite'
-            variants={textVariants}
-            isExpanded={isExpanded}
-          />
-          <NavbarItem
-            name='profile'
-            icon='person'
-            variants={textVariants}
-            isExpanded={isExpanded}
-          />
-          <NavbarItem
-            name='profile'
-            icon='person'
-            variants={textVariants}
-            isExpanded={isExpanded}
-          />
+          {navbarItems.map((item, index) => (
+            <NavbarItem
+              name={item.name}
+              icon={item.icon}
+              key={index}
+              variants={textVariants}
+              isExpanded={isExpanded}
+            >
+              {item.children}
+            </NavbarItem>
+          ))}
         </div>
         <div>
           <NavbarItem

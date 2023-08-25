@@ -16,7 +16,7 @@ interface IHeadingProps {
 export const Heading: React.FC<IHeadingProps> = ({ variants, isExpanded, toggleNav }) => {
   return (
     <div className={styles.heading}>
-      <button onClick={toggleNav} className={isExpanded ? styles.rotate : ''}>
+      <button onClick={toggleNav} className={isExpanded ? '' : styles.rotate}>
         <Icon name='arrow_left' color='muted' />
       </button>
       <div className={styles.wrapper}>
