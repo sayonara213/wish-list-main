@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Heading } from '../heading/heading';
 import { NavbarItem } from '../navbar-item/navbar-item';
-import styles from '../navbar.module.scss';
 import { ThemeSwitch } from '../theme-switch/theme-switch';
 
 import { Variants } from 'framer-motion';

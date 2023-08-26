@@ -5,20 +5,16 @@ import styles from './burger.module.scss';
 import { NavbarBody } from '../navbar-body/navbar-body';
 import { ThemeSwitch } from '../theme-switch/theme-switch';
 
-import { useTheme } from '@/components/base/provider/theme-provider';
-
 import { Burger, Drawer } from '@mantine/core';
+import { Variants } from 'framer-motion';
 
 interface IBurgerProps {
-  navbarItems: any[];
+  navbarItems: { name: string; icon: string; children?: React.ReactNode }[];
+  textVariants: Variants;
+  handleSignOut: () => void;
 }
 
-const textVariants = {
-  show: { opacity: 1, x: 0, transition: { duration: 0.3, delay: 0.3 } },
-  hide: { opacity: 0, x: -30, transition: { duration: 0.3 } },
-};
-
-export const BurgerNav: React.FC<IBurgerProps> = ({ navbarItems }) => {
+export const BurgerNav: React.FC<IBurgerProps> = ({ navbarItems, textVariants, handleSignOut }) => {
   const [open, setOpen] = useState(false);
 
   const handleToggle = () => {
@@ -33,7 +29,7 @@ export const BurgerNav: React.FC<IBurgerProps> = ({ navbarItems }) => {
           textVariants={textVariants}
           toggleNav={handleToggle}
           navbarItems={navbarItems}
-          handleSignOut={() => console.log('sign out')}
+          handleSignOut={handleSignOut}
         />
       </Drawer>
       <div className={styles.nav}>

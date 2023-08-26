@@ -23,8 +23,6 @@ export const Navbar = () => {
   const supabase = createClientComponentClient();
 
   const toggleNav = () => {
-    console.log('toggle');
-
     setIsExpanded(!isExpanded);
   };
 
@@ -52,16 +50,11 @@ export const Navbar = () => {
     if (!data) return;
 
     setWishlists(data);
-
     setIsLoading(false);
   };
 
   useEffect(() => {
     fetchWishlists();
-
-    // if (window.innerWidth <= 768) {
-    //   setIsMobile(true);
-    // }
   }, []);
 
   const navbarItems = [
@@ -77,9 +70,12 @@ export const Navbar = () => {
   return (
     <>
       <div className={styles.burger}>
-        <BurgerNav navbarItems={navbarItems} />
+        <BurgerNav
+          navbarItems={navbarItems}
+          textVariants={textVariants}
+          handleSignOut={handleSignOut}
+        />
       </div>
-
       <motion.div
         initial='collapsed'
         animate={isExpanded ? 'expanded' : 'collapsed'}
