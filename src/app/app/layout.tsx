@@ -18,9 +18,10 @@ const AppLayout = async ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className={container.container}>
+    <div>
       <Navbar />
-      {children}
+
+      <div className={container.container}>{children}</div>
     </div>
   );
 };

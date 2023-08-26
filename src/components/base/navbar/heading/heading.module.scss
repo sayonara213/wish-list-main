@@ -29,6 +29,10 @@
   span {
     color: var(--color-primary);
   }
+
+  @media screen and (max-width: 568px) {
+    display: none;
+  }
 }
 
 .rotate {
