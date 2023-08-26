@@ -22,11 +22,11 @@ const App = async () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <Paragraph weight='bold' size='title'>
+      {/* <div className={styles.wrapper}>
+        <Paragraph weight='bold' size='lg'>
           ✨Welcome, {toNormalCase(username.data![0].user_name)}!
         </Paragraph>
-      </div>
+      </div> */}
       <div className={styles.linksWrapper}>
         <Paragraph size='lg' weight='medium'>
           Saved Links:

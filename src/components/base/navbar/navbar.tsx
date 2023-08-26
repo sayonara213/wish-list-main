@@ -2,28 +2,30 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { Heading } from './heading/heading';
-import { NavbarItem } from './navbar-item/navbar-item';
+import { BurgerNav } from './burger/burger';
+import { NavbarBody } from './navbar-body/navbar-body';
 import styles from './navbar.module.scss';
-import { ThemeSwitch } from './theme-switch/theme-switch';
 import { NavbarWishlists } from './wishlists/wishlists';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { motion } from 'framer-motion';
 
+const sidebarVariants = {
+  expanded: { width: '270px' },
+  collapsed: { width: '80px' },
+};
+
 export const Navbar = () => {
   const [wishlists, setWishlists] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+
   const supabase = createClientComponentClient();
 
   const toggleNav = () => {
-    setIsExpanded(!isExpanded);
-  };
+    console.log('toggle');
 
-  const sidebarVariants = {
-    expanded: { width: '270px' },
-    collapsed: { width: '80px' },
+    setIsExpanded(!isExpanded);
   };
 
   const textVariants = {
@@ -56,6 +58,10 @@ export const Navbar = () => {
 
   useEffect(() => {
     fetchWishlists();
+
+    // if (window.innerWidth <= 768) {
+    //   setIsMobile(true);
+    // }
   }, []);
 
   const navbarItems = [
@@ -69,39 +75,26 @@ export const Navbar = () => {
   ];
 
   return (
-    <motion.div
-      initial='collapsed'
-      animate={isExpanded ? 'expanded' : 'collapsed'}
-      variants={sidebarVariants}
-      transition={{ duration: 0.5, ease: 'backInOut' }}
-      className={styles.navbar}
-    >
-      <Heading variants={textVariants} isExpanded={isExpanded} toggleNav={toggleNav} />
-      <ul>
-        <div>
-          {navbarItems.map((item, index) => (
-            <NavbarItem
-              name={item.name}
-              icon={item.icon}
-              key={index}
-              variants={textVariants}
-              isExpanded={isExpanded}
-            >
-              {item.children}
-            </NavbarItem>
-          ))}
-        </div>
-        <div>
-          <NavbarItem
-            name='log out'
-            icon='logout'
-            variants={textVariants}
-            isExpanded={isExpanded}
-            onClick={handleSignOut}
-          />
-          <ThemeSwitch variants={textVariants} isExpanded={isExpanded} />
-        </div>
-      </ul>
-    </motion.div>
+    <>
+      <div className={styles.burger}>
+        <BurgerNav navbarItems={navbarItems} />
+      </div>
+
+      <motion.div
+        initial='collapsed'
+        animate={isExpanded ? 'expanded' : 'collapsed'}
+        variants={sidebarVariants}
+        transition={{ duration: 0.5, ease: 'backInOut' }}
+        className={styles.navbar}
+      >
+        <NavbarBody
+          isExpanded={isExpanded}
+          textVariants={textVariants}
+          toggleNav={toggleNav}
+          navbarItems={navbarItems}
+          handleSignOut={handleSignOut}
+        />
+      </motion.div>
+    </>
   );
 };
