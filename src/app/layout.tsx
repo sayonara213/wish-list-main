@@ -3,7 +3,7 @@ import React from 'react';
 import { Inter } from 'next/font/google';
 import { cookies } from 'next/headers';
 
-import AuthProvider from '@/components/base/navbar/auth/auth-provider';
+import AuthProvider from '@/components/base/provider/auth-provider';
 import ThemeProvider from '@/components/base/provider/theme-provider';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -23,7 +23,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang='en'>
-      <body className={`${inter.className}`}>
+      <body className={`${inter.className}`} suppressHydrationWarning={true}>
         <script
           dangerouslySetInnerHTML={{
             __html: themeInitializerScript,

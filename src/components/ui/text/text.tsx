@@ -6,7 +6,7 @@ import { classes } from '@/utils/styles';
 
 export interface ITextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode;
-  size?: 'sm' | 'base' | 'md' | 'bg' | 'lg';
+  size?: 'sm' | 'base' | 'md' | 'bg' | 'lg' | 'title';
   color?: 'default' | 'muted' | 'link';
   weight?: 'normal' | 'medium' | 'bold';
   uppercase?: boolean;
@@ -23,6 +23,7 @@ export const Paragraph: React.FC<ITextProps> = ({
   return (
     <p
       className={classes(
+        styles.global,
         styles[size],
         styles[color],
         styles[weight],

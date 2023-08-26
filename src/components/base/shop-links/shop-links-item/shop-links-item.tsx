@@ -1,0 +1,89 @@
+import React, { useState } from 'react';
+
+import Image from 'next/image';
+
+import styles from './shop-links-item.module.scss';
+
+import { Icon } from '@/components/ui/icon/icon';
+import { Paragraph } from '@/components/ui/text/text';
+import { Database } from '@/lib/schema';
+import { IShopLink } from '@/types/shops-link';
+import { extractBaseDomain } from '@/utils/text';
+
+import { Skeleton } from '@mantine/core';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { AnimatePresence, motion } from 'framer-motion';
+
+interface IShopLinksItemProps {
+  shop: IShopLink;
+  deleteLink: (id: number) => void;
+}
+
+const buttonVariants = {
+  initial: {
+    scale: 1,
+    transition: { duration: 0.15 },
+  },
+  hover: {
+    scale: 1.1,
+    transition: {
+      type: 'spring',
+      stiffness: 700,
+      damping: 10,
+    },
+  },
+};
+
+export const ShopLinksItem: React.FC<IShopLinksItemProps> = ({ shop, deleteLink }) => {
+  const { link_name, link_url } = shop;
+  const [isHovered, setIsHovered] = useState(false);
+
+  const supabase = createClientComponentClient<Database>();
+
+  const handleDelete = async () => {
+    try {
+      await supabase.from('shops').delete().eq('id', shop.id);
+      deleteLink(shop.id);
+    } catch {}
+  };
+
+  return (
+    <motion.div
+      variants={buttonVariants}
+      initial='initial'
+      whileHover='hover'
+      whileTap='initial'
+      className={styles.wrapper}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <AnimatePresence>
+        {isHovered && (
+          <motion.div
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+            onClick={handleDelete}
+            className={styles.delete}
+          >
+            <Icon name='delete' size={16} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <a className={styles.link} href={link_url} target='_blank'>
+        <Image
+          width={32}
+          height={32}
+          src={`https://www.google.com/s2/favicons?domain=${extractBaseDomain(link_url)}&sz=64`}
+          loading='lazy'
+          alt='icon'
+        />
+        <Paragraph size='sm'>{link_name}</Paragraph>
+      </a>
+    </motion.div>
+  );
+};
+
+export const ShopLinksItemLoading: React.FC = () => {
+  return <Skeleton height={80} width={80} />;
+};
