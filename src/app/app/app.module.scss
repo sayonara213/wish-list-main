@@ -4,6 +4,8 @@
   align-items: center;
   justify-content: center;
 
+  gap: 40px;
+
   height: 100%;
 }
 
@@ -12,4 +14,12 @@
   background-color: var(--color-primary);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-smooth);
+}
+
+.linksWrapper {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
 }

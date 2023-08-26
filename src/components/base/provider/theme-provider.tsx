@@ -2,9 +2,12 @@
 
 import React, { ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
+import { useServerInsertedHTML } from 'next/navigation';
+
 import { themeMantine } from '@/styles/themeConfig';
 
-import { MantineProvider } from '@mantine/core';
+import { CacheProvider } from '@emotion/react';
+import { MantineProvider, useEmotionCache } from '@mantine/core';
 
 interface IProviders {
   children: ReactNode;
@@ -44,15 +47,28 @@ const ThemeProvider = ({ children }: IProviders) => {
     setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
+  const cache = useEmotionCache();
+  cache.compat = true;
+
+  useServerInsertedHTML(() => (
+    <style
+      data-emotion={`${cache.key} ${Object.keys(cache.inserted).join(' ')}`}
+      dangerouslySetInnerHTML={{
+        __html: Object.values(cache.inserted).join(' '),
+      }}
+    />
+  ));
+
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{ ...themeMantine, colorScheme: theme === 'light' ? 'light' : 'dark' }}
-      >
-        {children}
-      </MantineProvider>
+      <CacheProvider value={cache}>
+        <MantineProvider
+          withGlobalStyles
+          theme={{ ...themeMantine, colorScheme: theme === 'light' ? 'light' : 'dark' }}
+        >
+          {children}
+        </MantineProvider>
+      </CacheProvider>
     </ThemeContext.Provider>
   );
 };

@@ -19,16 +19,20 @@ const App = async () => {
   } = await supabase.auth.getUser();
 
   const username = await supabase.from('profiles').select('user_name').eq('id', user!.id);
-  const { data, error } = await supabase.from('shops').select();
 
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <Paragraph weight='bold' style={{ fontSize: 50 }}>
+        <Paragraph weight='bold' size='title'>
           ✨Welcome, {toNormalCase(username.data![0].user_name)}!
         </Paragraph>
       </div>
-      <ShopLinks shops={data} userId={user?.id!} />
+      <div className={styles.linksWrapper}>
+        <Paragraph size='lg' weight='medium'>
+          Saved Links:
+        </Paragraph>
+        <ShopLinks userId={user?.id!} />
+      </div>
     </div>
   );
 };

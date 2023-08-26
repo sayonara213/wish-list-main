@@ -4,3 +4,10 @@ export interface IAuthForm {
 
   [key: string]: string;
 }
+
+export interface IAddLinkForm {
+  linkName: string;
+  linkUrl: string;
+
+  [key: string]: string;
+}

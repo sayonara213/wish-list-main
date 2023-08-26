@@ -18,6 +18,10 @@
   font-size: var(--size-large);
 }
 
+.title {
+  font-size: var(--size-title);
+}
+
 .default {
   color: var(--color-text);
 }
@@ -44,4 +48,8 @@
 
 .uppercase {
   text-transform: uppercase;
+}
+
+.global {
+  line-height: normal;
 }

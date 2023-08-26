@@ -1,6 +1,6 @@
 @import '@/styles/mixins';
 
-.link {
+.button {
   cursor: pointer;
   user-select: none;
   min-width: 80px;
@@ -21,25 +21,4 @@
   border: 2px solid var(--color-accent);
 
   @include hover-item-accent();
-}
-
-.wrapper {
-  position: relative;
-}
-
-.delete {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  padding: 4px;
-  border-radius: var(--radius-full);
-  border: 2px solid var(--color-accent);
-  background-color: var(--color-accent-dark);
-
-  z-index: 99999;
-  cursor: pointer;
-
-  span {
-    color: #ffffff;
-  }
 }
