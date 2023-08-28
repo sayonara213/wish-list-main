@@ -57,19 +57,10 @@ export const ShopLinksItem: React.FC<IShopLinksItemProps> = ({ shop, deleteLink 
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <AnimatePresence>
-        {isHovered && (
-          <motion.div
-            animate={{ opacity: 1 }}
-            initial={{ opacity: 0 }}
-            exit={{ opacity: 0 }}
-            onClick={handleDelete}
-            className={styles.delete}
-          >
-            <Icon name='delete' size={16} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div onClick={handleDelete} className={styles.delete}>
+        <Icon name='delete' size={16} />
+      </div>
+
       <a className={styles.link} href={link_url} target='_blank'>
         <Image
           width={32}

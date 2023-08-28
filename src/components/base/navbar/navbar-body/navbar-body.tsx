@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Heading } from '../heading/heading';
+import { INavbarItem } from '../navbar';
 import { NavbarItem } from '../navbar-item/navbar-item';
 import { ThemeSwitch } from '../theme-switch/theme-switch';
 
@@ -9,7 +10,7 @@ import { Variants } from 'framer-motion';
 interface INavbarBodyProps {
   isExpanded: boolean;
   textVariants: Variants;
-  navbarItems: any[];
+  navbarItems: INavbarItem[];
   toggleNav: () => void;
   handleSignOut: () => void;
 }
@@ -33,6 +34,7 @@ export const NavbarBody: React.FC<INavbarBodyProps> = ({
               key={index}
               variants={textVariants}
               isExpanded={isExpanded}
+              link={item.link}
             >
               {item.children}
             </NavbarItem>

@@ -15,6 +15,14 @@ const sidebarVariants = {
   collapsed: { width: '80px' },
 };
 
+export interface INavbarItem {
+  name: string;
+  icon: string;
+  link?: string;
+  children?: React.ReactNode;
+  onClick?: () => void;
+}
+
 export const Navbar = () => {
   const [wishlists, setWishlists] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -57,8 +65,8 @@ export const Navbar = () => {
     fetchWishlists();
   }, []);
 
-  const navbarItems = [
-    { name: 'profile', icon: 'person' },
+  const navbarItems: INavbarItem[] = [
+    { name: 'profile', icon: 'person', link: '/app/profile' },
     {
       name: 'personal wishlists',
       icon: 'feed',
