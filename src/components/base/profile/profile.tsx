@@ -9,9 +9,8 @@ import styles from './profile.module.scss';
 import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 import { IProfile } from '@/types/user.types';
-import { toNormalCase } from '@/utils/text';
 
-import { Button, Input, Skeleton, TextInput } from '@mantine/core';
+import { Skeleton } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
 
