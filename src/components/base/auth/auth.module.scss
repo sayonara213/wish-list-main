@@ -14,7 +14,6 @@
 
 .container {
   width: 400px;
-  perspective: 1200px;
   overflow: visible;
 
   @media screen and (max-width: 576px) {
@@ -33,15 +32,12 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-smooth);
 
-  transform-style: preserve-3d;
-
   .box {
     display: flex;
     flex-direction: column;
     padding: 40px;
     gap: 20px;
 
-    transform: translateZ(20px);
     position: relative;
   }
 }
