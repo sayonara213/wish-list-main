@@ -28,11 +28,11 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
 
   const onSubmit = async (data: IProfileForm) => {
     setIsLoading(true);
-    const { userName } = data;
+    const { name } = data;
     try {
-      await supabase.from('profiles').update({ user_name: userName }).eq('id', profile.id);
+      await supabase.from('profiles').update({ user_name: name }).eq('id', profile.id);
 
-      setProfile({ ...profile, user_name: userName });
+      setProfile({ ...profile, user_name: name });
       setIsLoading(false);
     } catch {}
   };
@@ -41,8 +41,8 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <TextInput
         placeholder='Name'
-        {...(register && register('userName', { required: true }))}
-        error={errors['userName']?.message}
+        {...(register && register('name', { required: true }))}
+        error={errors['name']?.message}
       />
       <Button loading={isLoading} type='submit'>
         Save

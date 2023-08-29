@@ -31,6 +31,7 @@ export const BurgerNav: React.FC<IBurgerProps> = ({ navbarItems, textVariants, h
           toggleNav={handleToggle}
           navbarItems={navbarItems}
           handleSignOut={handleSignOut}
+          closeOnClick
         />
       </Drawer>
       <div className={styles.nav}>

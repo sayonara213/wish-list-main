@@ -16,6 +16,7 @@ interface INavbarItemProps {
   link?: string;
   onClick?: () => void;
   isExpanded: boolean;
+  toggleNav?: () => void;
   variants: Variants;
   children?: React.ReactNode;
 }
@@ -44,12 +45,14 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
   isExpanded,
   variants,
   children,
+  toggleNav,
 }) => {
   const router = useRouter();
 
   const click = () => {
     onClick && onClick();
     link && router.push(link);
+    if (isExpanded && toggleNav) toggleNav();
   };
 
   return (

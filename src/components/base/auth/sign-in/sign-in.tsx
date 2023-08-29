@@ -36,7 +36,7 @@ export const SignIn: React.FC<IAuthFormProps> = ({ next, handleSignIn, isLoading
   return (
     <form className={styles.form} onSubmit={handleSubmit(handleSignIn)}>
       <div className={styles.box}>
-        <Paragraph size='bg' style={{ width: '100%', textAlign: 'center' }} uppercase>
+        <Paragraph size='bg' className={styles.title} uppercase>
           Login
         </Paragraph>
         <TextInput
