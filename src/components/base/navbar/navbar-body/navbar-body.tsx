@@ -12,6 +12,7 @@ interface INavbarBodyProps {
   textVariants: Variants;
   navbarItems: INavbarItem[];
   toggleNav: () => void;
+  closeOnClick?: boolean;
   handleSignOut: () => void;
 }
 
@@ -21,6 +22,7 @@ export const NavbarBody: React.FC<INavbarBodyProps> = ({
   toggleNav,
   navbarItems,
   handleSignOut,
+  closeOnClick,
 }) => {
   return (
     <>
@@ -34,6 +36,7 @@ export const NavbarBody: React.FC<INavbarBodyProps> = ({
               key={index}
               variants={textVariants}
               isExpanded={isExpanded}
+              toggleNav={closeOnClick ? toggleNav : undefined}
               link={item.link}
             >
               {item.children}
@@ -46,6 +49,7 @@ export const NavbarBody: React.FC<INavbarBodyProps> = ({
             icon='logout'
             variants={textVariants}
             isExpanded={isExpanded}
+            toggleNav={closeOnClick ? toggleNav : undefined}
             onClick={handleSignOut}
           />
           <ThemeSwitch variants={textVariants} isExpanded={isExpanded} />

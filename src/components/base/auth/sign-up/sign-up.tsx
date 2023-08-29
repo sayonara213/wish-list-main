@@ -36,7 +36,7 @@ export const SignUp: React.FC<IAuthFormProps> = ({ next, handleSignUp, isLoading
   return (
     <form className={styles.form} onSubmit={handleSubmit(handleSignUp)}>
       <div className={styles.box}>
-        <Paragraph size='bg' style={{ width: '100%', textAlign: 'center' }} uppercase>
+        <Paragraph size='bg' className={styles.title} uppercase>
           Join us
         </Paragraph>
         <TextInput

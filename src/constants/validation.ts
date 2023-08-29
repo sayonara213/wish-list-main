@@ -17,5 +17,5 @@ export const addLinkSchema = yup.object({
 });
 
 export const profileSchema = yup.object({
-  userName,
+  name: userName,
 });

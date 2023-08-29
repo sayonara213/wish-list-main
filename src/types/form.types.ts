@@ -13,7 +13,7 @@ export interface IAddLinkForm {
 }
 
 export interface IProfileForm {
-  userName: string;
+  name: string;
 
   [key: string]: string;
 }
