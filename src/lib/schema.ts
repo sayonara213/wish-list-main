@@ -71,17 +71,17 @@ export interface Database {
       profiles: {
         Row: {
           id: string;
-          photo_url: string | null;
+          avatar_url: string | null;
           user_name: string;
         };
         Insert: {
           id: string;
-          photo_url?: string | null;
+          avatar_url?: string | null;
           user_name: string;
         };
         Update: {
           id?: string;
-          photo_url?: string | null;
+          avatar_url?: string | null;
           user_name?: string;
         };
         Relationships: [

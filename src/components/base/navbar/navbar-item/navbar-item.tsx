@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import styles from './navbar-item.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
@@ -43,13 +45,16 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
   variants,
   children,
 }) => {
+  const router = useRouter();
+
   const click = () => {
     onClick && onClick();
+    link && router.push(link);
   };
 
   return (
     <li className={styles.wrapper} onClick={click}>
-      <div className={`${styles.item} ${onClick && styles.hover}`}>
+      <div className={`${styles.item} ${(onClick || link) && styles.hover}`}>
         <Icon name={icon} className='5ms transition-all' />
         <AnimatePresence>
           {isExpanded && (
