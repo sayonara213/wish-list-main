@@ -72,6 +72,7 @@
 
   --bg-gradient: radial-gradient(circle, #7f5a83 1%, #0d324d 100%, rgba(0, 212, 255, 1) 222327%);
 
+  --shadow-smooth: rgba(0, 0, 0, 0.2) 0px 5px 12px 0px;
   --shadow-color: 276deg 23% 24%;
   --shadow-elevation-low: 0.4px 0.4px 0.6px hsl(var(--shadow-color) / 0.33),
     0.6px 0.6px 0.9px -1.3px hsl(var(--shadow-color) / 0.32),

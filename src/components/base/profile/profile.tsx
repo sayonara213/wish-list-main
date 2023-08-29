@@ -37,8 +37,6 @@ export const Profile: React.FC<IProfileProps> = ({ user }) => {
     if (!data) return;
 
     setProfile(data[0]);
-    console.log(data[0].user_name);
-
     setIsLoading(false);
   };
 
