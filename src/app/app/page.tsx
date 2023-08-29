@@ -23,7 +23,7 @@ const App = async () => {
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <Paragraph weight='bold' size='lg'>
+        <Paragraph weight='bold' size='lg' className={styles.username}>
           ✨Welcome, {toNormalCase(username.data![0].user_name)}!
         </Paragraph>
       </div>

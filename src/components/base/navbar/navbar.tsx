@@ -66,6 +66,7 @@ export const Navbar = () => {
   }, []);
 
   const navbarItems: INavbarItem[] = [
+    { name: 'home', icon: 'home', link: '/app' },
     { name: 'profile', icon: 'person', link: '/app/profile' },
     {
       name: 'personal wishlists',

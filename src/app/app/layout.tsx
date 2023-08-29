@@ -20,7 +20,6 @@ const AppLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <Navbar />
-
       <div className={container.container}>{children}</div>
     </div>
   );
