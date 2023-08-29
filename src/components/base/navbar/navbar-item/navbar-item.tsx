@@ -30,7 +30,7 @@ const liVariants = {
   },
   hide: {
     opacity: 0,
-    height: '0px',
+    height: 0,
     marginTop: '0px',
     transition: { duration: 0.3, ease: 'easeInOut' },
   },
