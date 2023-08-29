@@ -4,8 +4,6 @@ import { createContext, useContext, useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { IUser } from '@/types/user.types';
-
 import { User, createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 interface IAuthProviderProps {
