@@ -30,9 +30,7 @@
 }
 
 .burger {
-  display: none;
-
-  @media screen and (max-width: 568px) {
-    display: block;
+  @media screen and (min-width: 568px) {
+    display: none;
   }
 }
