@@ -26,7 +26,7 @@ export const ThemeContext = createContext<ThemeContextType>({
 });
 
 const ThemeProvider = ({ children }: IProviders) => {
-  const [theme, setTheme] = useState<Theme>(undefined);
+  const [theme, setTheme] = useState<Theme>('dark');
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
@@ -57,7 +57,7 @@ const ThemeProvider = ({ children }: IProviders) => {
     />
   ));
 
-  return theme ? (
+  return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <CacheProvider value={cache}>
         <MantineProvider theme={{ ...themeMantine, colorScheme: theme }}>
@@ -65,7 +65,7 @@ const ThemeProvider = ({ children }: IProviders) => {
         </MantineProvider>
       </CacheProvider>
     </ThemeContext.Provider>
-  ) : null;
+  );
 };
 
 export default ThemeProvider;
