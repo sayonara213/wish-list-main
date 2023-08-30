@@ -11,3 +11,9 @@ export interface IAddLinkForm {
 
   [key: string]: string;
 }
+
+export interface IProfileForm {
+  name: string;
+
+  [key: string]: string;
+}

@@ -1,3 +1,5 @@
+@import '@/styles/mixins';
+
 .wrapper {
   box-sizing: content-box;
   display: flex;
@@ -18,10 +20,6 @@
 
 .button {
   cursor: pointer;
-  transition-property: background-color color;
-  transition: var(--transition-duration) var(--transition-timing-function);
 
-  &:hover {
-    background-color: var(--color-accent);
-  }
+  @include hover-item-accent();
 }

@@ -28,8 +28,8 @@ export const Paragraph: React.FC<ITextProps> = ({
         styles[color],
         styles[weight],
         uppercase && styles.uppercase,
+        { ...props }.className,
       )}
-      {...props}
     >
       {children}
     </p>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import styles from './burger.module.scss';
 
+import { INavbarItem } from '../navbar';
 import { NavbarBody } from '../navbar-body/navbar-body';
 import { ThemeSwitch } from '../theme-switch/theme-switch';
 
@@ -9,7 +10,7 @@ import { Burger, Drawer } from '@mantine/core';
 import { Variants } from 'framer-motion';
 
 interface IBurgerProps {
-  navbarItems: { name: string; icon: string; children?: React.ReactNode }[];
+  navbarItems: INavbarItem[];
   textVariants: Variants;
   handleSignOut: () => void;
 }
@@ -30,6 +31,7 @@ export const BurgerNav: React.FC<IBurgerProps> = ({ navbarItems, textVariants, h
           toggleNav={handleToggle}
           navbarItems={navbarItems}
           handleSignOut={handleSignOut}
+          closeOnClick
         />
       </Drawer>
       <div className={styles.nav}>

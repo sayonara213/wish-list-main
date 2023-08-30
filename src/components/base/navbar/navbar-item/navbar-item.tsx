@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import styles from './navbar-item.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
@@ -14,6 +16,7 @@ interface INavbarItemProps {
   link?: string;
   onClick?: () => void;
   isExpanded: boolean;
+  toggleNav?: () => void;
   variants: Variants;
   children?: React.ReactNode;
 }
@@ -28,7 +31,7 @@ const liVariants = {
   },
   hide: {
     opacity: 0,
-    height: '0px',
+    height: 0,
     marginTop: '0px',
     transition: { duration: 0.3, ease: 'easeInOut' },
   },
@@ -42,14 +45,19 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
   isExpanded,
   variants,
   children,
+  toggleNav,
 }) => {
+  const router = useRouter();
+
   const click = () => {
     onClick && onClick();
+    link && router.push(link);
+    if (isExpanded && toggleNav) toggleNav();
   };
 
   return (
     <li className={styles.wrapper} onClick={click}>
-      <div className={`${styles.item} ${onClick && styles.hover}`}>
+      <div className={`${styles.item} ${(onClick || link) && styles.hover}`}>
         <Icon name={icon} className='5ms transition-all' />
         <AnimatePresence>
           {isExpanded && (

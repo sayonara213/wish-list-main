@@ -14,7 +14,6 @@
 
 .container {
   width: 400px;
-  perspective: 1200px;
   overflow: visible;
 
   @media screen and (max-width: 576px) {
@@ -28,20 +27,30 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 20px;
 
   background-color: var(--color-primary);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-smooth);
 
-  transform-style: preserve-3d;
-
   .box {
     display: flex;
     flex-direction: column;
+    padding: 40px;
     gap: 20px;
-    padding: 20px;
 
-    transform: translateZ(20px);
+    position: relative;
   }
+}
+
+.title {
+  text-align: center;
+}
+
+.additional {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }

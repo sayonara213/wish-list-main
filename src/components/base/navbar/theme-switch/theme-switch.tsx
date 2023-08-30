@@ -8,8 +8,8 @@ import { Switch } from '@mantine/core';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 
 interface IThemeSwitchProps {
-  variants: Variants;
-  isExpanded: boolean;
+  variants?: Variants;
+  isExpanded?: boolean;
 }
 
 const iconVariants: Variants = {

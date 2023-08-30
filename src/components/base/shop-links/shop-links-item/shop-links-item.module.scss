@@ -25,6 +25,18 @@
 
 .wrapper {
   position: relative;
+
+  &:hover {
+    .delete {
+      opacity: 1;
+    }
+  }
+
+  @media screen and (max-width: 576px) {
+    .delete {
+      opacity: 1;
+    }
+  }
 }
 
 .delete {
@@ -36,8 +48,12 @@
   border: 2px solid var(--color-accent);
   background-color: var(--color-accent-dark);
 
-  z-index: 99999;
+  z-index: 10;
   cursor: pointer;
+
+  opacity: 0;
+
+  transition: all var(--transition-duration) var(--transition-timing-function);
 
   span {
     color: #ffffff;
