@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Exo_2 } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import { cookies } from 'next/headers';
 
 import AuthProvider from '@/components/base/provider/auth-provider';
@@ -10,7 +10,7 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
 import '@/styles/globals.scss';
 
-const inter = Exo_2({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'] });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const supabase = createServerComponentClient({ cookies });
