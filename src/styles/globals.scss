@@ -5,8 +5,11 @@
 body {
   color: var(--color-white);
   font-weight: var(--width-medium);
-  background: var(--bg-gradient);
-  background-color: var(--color-primary);
+
+  background-color: var(--color-bg);
+  background-position: center;
+  background-image: var(--bg-blur);
+  background-size: cover;
 
   ::selection {
     background-color: var(--color-accent);
