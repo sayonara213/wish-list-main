@@ -30,9 +30,7 @@ const ThemeProvider = ({ children }: IProviders) => {
 
   useEffect(() => {
     const storedTheme = localStorage.getItem('theme');
-    if (storedTheme) {
-      setTheme(storedTheme === 'dark' ? 'dark' : 'light');
-    }
+    setTheme(storedTheme === 'dark' ? 'dark' : 'light');
   }, []);
 
   useEffect(() => {
@@ -62,7 +60,7 @@ const ThemeProvider = ({ children }: IProviders) => {
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <CacheProvider value={cache}>
-        <MantineProvider withGlobalStyles theme={{ ...themeMantine, colorScheme: theme }}>
+        <MantineProvider theme={{ ...themeMantine, colorScheme: theme }}>
           {children}
         </MantineProvider>
       </CacheProvider>
