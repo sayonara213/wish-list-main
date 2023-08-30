@@ -40,20 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 export const dynamic = 'force-dynamic';
 
 const themeInitializer = () => {
-  const persistedThemePreference = window.localStorage.getItem('theme');
-
-  if (persistedThemePreference) {
-    document.body.dataset.theme = persistedThemePreference;
-    return;
-  }
-
-  const preference = window.matchMedia('(prefers-color-scheme: dark)');
-  const hasMediaQueryPreference = typeof preference.matches === 'boolean';
-
-  if (hasMediaQueryPreference) {
-    document.body.dataset.theme = preference.matches ? 'dark' : 'light';
-    window.localStorage.setItem('theme', preference.matches ? 'dark' : 'light');
-  }
+  document.body.dataset.theme = window.localStorage.getItem('theme') || 'light';
 };
 
 const themeInitializerScript = `(${themeInitializer})();
