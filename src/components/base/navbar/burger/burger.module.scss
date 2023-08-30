@@ -8,10 +8,6 @@
 
   background-color: var(--color-primary);
 
-  @media screen and (min-width: 568px) {
-    display: none;
-  }
-
   z-index: 99999;
 
   display: flex;

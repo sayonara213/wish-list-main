@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Inter } from 'next/font/google';
+import { Exo_2 } from 'next/font/google';
 import { cookies } from 'next/headers';
 
 import AuthProvider from '@/components/base/provider/auth-provider';
@@ -10,7 +10,7 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
 import '@/styles/globals.scss';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Exo_2({ subsets: ['latin'] });
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const supabase = createServerComponentClient({ cookies });
@@ -39,7 +39,22 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 export const dynamic = 'force-dynamic';
 
-const themeInitializerScript = `(function () 
-{document.body.dataset.theme = window.localStorage.getItem("theme") 
-|| "dark"; })();
+const themeInitializer = () => {
+  const persistedThemePreference = window.localStorage.getItem('theme');
+
+  if (persistedThemePreference) {
+    document.body.dataset.theme = persistedThemePreference;
+    return;
+  }
+
+  const preference = window.matchMedia('(prefers-color-scheme: dark)');
+  const hasMediaQueryPreference = typeof preference.matches === 'boolean';
+
+  if (hasMediaQueryPreference) {
+    document.body.dataset.theme = preference.matches ? 'dark' : 'light';
+    window.localStorage.setItem('theme', preference.matches ? 'dark' : 'light');
+  }
+};
+
+const themeInitializerScript = `(${themeInitializer})();
 `;
