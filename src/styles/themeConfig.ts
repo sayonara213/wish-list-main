@@ -14,6 +14,18 @@ export const themeMantine: MantineThemeOverride = {
       '#4c4390',
       '#413c73',
     ],
+    dark: [
+      '#e1e1e5',
+      '#a6a4ad',
+      '#908f99',
+      '#5a5770',
+      '#343249',
+      '#29263b',
+      '#231f32',
+      '#171523',
+      '#0f0f1a',
+      '#0c0c13',
+    ],
   },
   primaryColor: 'accent',
 };
