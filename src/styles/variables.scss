@@ -12,7 +12,7 @@
   --color-text: #483454;
   --color-text-muted: #8e8e91;
 
-  --color-bg: #f7deff;
+  --color-bg: #ffffff;
   --bg-blur: url('/dark-bg.svg');
 
   --width-bold: 900;
@@ -36,30 +36,11 @@
   --transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 
   --shadow-smooth: rgba(100, 100, 100, 0.2) 0px 5px 12px 0px;
-  --shadow-color: 322deg 43% 57%;
-  --shadow-elevation-low: 0.4px 0.4px 0.6px hsl(var(--shadow-color) / 0.33),
-    0.6px 0.6px 0.9px -1.3px hsl(var(--shadow-color) / 0.32),
-    1.5px 1.5px 2.4px -2.5px hsl(var(--shadow-color) / 0.32);
-  --shadow-elevation-medium: 0.4px 0.4px 0.6px hsl(var(--shadow-color) / 0.27),
-    1px 1px 1.6px -0.6px hsl(var(--shadow-color) / 0.27),
-    1.9px 1.9px 3px -1.3px hsl(var(--shadow-color) / 0.27),
-    3.8px 3.8px 6px -1.9px hsl(var(--shadow-color) / 0.27),
-    7.3px 7.3px 11.5px -2.5px hsl(var(--shadow-color) / 0.26);
-  --shadow-elevation-high: 0.4px 0.4px 0.6px hsl(var(--shadow-color) / 0.25),
-    1.7px 1.7px 2.7px -0.3px hsl(var(--shadow-color) / 0.25),
-    3px 3px 4.7px -0.6px hsl(var(--shadow-color) / 0.25),
-    4.5px 4.5px 7.1px -0.8px hsl(var(--shadow-color) / 0.25),
-    6.6px 6.6px 10.4px -1.1px hsl(var(--shadow-color) / 0.25),
-    9.5px 9.5px 15px -1.4px hsl(var(--shadow-color) / 0.25),
-    13.5px 13.5px 21.3px -1.7px hsl(var(--shadow-color) / 0.25),
-    18.9px 18.9px 29.9px -2px hsl(var(--shadow-color) / 0.25),
-    26px 26px 41.1px -2.3px hsl(var(--shadow-color) / 0.25),
-    35.1px 35px 55.4px -2.5px hsl(var(--shadow-color) / 0.24);
 }
 
 [data-theme='dark'] {
-  --color-primary: #222327;
-  --color-secondary: #2a2b2f;
+  --color-primary: #171322; //222327
+  --color-secondary: #2b283c;
 
   --color-accent: #7e7bd9;
   --color-accent-light: #b3baee;
@@ -74,23 +55,4 @@
   --color-bg: #000000;
 
   --shadow-smooth: rgba(0, 0, 0, 0.2) 0px 5px 12px 0px;
-  --shadow-color: 276deg 23% 24%;
-  --shadow-elevation-low: 0.4px 0.4px 0.6px hsl(var(--shadow-color) / 0.33),
-    0.6px 0.6px 0.9px -1.3px hsl(var(--shadow-color) / 0.32),
-    1.5px 1.5px 2.4px -2.5px hsl(var(--shadow-color) / 0.32);
-  --shadow-elevation-medium: 0.4px 0.4px 0.6px hsl(var(--shadow-color) / 0.27),
-    1px 1px 1.6px -0.6px hsl(var(--shadow-color) / 0.27),
-    1.9px 1.9px 3px -1.3px hsl(var(--shadow-color) / 0.27),
-    3.8px 3.8px 6px -1.9px hsl(var(--shadow-color) / 0.27),
-    7.3px 7.3px 11.5px -2.5px hsl(var(--shadow-color) / 0.26);
-  --shadow-elevation-high: 0.4px 0.4px 0.6px hsl(var(--shadow-color) / 0.25),
-    1.7px 1.7px 2.7px -0.3px hsl(var(--shadow-color) / 0.25),
-    3px 3px 4.7px -0.6px hsl(var(--shadow-color) / 0.25),
-    4.5px 4.5px 7.1px -0.8px hsl(var(--shadow-color) / 0.25),
-    6.6px 6.6px 10.4px -1.1px hsl(var(--shadow-color) / 0.25),
-    9.5px 9.5px 15px -1.4px hsl(var(--shadow-color) / 0.25),
-    13.5px 13.5px 21.3px -1.7px hsl(var(--shadow-color) / 0.25),
-    18.9px 18.9px 29.9px -2px hsl(var(--shadow-color) / 0.25),
-    26px 26px 41.1px -2.3px hsl(var(--shadow-color) / 0.25),
-    35.1px 35px 55.4px -2.5px hsl(var(--shadow-color) / 0.24);
 }
