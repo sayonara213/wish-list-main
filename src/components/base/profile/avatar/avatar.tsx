@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 import styles from './avatar.module.scss';
 
@@ -21,6 +22,7 @@ export const Avatar: React.FC<IAvatarProps> = ({ supabase, profile, setProfile }
   const [avatar, setAvatar] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const changeAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -31,6 +33,7 @@ export const Avatar: React.FC<IAvatarProps> = ({ supabase, profile, setProfile }
     if (!file) return;
 
     setAvatar(file);
+    router.refresh();
   };
 
   const setDefaultAvatar = async () => {
@@ -45,6 +48,7 @@ export const Avatar: React.FC<IAvatarProps> = ({ supabase, profile, setProfile }
 
     setProfile({ ...profile, avatar_url: fileUrl });
     setIsUploading(false);
+    router.refresh();
   };
 
   const uploadAvatar = async () => {
