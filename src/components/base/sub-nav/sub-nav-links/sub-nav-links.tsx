@@ -17,11 +17,13 @@ interface ISubNavLinksProps {
 }
 
 export const SubNavLinks: React.FC<ISubNavLinksProps> = ({ profile }) => {
-  const formattedDate = new Date(profile.date_of_birth!).toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  });
+  const formattedDate = profile.date_of_birth
+    ? new Date(profile.date_of_birth!).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+    : 'Set your birthday';
 
   return (
     <div className={styles.wrapper}>
