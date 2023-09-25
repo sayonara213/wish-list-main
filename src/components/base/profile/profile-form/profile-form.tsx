@@ -15,6 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { TextInput, Button, Input } from '@mantine/core';
 import { DateInput, DateValue } from '@mantine/dates';
 import { SupabaseClient } from '@supabase/supabase-js';
+import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
 
 interface IProfileFormProps {
@@ -75,6 +76,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
           onChange={handleDateChange}
           placeholder={profile.date_of_birth || 'Date of birth'}
           style={{ marginTop: 6 }}
+          maxDate={dayjs().subtract(6, 'year').toDate()}
         />
       </Input.Wrapper>
       <Button loading={isLoading} type='submit'>
