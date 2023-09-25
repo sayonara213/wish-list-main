@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { SubNavLinks } from './sub-nav-links/sub-nav-links';
 import styles from './sub-nav.module.scss';
 
 import { Paragraph } from '@/components/ui/text/text';
@@ -15,6 +16,7 @@ export const SubNav: React.FC<ISubNavProps> = ({ profile }) => {
       <Paragraph weight='medium' size='md'>
         Welcome back, {profile.user_name} ✨
       </Paragraph>
+      <SubNavLinks profile={profile} />
     </div>
   );
 };

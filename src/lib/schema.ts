@@ -68,20 +68,41 @@ export interface Database {
           },
         ];
       };
+      moods: {
+        Row: {
+          id: number;
+          mood_color: string;
+          mood_name: string;
+        };
+        Insert: {
+          id?: number;
+          mood_color: string;
+          mood_name: string;
+        };
+        Update: {
+          id?: number;
+          mood_color?: string;
+          mood_name?: string;
+        };
+        Relationships: [];
+      };
       profiles: {
         Row: {
-          id: string;
           avatar_url: string | null;
+          date_of_birth: string | null;
+          id: string;
           user_name: string;
         };
         Insert: {
-          id: string;
           avatar_url?: string | null;
+          date_of_birth?: string | null;
+          id: string;
           user_name: string;
         };
         Update: {
-          id?: string;
           avatar_url?: string | null;
+          date_of_birth?: string | null;
+          id?: string;
           user_name?: string;
         };
         Relationships: [
@@ -160,7 +181,19 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      delete_avatar: {
+        Args: {
+          avatar_full_url: string;
+        };
+        Returns: Record<string, unknown>;
+      };
+      delete_storage_object: {
+        Args: {
+          bucket: string;
+          object: string;
+        };
+        Returns: Record<string, unknown>;
+      };
     };
     Enums: {
       [_ in never]: never;

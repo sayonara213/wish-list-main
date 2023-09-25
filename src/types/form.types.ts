@@ -1,3 +1,5 @@
+import { DateValue } from '@mantine/dates';
+
 export interface IAuthForm {
   email: string;
   password: string;
@@ -13,7 +15,8 @@ export interface IAddLinkForm {
 }
 
 export interface IProfileForm {
-  name: string;
+  name: string | undefined;
+  birthDate?: DateValue;
 
-  [key: string]: string;
+  [key: string]: string | DateValue | undefined;
 }
