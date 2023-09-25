@@ -73,8 +73,8 @@ export const Avatar: React.FC<IAvatarProps> = ({ supabase, profile, setProfile }
     }
 
     setIsUploading(false);
-
     setProfile({ ...profile, avatar_url: uploadedUrl });
+    router.refresh();
   };
 
   const handleClick = () => {
