@@ -6,6 +6,7 @@ import { Avatar } from './avatar/avatar';
 import { ProfileForm } from './profile-form/profile-form';
 import styles from './profile.module.scss';
 
+import { Icon } from '@/components/ui/icon/icon';
 import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 import { IProfile } from '@/types/user.types';
@@ -24,6 +25,14 @@ export const Profile: React.FC<IProfileProps> = ({ user }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const supabase = createClientComponentClient<Database>();
+
+  const formattedDate = profile.date_of_birth
+    ? new Date(profile.date_of_birth!).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+    : 'Set your birthday';
 
   const fetchProfile = async () => {
     setIsLoading(true);
@@ -50,9 +59,18 @@ export const Profile: React.FC<IProfileProps> = ({ user }) => {
       </div>
       <div className={styles.usernameWrapper}>
         {isLoading ? (
-          <Skeleton width={'50%'} height={20} radius={4} />
+          <>
+            <Skeleton width={'60%'} height={20} radius={4} />
+            <Skeleton width={'30%'} height={20} radius={4} />
+          </>
         ) : (
-          <Paragraph>{profile.user_name}</Paragraph>
+          <>
+            <Paragraph>{profile.user_name}</Paragraph>
+            <div className={styles.bday}>
+              <Icon color='muted' name='cake' size={18} />
+              <Paragraph color='muted'>{formattedDate}</Paragraph>
+            </div>
+          </>
         )}
       </div>
       <ProfileForm supabase={supabase} profile={profile} setProfile={setProfile} />

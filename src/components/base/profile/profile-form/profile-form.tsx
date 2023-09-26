@@ -36,12 +36,14 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
   } = useForm<IProfileForm>({ resolver: yupResolver(profileSchema), mode: 'onBlur' });
 
   const onSubmit = async (data: IProfileForm) => {
-    setIsLoading(true);
-
     const fieldData = {
       ...(data.name && { user_name: toNormalCase(data.name) }),
       ...(data.birthDate && { date_of_birth: data.birthDate.toLocaleDateString() }),
     };
+
+    if (!fieldData.user_name || !fieldData.date_of_birth) return;
+
+    setIsLoading(true);
 
     try {
       await supabase.from('profiles').update(fieldData).eq('id', profile.id);
@@ -59,13 +61,25 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
     }
   };
 
+  const handleLogOut = async () => {
+    await supabase.auth.signOut();
+    router.refresh();
+  };
+
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <TextInput
-        placeholder='Name'
-        {...(register && register('name'))}
-        error={errors['name']?.message}
-      />
+      <Input.Wrapper
+        id='birth-date'
+        label='User name'
+        description='Set your user name to let others find you'
+      >
+        <TextInput
+          placeholder='Name'
+          {...(register && register('name'))}
+          error={errors['name']?.message}
+          style={{ marginTop: 6 }}
+        />
+      </Input.Wrapper>
       <Input.Wrapper
         id='birth-date'
         label='Date of birth'
@@ -81,6 +95,9 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
       </Input.Wrapper>
       <Button loading={isLoading} type='submit'>
         Save
+      </Button>
+      <Button variant='light' color='red' onClick={handleLogOut} className={styles.logout}>
+        Log out
       </Button>
     </form>
   );
