@@ -1,0 +1,9 @@
+.wrapper {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding-bottom: 18px;
+
+  border-bottom: 2px solid var(--color-border-transparent);
+}
