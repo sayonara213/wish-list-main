@@ -4,10 +4,10 @@ import { SubNavLinks } from './sub-nav-links/sub-nav-links';
 import styles from './sub-nav.module.scss';
 
 import { Paragraph } from '@/components/ui/text/text';
-import { IProfile } from '@/types/user.types';
+import { TProfile } from '@/types/database.types';
 
 interface ISubNavProps {
-  profile: IProfile;
+  profile: TProfile;
 }
 
 export const SubNav: React.FC<ISubNavProps> = ({ profile }) => {

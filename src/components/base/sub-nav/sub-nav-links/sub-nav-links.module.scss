@@ -7,11 +7,10 @@
   a {
     text-decoration: none;
   }
-}
 
-.birthday {
-  display: flex;
-  gap: 8px;
-
-  align-items: center;
+  @media screen and (max-width: 568px) {
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 12px;
+  }
 }

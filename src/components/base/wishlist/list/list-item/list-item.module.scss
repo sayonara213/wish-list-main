@@ -1,0 +1,25 @@
+.wrapper {
+  width: 100%;
+  min-height: 60px;
+
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: var(--radius-md);
+
+  background-color: var(--color-secondary);
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+}
+
+.dragging {
+  transition: all var(--transition-duration) var(--transition-timing-function);
+  background-color: var(--color-accent-light);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-smooth);
+}

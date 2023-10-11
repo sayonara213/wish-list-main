@@ -17,12 +17,7 @@ const WishlistLayout = async ({ children }: { children: React.ReactNode }) => {
 
   const username = await supabase.from('profiles').select('user_name').eq('id', user!.id);
 
-  return (
-    <div className={styles.container}>
-      {toNormalCase(username.data![0].user_name)}
-      {children}
-    </div>
-  );
+  return <div className={styles.container}>{children}</div>;
 };
 
 export default WishlistLayout;

@@ -6,7 +6,7 @@ import { ShopLinksItemAdd } from './shop-links-add/shop-links-item-add';
 import { ShopLinksItem, ShopLinksItemLoading } from './shop-links-item/shop-links-item';
 import styles from './shop-links.module.scss';
 
-import { IShopLink } from '@/types/shops-link';
+import { TShop } from '@/types/database.types';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -18,7 +18,7 @@ interface IShopLinksProps {
 export const ShopLinks: React.FC<IShopLinksProps> = ({ userId }) => {
   const supabase = createClientComponentClient();
 
-  const [shopLinks, setShopLinks] = useState<IShopLink[]>([]);
+  const [shopLinks, setShopLinks] = useState<TShop[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchShopLinks = async () => {
@@ -38,7 +38,7 @@ export const ShopLinks: React.FC<IShopLinksProps> = ({ userId }) => {
     setShopLinks(shopLinks.filter((shop) => shop.id !== id));
   };
 
-  const addShopLink = (shop: IShopLink) => {
+  const addShopLink = (shop: TShop) => {
     setShopLinks([...shopLinks, shop]);
   };
 

@@ -18,6 +18,8 @@
 
   margin-bottom: 20px;
   text-align: center;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .avatar {
@@ -25,4 +27,11 @@
   top: -68px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.bday {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }

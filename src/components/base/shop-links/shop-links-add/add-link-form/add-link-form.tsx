@@ -6,8 +6,8 @@ import { useAuth } from '@/components/base/provider/auth-provider';
 import { Paragraph } from '@/components/ui/text/text';
 import { addLinkSchema } from '@/constants/validation';
 import { Database } from '@/lib/schema';
+import { TShop } from '@/types/database.types';
 import { IAddLinkForm } from '@/types/form.types';
-import { IShopLink } from '@/types/shops-link';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Input, Button } from '@mantine/core';
@@ -15,7 +15,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useForm } from 'react-hook-form';
 
 interface IAddLinkFormProps {
-  addLink: (link: IShopLink) => void;
+  addLink: (link: TShop) => void;
   closePopover: () => void;
 }
 
@@ -47,6 +47,7 @@ export const AddLinkForm: React.FC<IAddLinkFormProps> = ({ addLink, closePopover
         id: Date.now(),
         link_name: linkName,
         link_url: linkUrl,
+        user_id: user?.id,
       });
       setIsLoading(false);
       closePopover();
