@@ -9,7 +9,7 @@ import styles from './profile.module.scss';
 import { Icon } from '@/components/ui/icon/icon';
 import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
-import { IProfile } from '@/types/user.types';
+import { TProfile } from '@/types/database.types';
 
 import { Skeleton } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -20,7 +20,7 @@ interface IProfileProps {
 }
 
 export const Profile: React.FC<IProfileProps> = ({ user }) => {
-  const [profile, setProfile] = useState<IProfile>({} as IProfile);
+  const [profile, setProfile] = useState<TProfile>({} as TProfile);
 
   const [isLoading, setIsLoading] = useState(true);
 

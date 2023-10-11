@@ -5,12 +5,12 @@ import Link from 'next/link';
 import { NavbarWishlistsItem } from './wishlists-item/wishlists-item';
 import styles from './wishlists.module.scss';
 
-import { IWishlist } from '@/types/wishlist';
+import { TWishlist } from '@/types/database.types';
 
 import { Button } from '@mantine/core';
 
 interface INavbarWishlistsProps {
-  wishlists: IWishlist[];
+  wishlists: TWishlist[];
 }
 
 export const NavbarWishlists: React.FC<INavbarWishlistsProps> = ({ wishlists }) => {

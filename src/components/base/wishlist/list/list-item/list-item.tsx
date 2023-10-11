@@ -3,10 +3,10 @@ import React from 'react';
 import styles from './list-item.module.scss';
 
 import { Paragraph } from '@/components/ui/text/text';
-import { IWishlistItem } from '@/types/wishlist';
+import { TWishlistItem } from '@/types/database.types';
 
 interface IWishlistListItemProps {
-  item: IWishlistItem;
+  item: TWishlistItem;
 }
 
 export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item }) => {

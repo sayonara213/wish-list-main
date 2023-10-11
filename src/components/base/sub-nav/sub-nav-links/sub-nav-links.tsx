@@ -7,12 +7,12 @@ import Link from 'next/link';
 import styles from './sub-nav-links.module.scss';
 
 import { BirthDate } from '@/components/ui/birth-date/birth-date';
-import { IProfile } from '@/types/user.types';
+import { TProfile } from '@/types/database.types';
 
 import { Avatar } from '@mantine/core';
 
 interface ISubNavLinksProps {
-  profile: IProfile;
+  profile: TProfile;
 }
 
 export const SubNavLinks: React.FC<ISubNavLinksProps> = ({ profile }) => {

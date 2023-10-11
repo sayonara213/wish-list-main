@@ -5,12 +5,12 @@ import styles from './shop-links-item-add.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
 import { Paragraph } from '@/components/ui/text/text';
-import { IShopLink } from '@/types/shops-link';
+import { TShop } from '@/types/database.types';
 
 import { Popover } from '@mantine/core';
 
 interface IShopLinksItemAddProps {
-  addLink: (link: IShopLink) => void;
+  addLink: (link: TShop) => void;
 }
 
 export const ShopLinksItemAdd: React.FC<IShopLinksItemAddProps> = ({ addLink }) => {

@@ -7,15 +7,15 @@ import styles from './shop-links-item.module.scss';
 import { Icon } from '@/components/ui/icon/icon';
 import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
-import { IShopLink } from '@/types/shops-link';
+import { TShop } from '@/types/database.types';
 import { extractBaseDomain } from '@/utils/text';
 
 import { Skeleton } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 interface IShopLinksItemProps {
-  shop: IShopLink;
+  shop: TShop;
   deleteLink: (id: number) => void;
 }
 
