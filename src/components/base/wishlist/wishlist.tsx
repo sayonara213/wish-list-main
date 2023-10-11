@@ -5,10 +5,10 @@ import React from 'react';
 import { WishlistList } from './list/list';
 import { WishlistToolbar } from './toolbar/toolbar';
 
-import { IWishlist } from '@/types/wishlist';
+import { TWishlist } from '@/types/database.types';
 
 interface IWishlistProps {
-  wishlist: IWishlist;
+  wishlist: TWishlist;
 }
 
 export const Wishlist: React.FC<IWishlistProps> = ({ wishlist }) => {

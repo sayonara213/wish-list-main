@@ -7,8 +7,8 @@ import { useRouter } from 'next/navigation';
 import styles from './profile-form.module.scss';
 
 import { profileSchema } from '@/constants/validation';
+import { TProfile } from '@/types/database.types';
 import { IProfileForm } from '@/types/form.types';
-import { IProfile } from '@/types/user.types';
 import { toNormalCase } from '@/utils/text';
 
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -20,8 +20,8 @@ import { useForm } from 'react-hook-form';
 
 interface IProfileFormProps {
   supabase: SupabaseClient;
-  profile: IProfile;
-  setProfile: (profile: IProfile) => void;
+  profile: TProfile;
+  setProfile: (profile: TProfile) => void;
 }
 
 export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, setProfile }) => {

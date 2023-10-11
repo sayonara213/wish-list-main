@@ -7,15 +7,15 @@ import styles from './avatar.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
 import { API_URL } from '@/constants/api';
-import { IProfile } from '@/types/user.types';
+import { TProfile } from '@/types/database.types';
 
 import { LoadingOverlay, Skeleton } from '@mantine/core';
 import { SupabaseClient } from '@supabase/supabase-js';
 
 interface IAvatarProps {
   supabase: SupabaseClient;
-  profile: IProfile;
-  setProfile: (profile: IProfile) => void;
+  profile: TProfile;
+  setProfile: (profile: TProfile) => void;
 }
 
 export const Avatar: React.FC<IAvatarProps> = ({ supabase, profile, setProfile }) => {
