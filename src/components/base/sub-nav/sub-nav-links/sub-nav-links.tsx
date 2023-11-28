@@ -18,10 +18,10 @@ interface ISubNavLinksProps {
 export const SubNavLinks: React.FC<ISubNavLinksProps> = ({ profile }) => {
   return (
     <div className={styles.wrapper}>
-      <Link href={'/app/profile'}>
+      <Link href={'/profile'}>
         <BirthDate birthDate={profile.date_of_birth} />
       </Link>
-      <Link href={'/app/profile'}>
+      <Link href={'/profile'}>
         <Avatar src={profile.avatar_url} radius='xl' />
       </Link>
     </div>

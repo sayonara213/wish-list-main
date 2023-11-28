@@ -47,6 +47,16 @@
   align-items: center;
   border-radius: 8px;
   user-select: none;
-  height: 26px;
-  gap: 8px;
+  height: 24px;
+
+  p {
+    margin-left: 32px;
+  }
+
+  img {
+    width: 24px;
+    height: 24px;
+
+    position: absolute;
+  }
 }

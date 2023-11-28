@@ -11,6 +11,7 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
 import '@/styles/globals.scss';
 import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
 
 const inter = Exo_2({ subsets: ['latin'] });
 
