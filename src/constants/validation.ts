@@ -2,13 +2,10 @@ import * as yup from 'yup';
 
 const email = yup.string().email('Email is not valid').required();
 const password = yup.string().min(6, 'Password must be at least 6 characters').required();
-const userName = yup
-  .string()
-  .optional()
-  .when('name', {
-    is: (value: string) => value?.length,
-    then: (rule) => rule.min(3),
-  });
+const userName = yup.string().when('name', {
+  is: (value: string) => value?.length,
+  then: (rule) => rule.min(3),
+});
 const linkUrl = yup.string().url('Link is not valid').required();
 const linkName = yup.string().required();
 
@@ -25,6 +22,7 @@ export const addLinkSchema = yup.object({
 export const profileSchema = yup.object().shape(
   {
     name: userName,
+    birthDate: yup.date().nullable(),
   },
   [['name', 'name']],
 );

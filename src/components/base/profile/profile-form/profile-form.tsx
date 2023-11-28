@@ -33,7 +33,10 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<IProfileForm>({ resolver: yupResolver(profileSchema), mode: 'onBlur' });
+  } = useForm<IProfileForm>({
+    resolver: yupResolver<IProfileForm>(profileSchema),
+    mode: 'onBlur',
+  });
 
   const onSubmit = async (data: IProfileForm) => {
     const fieldData = {
@@ -41,7 +44,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
       ...(data.birthDate && { date_of_birth: data.birthDate.toLocaleDateString() }),
     };
 
-    if (!fieldData.user_name || !fieldData.date_of_birth) return;
+    if (!fieldData.user_name && !fieldData.date_of_birth) return;
 
     setIsLoading(true);
 
