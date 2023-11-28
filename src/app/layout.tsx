@@ -4,11 +4,13 @@ import { Exo_2 } from 'next/font/google';
 import { cookies } from 'next/headers';
 
 import AuthProvider from '@/components/base/provider/auth-provider';
-import ThemeProvider from '@/components/base/provider/theme-provider';
+import { themeMantine } from '@/styles/themeConfig';
 
+import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
 import '@/styles/globals.scss';
+import '@mantine/core/styles.css';
 
 const inter = Exo_2({ subsets: ['latin'] });
 
@@ -23,14 +25,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang='en'>
+      <head>
+        <ColorSchemeScript defaultColorScheme='auto' />
+      </head>
       <body className={`${inter.className}`} suppressHydrationWarning={true}>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: themeInitializerScript,
-          }}
-        ></script>
         <AuthProvider accessToken={accessToken}>
-          <ThemeProvider>{children}</ThemeProvider>
+          <MantineProvider theme={themeMantine}>{children}</MantineProvider>
         </AuthProvider>
       </body>
     </html>
@@ -38,23 +38,3 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 
 export const dynamic = 'force-dynamic';
-
-const themeInitializer = () => {
-  const persistedThemePreference = window.localStorage.getItem('theme');
-
-  if (persistedThemePreference) {
-    document.body.dataset.theme = window.localStorage.getItem('theme') || 'light';
-    return;
-  }
-
-  const preference = window.matchMedia('(prefers-color-scheme: dark)');
-  const hasMediaQueryPreference = typeof preference.matches === 'boolean';
-
-  if (hasMediaQueryPreference) {
-    document.body.dataset.theme = preference.matches ? 'dark' : 'light';
-    window.localStorage.setItem('theme', preference.matches ? 'dark' : 'light');
-  }
-};
-
-const themeInitializerScript = `(${themeInitializer})();
-`;

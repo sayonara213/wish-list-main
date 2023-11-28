@@ -19,7 +19,7 @@ export const Icon: React.FC<IIconProps> = ({
   logo = false,
 }) => {
   return logo ? (
-    <Image src={IMAGES.logo} alt='Logo' width={24} height={24} priority />
+    <Image src={IMAGES.logo} alt='Logo' width={26} height={26} priority />
   ) : (
     <span
       style={{ fontSize: size }}
