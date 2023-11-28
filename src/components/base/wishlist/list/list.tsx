@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
+import { WishlistAddItem } from './add-item/add-item';
 import { WishlistListItem } from './list-item/list-item';
 import styles from './list.module.scss';
 
@@ -9,6 +10,7 @@ import { Database } from '@/lib/schema';
 import { TWishlist, TWishlistItem } from '@/types/database.types';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Reorder } from 'framer-motion';
 
 interface IWishlistListProps {
   wishlist: TWishlist;
@@ -29,8 +31,6 @@ export const WishlistList: React.FC<IWishlistListProps> = ({ wishlist }) => {
 
     if (!data) return;
 
-    console.log(data);
-
     setIsLoading(false);
     setItems(data);
   };
@@ -41,9 +41,14 @@ export const WishlistList: React.FC<IWishlistListProps> = ({ wishlist }) => {
 
   return (
     <div className={styles.wrapper}>
-      {items.map((item) => (
-        <WishlistListItem item={item} key={item.id} />
-      ))}
+      <WishlistAddItem wishlistId={wishlist.id} />
+      <Reorder.Group values={items} onReorder={setItems} className={styles.list}>
+        {items.map((item) => (
+          <Reorder.Item key={item.id} value={item}>
+            <WishlistListItem item={item} />
+          </Reorder.Item>
+        ))}
+      </Reorder.Group>
     </div>
   );
 };

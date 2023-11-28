@@ -8,14 +8,14 @@ import { WishlistToolbar } from './toolbar/toolbar';
 import { TWishlist } from '@/types/database.types';
 
 interface IWishlistProps {
-  wishlist: TWishlist;
+  wishlist: TWishlist | null;
 }
 
 export const Wishlist: React.FC<IWishlistProps> = ({ wishlist }) => {
   return (
     <main>
       <WishlistToolbar />
-      <WishlistList wishlist={wishlist} />
+      {wishlist ? <WishlistList wishlist={wishlist} /> : <p>Wishlist not found</p>}
     </main>
   );
 };

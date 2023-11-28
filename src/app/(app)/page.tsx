@@ -27,13 +27,12 @@ const App = async () => {
 
   return (
     <div className={styles.container}>
-      {wishlist && <Wishlist wishlist={wishlist} />}
-      <div className={styles.linksWrapper}>
-        <Paragraph size='lg' weight='medium'>
-          Saved Links:
-        </Paragraph>
+      <section className={styles.wishlistWrapper}>
+        <Wishlist wishlist={wishlist} />
+      </section>
+      <section className={styles.linksWrapper}>
         <ShopLinks userId={user?.id!} />
-      </div>
+      </section>
     </div>
   );
 };
