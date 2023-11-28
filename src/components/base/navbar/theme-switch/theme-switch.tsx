@@ -1,10 +1,14 @@
+'use client';
+
 import styles from './theme-switch.module.scss';
 
-import { useTheme } from '@/components/base/provider/theme-provider';
+import { NavbarItem } from '../navbar-item/navbar-item';
+
 import { Icon } from '@/components/ui/icon/icon';
+import { Paragraph } from '@/components/ui/text/text';
 import { classes } from '@/utils/styles';
 
-import { Switch } from '@mantine/core';
+import { Switch, useComputedColorScheme, useMantineColorScheme } from '@mantine/core';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 
 interface IThemeSwitchProps {
@@ -18,44 +22,44 @@ const iconVariants: Variants = {
 };
 
 export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded }) => {
-  const { theme, toggleTheme } = useTheme();
+  const { toggleColorScheme } = useMantineColorScheme();
 
   return (
-    <li className={classes(styles.wrapper, !isExpanded && styles.button)}>
-      <AnimatePresence mode='wait'>
-        {theme === 'dark' ? (
-          <motion.div
-            key='dark_mode'
-            initial='hide'
-            animate='show'
-            exit='hide'
-            variants={iconVariants}
-            className={styles.icon}
-            onClick={toggleTheme}
-          >
-            <Icon name='dark_mode' />
-          </motion.div>
-        ) : (
-          <motion.div
-            key='light_mode'
-            initial='hide'
-            animate='show'
-            exit='hide'
-            variants={iconVariants}
-            className={styles.icon}
-            onClick={toggleTheme}
-          >
-            <Icon name='light_mode' />
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div initial='hide' animate='show' exit='hide' variants={variants}>
-            <Switch checked={theme === 'dark'} onChange={toggleTheme} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <li className={classes(styles.wrapper, styles.button)}>
+      <div className={styles.icon} onClick={toggleColorScheme}>
+        <Icon name='dark_mode' />
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial='hide'
+              animate='show'
+              exit='hide'
+              variants={variants}
+              transition={{ duration: 0.3, delay: 0.15 }}
+              className={styles.span}
+            >
+              <Paragraph weight='medium'>Switch theme</Paragraph>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+      <div className={styles.icon} onClick={toggleColorScheme}>
+        <Icon name='light_mode' />
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial='hide'
+              animate='show'
+              exit='hide'
+              variants={variants}
+              transition={{ duration: 0.3, delay: 0.15 }}
+              className={styles.span}
+            >
+              <Paragraph weight='medium'>Switch theme</Paragraph>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </li>
   );
 };

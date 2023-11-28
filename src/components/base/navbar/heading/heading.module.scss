@@ -48,5 +48,15 @@
   border-radius: 8px;
   user-select: none;
   height: 24px;
-  gap: 8px;
+
+  p {
+    margin-left: 32px;
+  }
+
+  img {
+    width: 24px;
+    height: 24px;
+
+    position: absolute;
+  }
 }

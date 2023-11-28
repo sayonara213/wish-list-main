@@ -15,7 +15,7 @@ export interface IAddLinkForm {
 }
 
 export interface IProfileForm {
-  name: string | undefined;
+  name?: string;
   birthDate?: DateValue;
 
   [key: string]: string | DateValue | undefined;

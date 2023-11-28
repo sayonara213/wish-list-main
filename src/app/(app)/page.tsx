@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 import styles from './app.module.scss';
 
 import { ShopLinks } from '@/components/base/shop-links/shop-links';
+import { Wishlist } from '@/components/base/wishlist/wishlist';
 import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 
@@ -17,8 +18,16 @@ const App = async () => {
     data: { user },
   } = await supabase.auth.getUser();
 
+  const { data: wishlist } = await supabase
+    .from('wishlists')
+    .select()
+    .eq('owner_id', user?.id)
+    .eq('is_shared', false)
+    .single();
+
   return (
     <div className={styles.container}>
+      {wishlist && <Wishlist wishlist={wishlist} />}
       <div className={styles.linksWrapper}>
         <Paragraph size='lg' weight='medium'>
           Saved Links:

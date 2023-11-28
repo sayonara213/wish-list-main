@@ -93,7 +93,7 @@ export const Avatar: React.FC<IAvatarProps> = ({ supabase, profile, setProfile }
         <Icon name='delete' size={16} />
       </div>
       <div className={styles.avatarWrapper} onClick={handleClick}>
-        <LoadingOverlay visible={isUploading} overlayBlur={2} />
+        <LoadingOverlay visible={isUploading} overlayProps={{ blur: 2 }} />
         <div className={styles.upload}>
           <Icon name='upload' size={24} />
         </div>

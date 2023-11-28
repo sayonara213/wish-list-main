@@ -41,9 +41,14 @@
 
 .delete {
   position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   top: -5px;
   right: -5px;
-  padding: 4px;
+  padding: 6px;
   border-radius: var(--radius-full);
   border: 2px solid var(--color-accent);
   background-color: var(--color-accent-dark);

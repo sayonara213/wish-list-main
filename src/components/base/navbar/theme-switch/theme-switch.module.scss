@@ -16,6 +16,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  gap: 8px;
+
+  p {
+    white-space: nowrap;
+  }
+}
+
+[data-mantine-color-scheme='light'] .icon {
+  &:first-child {
+    display: none;
+  }
+}
+
+[data-mantine-color-scheme='dark'] .icon {
+  &:nth-child(2) {
+    display: none;
+  }
 }
 
 .button {
