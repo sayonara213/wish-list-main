@@ -6,7 +6,6 @@ import styles from './app.module.scss';
 
 import { ShopLinks } from '@/components/base/shop-links/shop-links';
 import { Wishlist } from '@/components/base/wishlist/wishlist';
-import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -21,7 +20,7 @@ const App = async () => {
   const { data: wishlist } = await supabase
     .from('wishlists')
     .select()
-    .eq('owner_id', user?.id)
+    .eq('owner_id', user?.id!)
     .eq('is_shared', false)
     .single();
 

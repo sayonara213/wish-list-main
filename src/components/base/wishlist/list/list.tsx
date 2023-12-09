@@ -25,11 +25,9 @@ export const WishlistList: React.FC<IWishlistListProps> = ({ wishlist }) => {
   const fetchItems = async () => {
     const { data, error } = await supabase.from('items').select().eq('wishlist_id', wishlist.id);
 
-    if (error) {
-      console.error('ERROR:', error);
+    if (error || !data) {
+      return;
     }
-
-    if (!data) return;
 
     setIsLoading(false);
     setItems(data);
@@ -42,11 +40,9 @@ export const WishlistList: React.FC<IWishlistListProps> = ({ wishlist }) => {
   return (
     <div className={styles.wrapper}>
       <WishlistAddItem wishlistId={wishlist.id} />
-      <Reorder.Group values={items} onReorder={setItems} className={styles.list}>
+      <Reorder.Group values={items} onReorder={setItems} className={styles.list} axis='y'>
         {items.map((item) => (
-          <Reorder.Item key={item.id} value={item}>
-            <WishlistListItem item={item} />
-          </Reorder.Item>
+          <WishlistListItem item={item} key={item.id} />
         ))}
       </Reorder.Group>
     </div>

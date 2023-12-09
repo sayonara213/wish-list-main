@@ -23,12 +23,16 @@ export const ShopLinks: React.FC<IShopLinksProps> = ({ userId }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchShopLinks = async () => {
-    const { data } = await supabase.from('shops').select().eq('user_id', userId);
+    setIsLoading(true);
 
-    if (!data) return;
-
-    setShopLinks(data);
-    setIsLoading(false);
+    try {
+      const { data } = await supabase.from('shops').select().eq('user_id', userId);
+      if (!data) return;
+      setShopLinks(data);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('ERROR:', error);
+    }
   };
 
   useEffect(() => {
@@ -44,7 +48,7 @@ export const ShopLinks: React.FC<IShopLinksProps> = ({ userId }) => {
   };
 
   return (
-    <AnimatePresence mode='popLayout'>
+    <div>
       <div className={styles.wrapper}>
         <Paragraph size='md' weight='medium'>
           Shops
@@ -53,35 +57,36 @@ export const ShopLinks: React.FC<IShopLinksProps> = ({ userId }) => {
           Save links to your favourite shops!
         </Paragraph>
       </div>
-      {isLoading ? (
-        <ShopLinksLoader />
-      ) : (
-        <motion.ul className={styles.list}>
-          <motion.li
-            layout
-            key={'delete'}
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            transition={{ type: 'spring' }}
-          >
-            <ShopLinksItemAdd addLink={addShopLink} />
-          </motion.li>
-          {shopLinks.map((shop) => (
+      <AnimatePresence mode='popLayout'>
+        {isLoading ? (
+          <motion.div>
+            <ShopLinksLoader />
+          </motion.div>
+        ) : (
+          <motion.ul className={styles.list}>
             <motion.li
-              layout
-              key={shop.id}
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: 'spring' }}
             >
-              <ShopLinksItem shop={shop} deleteLink={deleteShopLink} />
+              <ShopLinksItemAdd addLink={addShopLink} />
             </motion.li>
-          ))}
-        </motion.ul>
-      )}
-    </AnimatePresence>
+            {shopLinks.map((shop) => (
+              <motion.li
+                key={shop.id}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ type: 'spring' }}
+              >
+                <ShopLinksItem shop={shop} deleteLink={deleteShopLink} />
+              </motion.li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 
