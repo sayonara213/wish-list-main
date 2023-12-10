@@ -27,7 +27,7 @@ const App = async () => {
   return (
     <div className={styles.container}>
       <section className={styles.wishlistWrapper}>
-        <Wishlist wishlist={wishlist} />
+        {wishlist ? <Wishlist wishlist={wishlist} /> : <></>}
       </section>
       <section className={styles.linksWrapper}>
         <ShopLinks userId={user?.id!} />

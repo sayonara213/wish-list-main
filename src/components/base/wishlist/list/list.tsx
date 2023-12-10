@@ -6,18 +6,15 @@ import { WishlistAddItem } from './add-item/add-item';
 import { WishlistListItem } from './list-item/list-item';
 import styles from './list.module.scss';
 
+import { useWishlist } from '../../provider/wishlist-provider';
+
 import { Database } from '@/lib/schema';
-import { TWishlist, TWishlistItem } from '@/types/database.types';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Reorder } from 'framer-motion';
 
-interface IWishlistListProps {
-  wishlist: TWishlist;
-}
-
-export const WishlistList: React.FC<IWishlistListProps> = ({ wishlist }) => {
-  const [items, setItems] = useState<TWishlistItem[]>([]);
+export const WishlistList: React.FC = () => {
+  const { items, setItems, wishlist } = useWishlist();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const supabase = createClientComponentClient<Database>();
