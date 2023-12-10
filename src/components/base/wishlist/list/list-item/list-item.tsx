@@ -21,12 +21,34 @@ export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item }) => 
   const controls = useDragControls();
   const boxShadow = useRaisedShadow(y);
 
+  const iRef = React.useRef<HTMLElement | null>(null);
+
+  React.useEffect(() => {
+    const touchHandler: React.TouchEventHandler<HTMLElement> = (e) => e.preventDefault();
+
+    const iTag = iRef.current;
+
+    if (iTag) {
+      //@ts-ignore
+      iTag.addEventListener('touchstart', touchHandler, { passive: false });
+
+      return () => {
+        //@ts-ignore
+        iTag.removeEventListener('touchstart', touchHandler, {
+          passive: false,
+        });
+      };
+    }
+    return;
+  }, [iRef]);
+
   const handleDrag = (event: React.PointerEvent) => {
     controls.start(event);
   };
 
   return (
     <Reorder.Item
+      ref={iRef}
       key={item.id}
       value={item}
       className={styles.wrapper}
@@ -54,7 +76,7 @@ export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item }) => 
           {item.price} USD
         </Paragraph>
         <button onPointerDown={handleDrag} className={styles.dragbtn}>
-          <Icon name='drag_indicator' color='muted' />
+          <Icon name='drag_indicator' color='muted' style={{ touchAction: 'none' }} />
         </button>
       </div>
     </Reorder.Item>

@@ -8,13 +8,13 @@ import { IMAGES } from '@/constants/images';
 interface IIconProps extends React.HTMLAttributes<HTMLParagraphElement> {
   name?: string;
   logo?: boolean;
-  size?: number;
+  size?: string;
   color?: 'link' | 'default' | 'muted';
 }
 
 export const Icon: React.FC<IIconProps> = ({
   name = 'home',
-  size = '24px',
+  size = '16px',
   color = 'default',
   logo = false,
 }) => {
