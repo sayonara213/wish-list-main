@@ -8,13 +8,13 @@ import { IMAGES } from '@/constants/images';
 interface IIconProps extends React.HTMLAttributes<HTMLParagraphElement> {
   name?: string;
   logo?: boolean;
-  size?: string;
+  size?: number;
   color?: 'link' | 'default' | 'muted';
 }
 
 export const Icon: React.FC<IIconProps> = ({
   name = 'home',
-  size = '16px',
+  size = 16,
   color = 'default',
   logo = false,
 }) => {
@@ -22,7 +22,7 @@ export const Icon: React.FC<IIconProps> = ({
     <Image src={IMAGES.logo} alt='Logo' width={24} height={24} priority />
   ) : (
     <span
-      style={{ fontSize: size }}
+      style={{ fontSize: `${size}px` }}
       className={`${styles[color]} material-icons-outlined leading-none`}
     >
       {name}

@@ -58,7 +58,7 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
   return (
     <li className={styles.wrapper} onClick={click}>
       <div className={`${styles.item} ${(onClick || link) && styles.hover}`}>
-        <Icon name={icon} size={'24px'} className='5ms transition-all' />
+        <Icon name={icon} size={24} className='5ms transition-all' />
         <AnimatePresence>
           {isExpanded && (
             <motion.div
