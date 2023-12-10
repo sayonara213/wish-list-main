@@ -3,8 +3,6 @@ import React from 'react';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-import styles from './app-layout.module.scss';
-
 import { Navbar } from '@/components/base/navbar/navbar';
 import { SubNav } from '@/components/base/sub-nav/sub-nav';
 import { Database } from '@/lib/schema';
@@ -29,7 +27,7 @@ const AppLayout = async ({ children }: { children: React.ReactNode }) => {
     <main className={container.container}>
       <Navbar />
       <SubNav profile={profile.data![0]} />
-      <div className={styles.container}>{children}</div>
+      {children}
     </main>
   );
 };

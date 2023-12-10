@@ -23,3 +23,20 @@
   backdrop-filter: blur(12px);
   box-shadow: var(--shadow-smooth);
 }
+
+.pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  user-select: none;
+}
+
+.dragbtn {
+  all: unset;
+
+  cursor: grab;
+  display: flex;
+  align-items: center;
+}

@@ -1,8 +1,8 @@
 export interface IWishlistItemForm {
   name: string;
   price: number;
-  image: string;
-  description: string;
+  description?: string;
+  link: string;
 }
 
 export interface IWishlistForm {

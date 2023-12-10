@@ -26,3 +26,10 @@ export const profileSchema = yup.object().shape(
   },
   [['name', 'name']],
 );
+
+export const wishlistSchema = yup.object({
+  name: yup.string().required(),
+  description: yup.string().optional(),
+  price: yup.number().min(0).required(),
+  link: linkUrl,
+});
