@@ -14,7 +14,7 @@ interface IIconProps extends React.HTMLAttributes<HTMLParagraphElement> {
 
 export const Icon: React.FC<IIconProps> = ({
   name = 'home',
-  size = '24px',
+  size = 16,
   color = 'default',
   logo = false,
 }) => {
@@ -22,7 +22,7 @@ export const Icon: React.FC<IIconProps> = ({
     <Image src={IMAGES.logo} alt='Logo' width={24} height={24} priority />
   ) : (
     <span
-      style={{ fontSize: size }}
+      style={{ fontSize: `${size}px` }}
       className={`${styles[color]} material-icons-outlined leading-none`}
     >
       {name}

@@ -16,7 +16,7 @@ export const WishlistAddItem: React.FC<IWishlistAddItemProps> = ({ wishlistId })
 
   return (
     <>
-      <Modal opened={opened} onClose={close} title='Add new item'>
+      <Modal opened={opened} onClose={close} title='Add new item' centered>
         <WishlistItemForm wishlistId={wishlistId} closeModal={close} />
       </Modal>
       <AddItemButton onClick={open}>Add item</AddItemButton>

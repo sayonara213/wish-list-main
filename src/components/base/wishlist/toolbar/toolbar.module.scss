@@ -7,3 +7,28 @@
 
   border-bottom: 2px solid var(--color-border-transparent);
 }
+
+.button {
+  all: unset;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  cursor: pointer;
+}
+
+.selected {
+  background-color: var(--color-accent-dark);
+}
+
+.dropdown {
+  button {
+    padding: 5px 16px;
+    margin-bottom: 4px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
