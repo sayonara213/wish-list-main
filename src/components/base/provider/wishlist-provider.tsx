@@ -12,10 +12,12 @@ interface IWishlistProviderProps {
 interface IWishlistContext {
   wishlist: TWishlist;
   items: TWishlistItem[];
+  isEditing: boolean;
   setItems: (items: TWishlistItem[]) => void;
   addItem: (item: TWishlistItem) => void;
   deleteItem: (itemId: number) => void;
   updateItem: (item: TWishlistItem) => void;
+  setIsEditing: (isEditing: boolean) => void;
 }
 
 const initialWishlist: IWishlistContext = {
@@ -32,12 +34,15 @@ const initialWishlist: IWishlistContext = {
   addItem: () => {},
   deleteItem: () => {},
   updateItem: () => {},
+  isEditing: false,
+  setIsEditing: () => {},
 };
 
 const WishlistContext = createContext<IWishlistContext>(initialWishlist);
 
 export const WishlistProvider: React.FC<IWishlistProviderProps> = ({ wishlist, children }) => {
   const [items, setItems] = useState<TWishlistItem[]>([]);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const addItem = (item: TWishlistItem) => {
     setItems((prevItems: TWishlistItem[]) => [...prevItems, item]);
@@ -55,7 +60,16 @@ export const WishlistProvider: React.FC<IWishlistProviderProps> = ({ wishlist, c
 
   return (
     <WishlistContext.Provider
-      value={{ wishlist, items, setItems, addItem, deleteItem, updateItem }}
+      value={{
+        wishlist,
+        items,
+        setItems,
+        addItem,
+        deleteItem,
+        updateItem,
+        isEditing,
+        setIsEditing,
+      }}
     >
       {children}
     </WishlistContext.Provider>

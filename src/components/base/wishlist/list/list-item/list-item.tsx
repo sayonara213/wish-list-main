@@ -76,7 +76,7 @@ export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item }) => 
           {item.price} USD
         </Paragraph>
         <button onPointerDown={handleDrag} className={styles.dragbtn}>
-          <Icon name='drag_indicator' color='muted' style={{ touchAction: 'none' }} />
+          <Icon name='drag_indicator' color='muted' size={24} style={{ touchAction: 'none' }} />
         </button>
       </div>
     </Reorder.Item>
