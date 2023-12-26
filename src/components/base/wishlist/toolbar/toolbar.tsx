@@ -8,17 +8,19 @@ import styles from './toolbar.module.scss';
 
 import { useWishlist } from '../../provider/wishlist-provider';
 
-interface IWishlistToolbarProps {
-  ownWishlist?: boolean;
-}
+import { Paragraph } from '@/components/ui/text/text';
+import { toNormalCase } from '@/utils/text';
 
-export const WishlistToolbar: React.FC<IWishlistToolbarProps> = ({ ownWishlist = true }) => {
-  const { isEditing, setIsEditing } = useWishlist();
+export const WishlistToolbar: React.FC = () => {
+  const { isEditing, setIsEditing, wishlist, isOwnWishlist } = useWishlist();
 
   return (
     <div className={styles.wrapper}>
-      <ToolbarSort />
-      {ownWishlist && <ToolbarEdit isEditing={isEditing} setIsEditing={setIsEditing} />}
+      <Paragraph>{toNormalCase(wishlist.title)} wishlist</Paragraph>
+      <div className={styles.pair}>
+        <ToolbarSort />
+        {isOwnWishlist && <ToolbarEdit isEditing={isEditing} setIsEditing={setIsEditing} />}
+      </div>
     </div>
   );
 };

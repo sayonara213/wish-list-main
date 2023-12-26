@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
 
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   border: 2px dashed var(--color-accent-muted);
   background-color: var(--color-primary);
 

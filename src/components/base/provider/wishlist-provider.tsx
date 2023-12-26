@@ -6,6 +6,7 @@ import { TWishlist, TWishlistItem } from '@/types/database.types';
 
 interface IWishlistProviderProps {
   wishlist: TWishlist;
+  isOwn: boolean;
   children: React.ReactNode;
 }
 
@@ -13,6 +14,7 @@ interface IWishlistContext {
   wishlist: TWishlist;
   items: TWishlistItem[];
   isEditing: boolean;
+  isOwnWishlist: boolean;
   setItems: (items: TWishlistItem[]) => void;
   addItem: (item: TWishlistItem) => void;
   deleteItem: (itemId: number) => void;
@@ -30,17 +32,22 @@ const initialWishlist: IWishlistContext = {
     description: null,
   },
   items: [],
+  isOwnWishlist: false,
+  isEditing: false,
   setItems: () => {},
   addItem: () => {},
   deleteItem: () => {},
   updateItem: () => {},
-  isEditing: false,
   setIsEditing: () => {},
 };
 
 const WishlistContext = createContext<IWishlistContext>(initialWishlist);
 
-export const WishlistProvider: React.FC<IWishlistProviderProps> = ({ wishlist, children }) => {
+export const WishlistProvider: React.FC<IWishlistProviderProps> = ({
+  wishlist,
+  children,
+  isOwn,
+}) => {
   const [items, setItems] = useState<TWishlistItem[]>([]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -69,6 +76,7 @@ export const WishlistProvider: React.FC<IWishlistProviderProps> = ({ wishlist, c
         updateItem,
         isEditing,
         setIsEditing,
+        isOwnWishlist: isOwn,
       }}
     >
       {children}

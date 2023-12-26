@@ -11,6 +11,7 @@ import styles from './list.module.scss';
 import { useWishlist } from '../../provider/wishlist-provider';
 
 import { Database } from '@/lib/schema';
+import { TWishlistItem } from '@/types/database.types';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Reorder } from 'framer-motion';
@@ -39,6 +40,26 @@ export const WishlistList: React.FC = () => {
     setItems(data);
   };
 
+  const deleteItem = async (itemId: number) => {
+    const { error, data } = await supabase.from('items').delete().eq('id', itemId);
+
+    console.log(data);
+
+    if (error) {
+      console.log(error);
+
+      return;
+    }
+  };
+
+  const updateItem = async (itemId: number, item: TWishlistItem) => {
+    const { error } = await supabase.from('items').update(item).eq('id', itemId);
+
+    if (error) {
+      return;
+    }
+  };
+
   useEffect(() => {
     fetchItems();
   }, [searchParams]);
@@ -48,7 +69,12 @@ export const WishlistList: React.FC = () => {
       <WishlistAddItem wishlistId={wishlist.id} />
       <Reorder.Group values={items} onReorder={setItems} className={styles.list} axis='y'>
         {items.map((item) => (
-          <WishlistListItem item={item} key={item.id} />
+          <WishlistListItem
+            item={item}
+            key={item.id}
+            deleteServerItem={deleteItem}
+            updateServerItem={updateItem}
+          />
         ))}
       </Reorder.Group>
     </div>

@@ -1,29 +1,33 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
-import Link from 'next/link';
+import { EditSection } from './edit-section/edit-section';
+import ListItemBody from './list-item-body/list-item-body';
 
-import styles from './list-item.module.scss';
-
-import { ShopLinkImage } from '@/components/base/shop-links/shop-links-item/shop-link-image/shop-link-image';
-import { Icon } from '@/components/ui/icon/icon';
-import { Paragraph } from '@/components/ui/text/text';
+import { useWishlist } from '@/components/base/provider/wishlist-provider';
 import { useRaisedShadow } from '@/hooks/use-raised-shdows';
 import { TWishlistItem } from '@/types/database.types';
 
-import { Reorder, useDragControls, useMotionValue } from 'framer-motion';
+import { AnimatePresence, Reorder, useDragControls, useMotionValue } from 'framer-motion';
 
 interface IWishlistListItemProps {
   item: TWishlistItem;
+  deleteServerItem: (itemId: number) => void;
+  updateServerItem: (itemId: number, item: TWishlistItem) => void;
 }
 
-export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item }) => {
+export const WishlistListItem: React.FC<IWishlistListItemProps> = ({
+  item,
+  deleteServerItem,
+  updateServerItem,
+}) => {
   const y = useMotionValue(0);
   const controls = useDragControls();
   const boxShadow = useRaisedShadow(y);
+  const { isEditing, deleteItem } = useWishlist();
 
-  const iRef = React.useRef<HTMLElement | null>(null);
+  const iRef = useRef<HTMLElement | null>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const touchHandler: React.TouchEventHandler<HTMLElement> = (e) => e.preventDefault();
 
     const iTag = iRef.current;
@@ -43,7 +47,17 @@ export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item }) => 
   }, [iRef]);
 
   const handleDrag = (event: React.PointerEvent) => {
-    controls.start(event);
+    event.preventDefault();
+    isEditing && controls.start(event);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteServerItem(item.id);
+      deleteItem(item.id);
+    } catch {
+      console.log('error deleting item');
+    }
   };
 
   return (
@@ -51,34 +65,15 @@ export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item }) => 
       ref={iRef}
       key={item.id}
       value={item}
-      className={styles.wrapper}
       style={{ y, boxShadow }}
-      dragListener={false}
       dragControls={controls}
+      dragListener={false}
     >
-      <div className={styles.pair}>
-        {item.link && (
-          <Link href={item.link}>
-            <ShopLinkImage src={item.link} />
-          </Link>
-        )}
-        <div className={styles.main}>
-          <Paragraph size='base' weight='medium'>
-            {item.name}
-          </Paragraph>
-          <Paragraph size='sm' weight='normal' color='muted'>
-            {item.description}
-          </Paragraph>
-        </div>
-      </div>
-      <div className={styles.pair}>
-        <Paragraph size='md' weight='medium'>
-          {item.price} USD
-        </Paragraph>
-        <button onPointerDown={handleDrag} className={styles.dragbtn}>
-          <Icon name='drag_indicator' color='muted' size={24} style={{ touchAction: 'none' }} />
-        </button>
-      </div>
+      <ListItemBody item={item} isEditing={isEditing}>
+        <AnimatePresence>
+          {isEditing && <EditSection handleDrag={handleDrag} handleDelete={handleDelete} />}
+        </AnimatePresence>
+      </ListItemBody>
     </Reorder.Item>
   );
 };

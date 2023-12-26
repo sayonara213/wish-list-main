@@ -15,7 +15,7 @@ interface IToolbarEditProps {
 export const ToolbarEdit: React.FC<IToolbarEditProps> = ({ isEditing, setIsEditing }) => {
   return (
     <button
-      className={styles.button}
+      className={styles.edit}
       onClick={() => setIsEditing(!isEditing)}
       style={{ position: 'relative' }}
     >
