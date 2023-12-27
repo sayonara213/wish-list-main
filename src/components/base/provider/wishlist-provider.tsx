@@ -6,16 +6,23 @@ import { TWishlist, TWishlistItem } from '@/types/database.types';
 
 interface IWishlistProviderProps {
   wishlist: TWishlist;
+  isOwn: boolean;
   children: React.ReactNode;
 }
 
 interface IWishlistContext {
   wishlist: TWishlist;
   items: TWishlistItem[];
+  isEditing: boolean;
+  isOwnWishlist: boolean;
   setItems: (items: TWishlistItem[]) => void;
   addItem: (item: TWishlistItem) => void;
   deleteItem: (itemId: number) => void;
   updateItem: (item: TWishlistItem) => void;
+  setIsEditing: (isEditing: boolean) => void;
+  orderChanged: boolean;
+  setOrderChanged: (orderChanged: boolean) => void;
+  reorder: (items: TWishlistItem[]) => void;
 }
 
 const initialWishlist: IWishlistContext = {
@@ -28,19 +35,34 @@ const initialWishlist: IWishlistContext = {
     description: null,
   },
   items: [],
+  isOwnWishlist: false,
+  isEditing: false,
   setItems: () => {},
   addItem: () => {},
   deleteItem: () => {},
   updateItem: () => {},
+  setIsEditing: () => {},
+  orderChanged: false,
+  setOrderChanged: () => {},
+  reorder: () => {},
 };
 
 const WishlistContext = createContext<IWishlistContext>(initialWishlist);
 
-export const WishlistProvider: React.FC<IWishlistProviderProps> = ({ wishlist, children }) => {
+export const WishlistProvider: React.FC<IWishlistProviderProps> = ({
+  wishlist,
+  children,
+  isOwn,
+}) => {
   const [items, setItems] = useState<TWishlistItem[]>([]);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [orderChanged, setOrderChanged] = useState<boolean>(false);
 
   const addItem = (item: TWishlistItem) => {
-    setItems((prevItems: TWishlistItem[]) => [...prevItems, item]);
+    setItems((prevItems: TWishlistItem[]) => [
+      ...prevItems,
+      { ...item, priority: prevItems.length - 1 || 0 },
+    ]);
   };
 
   const deleteItem = (itemId: number) => {
@@ -53,9 +75,28 @@ export const WishlistProvider: React.FC<IWishlistProviderProps> = ({ wishlist, c
     );
   };
 
+  const reorder = (items: TWishlistItem[]) => {
+    const reorderedItems = items.map((item, index) => ({ ...item, priority: index }));
+    setItems(reorderedItems);
+    setOrderChanged(true);
+  };
+
   return (
     <WishlistContext.Provider
-      value={{ wishlist, items, setItems, addItem, deleteItem, updateItem }}
+      value={{
+        wishlist,
+        items,
+        setItems,
+        addItem,
+        deleteItem,
+        updateItem,
+        isEditing,
+        setIsEditing,
+        isOwnWishlist: isOwn,
+        orderChanged,
+        setOrderChanged,
+        reorder,
+      }}
     >
       {children}
     </WishlistContext.Provider>

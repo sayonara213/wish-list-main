@@ -3,9 +3,16 @@
   display: flex;
   gap: 16px;
   align-items: center;
+  justify-content: space-between;
   padding-bottom: 18px;
 
   border-bottom: 2px solid var(--color-border-transparent);
+
+  .edit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
 }
 
 .button {
@@ -15,6 +22,17 @@
   align-items: center;
   gap: 4px;
 
+  cursor: pointer;
+}
+
+.edit {
+  all: unset;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  width: 50px;
   cursor: pointer;
 }
 
@@ -31,4 +49,11 @@
       margin-bottom: 0;
     }
   }
+}
+
+.pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 }

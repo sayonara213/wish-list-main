@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import styles from './item-form.module.scss';
 
+import { useWishlist } from '@/components/base/provider/wishlist-provider';
 import { wishlistSchema } from '@/constants/validation';
 import { Database } from '@/lib/schema';
+import { TWishlistItem } from '@/types/database.types';
 import { IWishlistItemForm } from '@/types/wishlist';
 
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,26 +14,65 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useForm } from 'react-hook-form';
 
 interface IWishlistItemFormProps {
-  wishlistId: number;
+  wishlistId?: number;
   closeModal: () => void;
+  isEdit?: boolean;
+  item?: TWishlistItem;
+  optimisticAction?: (item: TWishlistItem) => void;
 }
 
-export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({ wishlistId, closeModal }) => {
+export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({
+  wishlistId,
+  closeModal,
+  isEdit,
+  item,
+  optimisticAction,
+}) => {
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm<IWishlistItemForm>({
+    defaultValues: isEdit
+      ? {
+          name: item?.name,
+          price: item?.price,
+          link: item?.link || undefined,
+          description: item?.description || undefined,
+        }
+      : undefined,
     resolver: yupResolver<IWishlistItemForm>(wishlistSchema),
     mode: 'onBlur',
   });
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const supabase = createClientComponentClient<Database>();
+
+  const { items } = useWishlist();
 
   const onSubmit = async (data: IWishlistItemForm) => {
     try {
-      await supabase.from('items').insert([{ ...data, wishlist_id: wishlistId }]);
+      setIsLoading(true);
+      isEdit && item
+        ? await supabase
+            .from('items')
+            .update({ ...data })
+            .eq('id', item.id)
+        : await supabase
+            .from('items')
+            .insert({ ...data, wishlist_id: wishlistId, priority: items.length });
+      setIsLoading(false);
+      optimisticAction &&
+        optimisticAction({
+          ...item!,
+          name: data.name,
+          price: data.price,
+          link: data.link || null,
+          description: data.description || null,
+        });
       closeModal();
     } catch {}
   };
@@ -58,6 +99,7 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({ wishlistId,
             onBlur={register('price').onBlur}
             ref={register('price').ref}
             error={errors['price']?.message}
+            value={getValues('price')}
             prefix='$'
             min={0}
             max={100000}
@@ -85,7 +127,9 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({ wishlistId,
       >
         <Textarea className={styles.input} {...(register && register('description'))} />
       </Input.Wrapper>
-      <Button type='submit'>Save</Button>
+      <Button type='submit' loading={isLoading}>
+        Save
+      </Button>
     </form>
   );
 };

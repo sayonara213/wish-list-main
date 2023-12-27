@@ -12,6 +12,7 @@ export interface Database {
           link: string | null;
           name: string;
           price: number;
+          priority: number | null;
           wishlist_id: number | null;
         };
         Insert: {
@@ -22,6 +23,7 @@ export interface Database {
           link?: string | null;
           name?: string;
           price: number;
+          priority?: number | null;
           wishlist_id?: number | null;
         };
         Update: {
@@ -32,6 +34,7 @@ export interface Database {
           link?: string | null;
           name?: string;
           price?: number;
+          priority?: number | null;
           wishlist_id?: number | null;
         };
         Relationships: [
@@ -199,13 +202,14 @@ export type Tables<
     ? R
     : never
   : PublicTableNameOrOptions extends keyof (Database['public']['Tables'] &
-      Database['public']['Views'])
-  ? (Database['public']['Tables'] & Database['public']['Views'])[PublicTableNameOrOptions] extends {
-      Row: infer R;
-    }
-    ? R
-    : never
-  : never;
+        Database['public']['Views'])
+    ? (Database['public']['Tables'] &
+        Database['public']['Views'])[PublicTableNameOrOptions] extends {
+        Row: infer R;
+      }
+      ? R
+      : never
+    : never;
 
 export type TablesInsert<
   PublicTableNameOrOptions extends keyof Database['public']['Tables'] | { schema: keyof Database },
@@ -219,12 +223,12 @@ export type TablesInsert<
     ? I
     : never
   : PublicTableNameOrOptions extends keyof Database['public']['Tables']
-  ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
-      Insert: infer I;
-    }
-    ? I
-    : never
-  : never;
+    ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
+        Insert: infer I;
+      }
+      ? I
+      : never
+    : never;
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends keyof Database['public']['Tables'] | { schema: keyof Database },
@@ -238,12 +242,12 @@ export type TablesUpdate<
     ? U
     : never
   : PublicTableNameOrOptions extends keyof Database['public']['Tables']
-  ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
-      Update: infer U;
-    }
-    ? U
-    : never
-  : never;
+    ? Database['public']['Tables'][PublicTableNameOrOptions] extends {
+        Update: infer U;
+      }
+      ? U
+      : never
+    : never;
 
 export type Enums<
   PublicEnumNameOrOptions extends keyof Database['public']['Enums'] | { schema: keyof Database },
@@ -253,5 +257,5 @@ export type Enums<
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions['schema']]['Enums'][EnumName]
   : PublicEnumNameOrOptions extends keyof Database['public']['Enums']
-  ? Database['public']['Enums'][PublicEnumNameOrOptions]
-  : never;
+    ? Database['public']['Enums'][PublicEnumNameOrOptions]
+    : never;

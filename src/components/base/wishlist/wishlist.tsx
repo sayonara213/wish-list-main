@@ -11,12 +11,13 @@ import WishlistProvider from '../provider/wishlist-provider';
 import { TWishlist } from '@/types/database.types';
 
 interface IWishlistProps {
-  wishlist: TWishlist | null;
+  wishlist: TWishlist;
+  isOwnWishlist?: boolean;
 }
 
-export const Wishlist: React.FC<IWishlistProps> = ({ wishlist }) => {
+export const Wishlist: React.FC<IWishlistProps> = ({ wishlist, isOwnWishlist = false }) => {
   return (
-    <WishlistProvider wishlist={wishlist!}>
+    <WishlistProvider wishlist={wishlist!} isOwn={isOwnWishlist}>
       <main className={styles.container}>
         <WishlistToolbar />
         {wishlist ? <WishlistList /> : <p>Wishlist not found</p>}

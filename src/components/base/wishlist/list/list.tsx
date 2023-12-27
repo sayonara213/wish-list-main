@@ -16,7 +16,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Reorder } from 'framer-motion';
 
 export const WishlistList: React.FC = () => {
-  const { items, setItems, wishlist } = useWishlist();
+  const { items, reorder, setItems, wishlist } = useWishlist();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const searchParams = useSearchParams();
 
@@ -39,6 +39,16 @@ export const WishlistList: React.FC = () => {
     setItems(data);
   };
 
+  const deleteItem = async (itemId: number) => {
+    const { error, data } = await supabase.from('items').delete().eq('id', itemId);
+
+    if (error) {
+      console.log(error);
+
+      return;
+    }
+  };
+
   useEffect(() => {
     fetchItems();
   }, [searchParams]);
@@ -46,9 +56,14 @@ export const WishlistList: React.FC = () => {
   return (
     <div className={styles.wrapper}>
       <WishlistAddItem wishlistId={wishlist.id} />
-      <Reorder.Group values={items} onReorder={setItems} className={styles.list} axis='y'>
+      <Reorder.Group values={items} onReorder={reorder} className={styles.list} axis='y'>
         {items.map((item) => (
-          <WishlistListItem item={item} key={item.id} />
+          <WishlistListItem
+            item={item}
+            key={item.id}
+            deleteServerItem={deleteItem}
+            index={item.priority!}
+          />
         ))}
       </Reorder.Group>
     </div>

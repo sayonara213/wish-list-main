@@ -1,3 +1,9 @@
+.container {
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
 .wrapper {
   width: 100%;
   min-height: 60px;
@@ -6,14 +12,21 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: var(--radius-md);
-
+  border-radius: var(--radius-sm);
   background-color: var(--color-secondary);
+
+  transition: all var(--transition-duration) var(--transition-timing-function);
 
   .main {
     display: flex;
     flex-direction: column;
     gap: 6px;
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
@@ -35,8 +48,44 @@
 
 .dragbtn {
   all: unset;
+  position: absolute;
+  padding: 4px 0;
+  border-radius: 4px;
+  background-color: var(--color-accent-muted);
+
+  right: -16px;
 
   cursor: grab;
   display: flex;
   align-items: center;
+}
+
+.editing {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  width: 92%;
+}
+
+.dragitem {
+  border-radius: var(--radius-sm);
+  position: relative;
+}
+
+.fav {
+  background-color: black;
+  &::before {
+    content: '⭐';
+    display: flex;
+    position: absolute;
+    z-index: 2;
+    width: 26px;
+    height: 26px;
+    top: -8px;
+    left: -8px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 12px;
+    background-color: var(--color-primary);
+    border: 2px solid var(--color-secondary);
+  }
 }
