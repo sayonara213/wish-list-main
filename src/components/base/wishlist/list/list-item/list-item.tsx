@@ -12,18 +12,13 @@ import { AnimatePresence, Reorder, useDragControls, useMotionValue } from 'frame
 interface IWishlistListItemProps {
   item: TWishlistItem;
   deleteServerItem: (itemId: number) => void;
-  updateServerItem: (itemId: number, item: TWishlistItem) => void;
 }
 
-export const WishlistListItem: React.FC<IWishlistListItemProps> = ({
-  item,
-  deleteServerItem,
-  updateServerItem,
-}) => {
+export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item, deleteServerItem }) => {
   const y = useMotionValue(0);
   const controls = useDragControls();
   const boxShadow = useRaisedShadow(y);
-  const { isEditing, deleteItem } = useWishlist();
+  const { isEditing, deleteItem, updateItem } = useWishlist();
 
   const iRef = useRef<HTMLElement | null>(null);
 
@@ -71,7 +66,14 @@ export const WishlistListItem: React.FC<IWishlistListItemProps> = ({
     >
       <ListItemBody item={item} isEditing={isEditing}>
         <AnimatePresence>
-          {isEditing && <EditSection handleDrag={handleDrag} handleDelete={handleDelete} />}
+          {isEditing && (
+            <EditSection
+              handleDrag={handleDrag}
+              handleDelete={handleDelete}
+              handleEdit={updateItem}
+              item={item}
+            />
+          )}
         </AnimatePresence>
       </ListItemBody>
     </Reorder.Item>

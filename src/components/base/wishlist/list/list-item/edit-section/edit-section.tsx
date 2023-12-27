@@ -2,25 +2,31 @@ import React from 'react';
 
 import styles from './edit-section.module.scss';
 
+import { WishlistItemForm } from '../../item-form/item-form';
+
 import { ConfirmModal } from '@/components/ui/confirm-modal/confirm-modal';
 import { Icon } from '@/components/ui/icon/icon';
+import { TWishlistItem } from '@/types/database.types';
 
+import { Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { motion } from 'framer-motion';
 
 interface IEditSectionProps {
   handleDrag: (event: React.PointerEvent) => void;
   handleDelete: () => void;
-  handleEdit?: () => void;
-  isEditing?: boolean;
+  handleEdit?: (item: TWishlistItem) => void;
+  item: TWishlistItem;
 }
 
 export const EditSection: React.FC<IEditSectionProps> = ({
   handleDrag,
   handleDelete,
   handleEdit,
+  item,
 }) => {
-  const [opened, { open, close }] = useDisclosure(false);
+  const [openedDelete, { open: openDelete, close: closeDelete }] = useDisclosure(false);
+  const [openedEdit, { open: openEdit, close: closeEdit }] = useDisclosure(false);
 
   return (
     <>
@@ -31,10 +37,10 @@ export const EditSection: React.FC<IEditSectionProps> = ({
         className={styles.wrapper}
       >
         <div className={styles.edit}>
-          <button>
+          <button onClick={openEdit}>
             <Icon name='edit' />
           </button>
-          <button onClick={open}>
+          <button onClick={openDelete}>
             <Icon name='delete' />
           </button>
         </div>
@@ -46,9 +52,12 @@ export const EditSection: React.FC<IEditSectionProps> = ({
         title='Confirmation'
         description={'Are you sure you want to delete this item?'}
         onConfirm={handleDelete}
-        onCancel={close}
-        opened={opened}
+        onCancel={closeDelete}
+        opened={openedDelete}
       />
+      <Modal opened={openedEdit} onClose={closeEdit} title='Add new item' centered>
+        <WishlistItemForm closeModal={closeEdit} isEdit item={item} optimisticAction={handleEdit} />
+      </Modal>
     </>
   );
 };
