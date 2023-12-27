@@ -2,19 +2,26 @@ import React, { useEffect, useRef } from 'react';
 
 import { EditSection } from './edit-section/edit-section';
 import ListItemBody from './list-item-body/list-item-body';
+import styles from './list-item.module.scss';
 
 import { useWishlist } from '@/components/base/provider/wishlist-provider';
 import { useRaisedShadow } from '@/hooks/use-raised-shdows';
 import { TWishlistItem } from '@/types/database.types';
+import { classes } from '@/utils/styles';
 
 import { AnimatePresence, Reorder, useDragControls, useMotionValue } from 'framer-motion';
 
 interface IWishlistListItemProps {
   item: TWishlistItem;
+  index: number;
   deleteServerItem: (itemId: number) => void;
 }
 
-export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item, deleteServerItem }) => {
+export const WishlistListItem: React.FC<IWishlistListItemProps> = ({
+  item,
+  deleteServerItem,
+  index,
+}) => {
   const y = useMotionValue(0);
   const controls = useDragControls();
   const boxShadow = useRaisedShadow(y);
@@ -63,6 +70,7 @@ export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item, delet
       style={{ y, boxShadow }}
       dragControls={controls}
       dragListener={false}
+      className={classes(styles.dragitem, index < 3 && styles.fav)}
     >
       <ListItemBody item={item} isEditing={isEditing}>
         <AnimatePresence>

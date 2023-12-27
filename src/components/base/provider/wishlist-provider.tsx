@@ -20,6 +20,9 @@ interface IWishlistContext {
   deleteItem: (itemId: number) => void;
   updateItem: (item: TWishlistItem) => void;
   setIsEditing: (isEditing: boolean) => void;
+  orderChanged: boolean;
+  setOrderChanged: (orderChanged: boolean) => void;
+  reorder: (items: TWishlistItem[]) => void;
 }
 
 const initialWishlist: IWishlistContext = {
@@ -39,6 +42,9 @@ const initialWishlist: IWishlistContext = {
   deleteItem: () => {},
   updateItem: () => {},
   setIsEditing: () => {},
+  orderChanged: false,
+  setOrderChanged: () => {},
+  reorder: () => {},
 };
 
 const WishlistContext = createContext<IWishlistContext>(initialWishlist);
@@ -50,9 +56,13 @@ export const WishlistProvider: React.FC<IWishlistProviderProps> = ({
 }) => {
   const [items, setItems] = useState<TWishlistItem[]>([]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [orderChanged, setOrderChanged] = useState<boolean>(false);
 
   const addItem = (item: TWishlistItem) => {
-    setItems((prevItems: TWishlistItem[]) => [...prevItems, item]);
+    setItems((prevItems: TWishlistItem[]) => [
+      ...prevItems,
+      { ...item, priority: prevItems.length - 1 || 0 },
+    ]);
   };
 
   const deleteItem = (itemId: number) => {
@@ -63,6 +73,12 @@ export const WishlistProvider: React.FC<IWishlistProviderProps> = ({
     setItems((prevItems: TWishlistItem[]) =>
       prevItems.map((item) => (item.id === updatedItem.id ? updatedItem : item)),
     );
+  };
+
+  const reorder = (items: TWishlistItem[]) => {
+    const reorderedItems = items.map((item, index) => ({ ...item, priority: index }));
+    setItems(reorderedItems);
+    setOrderChanged(true);
   };
 
   return (
@@ -77,6 +93,9 @@ export const WishlistProvider: React.FC<IWishlistProviderProps> = ({
         isEditing,
         setIsEditing,
         isOwnWishlist: isOwn,
+        orderChanged,
+        setOrderChanged,
+        reorder,
       }}
     >
       {children}

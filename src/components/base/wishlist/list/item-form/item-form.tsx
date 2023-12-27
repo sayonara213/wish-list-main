@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import styles from './item-form.module.scss';
 
+import { useWishlist } from '@/components/base/provider/wishlist-provider';
 import { wishlistSchema } from '@/constants/validation';
 import { Database } from '@/lib/schema';
 import { TWishlistItem } from '@/types/database.types';
@@ -50,6 +51,8 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({
 
   const supabase = createClientComponentClient<Database>();
 
+  const { items } = useWishlist();
+
   const onSubmit = async (data: IWishlistItemForm) => {
     try {
       setIsLoading(true);
@@ -58,7 +61,9 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({
             .from('items')
             .update({ ...data })
             .eq('id', item.id)
-        : await supabase.from('items').insert([{ ...data, wishlist_id: wishlistId }]);
+        : await supabase
+            .from('items')
+            .insert({ ...data, wishlist_id: wishlistId, priority: items.length });
       setIsLoading(false);
       optimisticAction &&
         optimisticAction({

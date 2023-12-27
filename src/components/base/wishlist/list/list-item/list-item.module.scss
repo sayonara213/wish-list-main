@@ -64,3 +64,28 @@
   border-radius: var(--radius-sm) 0 0 var(--radius-sm);
   width: 92%;
 }
+
+.dragitem {
+  border-radius: var(--radius-sm);
+  position: relative;
+}
+
+.fav {
+  background-color: black;
+  &::before {
+    content: '⭐';
+    display: flex;
+    position: absolute;
+    z-index: 2;
+    width: 26px;
+    height: 26px;
+    top: -8px;
+    left: -8px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 12px;
+    background-color: var(--color-primary);
+    border: 2px solid var(--color-secondary);
+  }
+}

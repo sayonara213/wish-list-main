@@ -2,9 +2,11 @@ import React from 'react';
 
 import styles from '../toolbar.module.scss';
 
+import { useWishlist } from '@/components/base/provider/wishlist-provider';
 import { Icon } from '@/components/ui/icon/icon';
 import { Paragraph } from '@/components/ui/text/text';
 
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface IToolbarEditProps {
@@ -13,12 +15,30 @@ interface IToolbarEditProps {
 }
 
 export const ToolbarEdit: React.FC<IToolbarEditProps> = ({ isEditing, setIsEditing }) => {
+  const supabase = createClientComponentClient();
+  const { items, orderChanged, setOrderChanged } = useWishlist();
+
+  const handleReorder = async () => {
+    try {
+      if (orderChanged) {
+        setOrderChanged(false);
+        const { data, error } = await supabase.from('items').upsert(items);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleClick = async () => {
+    if (isEditing) {
+      await handleReorder();
+    }
+
+    setIsEditing(!isEditing);
+  };
+
   return (
-    <button
-      className={styles.edit}
-      onClick={() => setIsEditing(!isEditing)}
-      style={{ position: 'relative' }}
-    >
+    <button className={styles.edit} onClick={handleClick} style={{ position: 'relative' }}>
       <AnimatePresence>
         {isEditing ? (
           <motion.div
