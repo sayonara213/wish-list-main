@@ -58,12 +58,7 @@ export const WishlistList: React.FC = () => {
       <WishlistAddItem wishlistId={wishlist.id} />
       <Reorder.Group values={items} onReorder={reorder} className={styles.list} axis='y'>
         {items.map((item) => (
-          <WishlistListItem
-            item={item}
-            key={item.id}
-            deleteServerItem={deleteItem}
-            index={item.priority!}
-          />
+          <WishlistListItem item={item} key={item.id} deleteServerItem={deleteItem} />
         ))}
       </Reorder.Group>
     </div>
