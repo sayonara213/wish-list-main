@@ -3,12 +3,26 @@
   height: 100vh;
 
   display: flex;
+  flex-direction: column;
+  gap: 36px;
   justify-content: center;
   align-items: center;
   padding: 0 18px;
 
   @media (min-width: 992px) {
     padding: 0 100px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    img {
+      width: 46px;
+      height: 46px;
+    }
   }
 }
 
@@ -28,8 +42,9 @@
   flex-direction: column;
   gap: 20px;
 
-  background-color: var(--color-primary);
+  background-color: var(--color-foreground);
   border-radius: var(--radius-lg);
+  border: 2px solid var(--color-border);
   box-shadow: var(--shadow-smooth);
 
   .box {

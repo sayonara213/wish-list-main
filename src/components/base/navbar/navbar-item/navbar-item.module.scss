@@ -9,13 +9,25 @@
   display: flex;
   padding: 8px;
   align-items: center;
-  border-radius: 12px;
+  border-radius: 8px;
+  background-color: var(--color-primary-light);
   gap: 8px;
 
   cursor: pointer;
   user-select: none;
 
   height: 24px;
+
+  @media screen and (max-width: 568px) {
+    background-color: transparent;
+  }
+
+  @media screen and (max-width: 576px) {
+    p,
+    span {
+      color: var(--color-content);
+    }
+  }
 }
 
 .span {

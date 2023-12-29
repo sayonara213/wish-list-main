@@ -38,6 +38,11 @@
 
 .button {
   cursor: pointer;
+  background-color: var(--color-primary-light);
 
   @include hover-item-accent();
+
+  @media screen and (max-width: 568px) {
+    background-color: transparent;
+  }
 }

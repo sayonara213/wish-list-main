@@ -13,7 +13,7 @@ interface ISubNavProps {
 export const SubNav: React.FC<ISubNavProps> = ({ profile }) => {
   return (
     <div className={styles.wrapper}>
-      <Paragraph weight='medium' size='md'>
+      <Paragraph weight='medium' size='md' className={styles.welcome}>
         Welcome back, {profile.user_name} ✨
       </Paragraph>
       <SubNavLinks profile={profile} />

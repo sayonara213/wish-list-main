@@ -58,7 +58,7 @@ export const ShopLinksItem: React.FC<IShopLinksItemProps> = ({ shop, deleteLink 
       onMouseLeave={() => setIsHovered(false)}
     >
       <div onClick={handleDelete} className={styles.delete}>
-        <Icon name='delete' size={16} />
+        <Icon name='delete' size={16} color='default' />
       </div>
 
       <a className={styles.link} href={link_url} target='_blank'>

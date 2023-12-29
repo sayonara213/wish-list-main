@@ -1,11 +1,11 @@
 .wrapper {
-  margin-top: 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
   padding: 12px;
-  background-color: var(--color-primary);
+  background-color: var(--color-foreground);
+  border: 2px solid var(--color-border);
   border-radius: 12px;
 }
 
@@ -13,5 +13,5 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }

@@ -14,10 +14,10 @@ import { toNormalCase } from '@/utils/text';
 import { Menu, MenuDropdown, MenuItem } from '@mantine/core';
 
 const sortOptions = [
+  { value: 'priority', label: 'Priority', icon: 'star' },
   { value: 'name', label: 'Name', icon: 'text_format' },
   { value: 'price', label: 'Price', icon: 'payments' },
   { value: 'created_at', label: 'Date added', icon: 'calendar_today' },
-  { value: 'priority', label: 'Priority', icon: 'star' },
 ];
 
 const orderOptions = [
@@ -37,7 +37,7 @@ export const ToolbarSort: React.FC = () => {
   const searchParams = useSearchParams()!;
 
   const [sort, setSort] = useState<string>(
-    sortOptions.find((option) => option.value === searchParams.get('sort'))?.label || 'Name',
+    sortOptions.find((option) => option.value === searchParams.get('sort'))?.label || 'Priority',
   );
   const [order, setOrder] = useState<string>(
     (searchParams.get('order') && toNormalCase(searchParams.get('order')!)) || 'Asc',

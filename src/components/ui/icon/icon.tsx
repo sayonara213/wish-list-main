@@ -9,7 +9,7 @@ interface IIconProps extends React.HTMLAttributes<HTMLParagraphElement> {
   name?: string;
   logo?: boolean;
   size?: number;
-  color?: 'link' | 'default' | 'muted';
+  color?: 'link' | 'default' | 'muted' | 'white';
 }
 
 export const Icon: React.FC<IIconProps> = ({

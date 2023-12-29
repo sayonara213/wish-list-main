@@ -7,7 +7,7 @@ import { classes } from '@/utils/styles';
 export interface ITextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   children: React.ReactNode;
   size?: 'sm' | 'base' | 'md' | 'bg' | 'lg' | 'title';
-  color?: 'default' | 'muted' | 'link';
+  color?: 'default' | 'muted' | 'link' | 'white';
   weight?: 'normal' | 'medium' | 'bold';
   uppercase?: boolean;
 }

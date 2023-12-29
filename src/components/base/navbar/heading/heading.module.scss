@@ -18,16 +18,12 @@
     border-style: solid;
     border-color: var(--color-primary);
 
-    background-color: var(--color-accent);
+    background-color: var(--color-primary-light);
 
     transition-property: transform;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 500ms;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
-
-  span {
-    color: var(--color-primary);
   }
 
   @media screen and (max-width: 568px) {
@@ -41,22 +37,23 @@
 
 .wrapper {
   box-sizing: content-box;
+  position: relative;
   display: flex;
-  padding: 8px;
   margin-bottom: 16px;
   align-items: center;
   border-radius: 8px;
   user-select: none;
-  height: 24px;
+  height: 32px;
 
   p {
-    margin-left: 32px;
+    margin-left: 42px;
   }
 
   img {
-    width: 24px;
-    height: 24px;
-
     position: absolute;
+
+    left: 4px;
+    width: 32px;
+    height: 32px;
   }
 }

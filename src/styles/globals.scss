@@ -6,7 +6,7 @@ body {
   color: var(--color-white);
   font-weight: var(--width-medium);
 
-  background-color: var(--color-bg);
+  background-color: var(--color-background) !important;
   background-position: center;
   background-image: url('/bg-blur.svg');
   background-size: cover;
