@@ -58,7 +58,7 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
   return (
     <li className={styles.wrapper} onClick={click}>
       <div className={`${styles.item} ${(onClick || link) && styles.hover}`}>
-        <Icon name={icon} size={24} className='5ms transition-all' />
+        <Icon name={icon} size={24} color='white' />
         <AnimatePresence>
           {isExpanded && (
             <motion.div
@@ -69,7 +69,9 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
               transition={{ duration: 0.3, delay: 0.15 }}
               className={styles.span}
             >
-              <Paragraph weight='medium'>{toNormalCase(name)}</Paragraph>
+              <Paragraph weight='medium' color='white'>
+                {toNormalCase(name)}
+              </Paragraph>
             </motion.div>
           )}
         </AnimatePresence>

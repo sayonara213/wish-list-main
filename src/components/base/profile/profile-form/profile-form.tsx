@@ -38,15 +38,24 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
     mode: 'onBlur',
   });
 
+  const formatDate = (date: Date) => {
+    const day = `0${date.getDate()}`.slice(-2);
+    const month = `0${date.getMonth() + 1}`.slice(-2);
+    const year = date.getFullYear();
+    return `${year}-${month}-${day}`; // Returns a date string in 'YYYY-MM-DD' format
+  };
+
   const onSubmit = async (data: IProfileForm) => {
     const fieldData = {
       ...(data.name && { user_name: toNormalCase(data.name) }),
-      ...(data.birthDate && { date_of_birth: data.birthDate.toLocaleDateString() }),
+      ...(data.birthDate && { date_of_birth: formatDate(data.birthDate) }),
     };
 
     if (!fieldData.user_name && !fieldData.date_of_birth) return;
 
     setIsLoading(true);
+
+    console.log(fieldData);
 
     try {
       await supabase.from('profiles').update(fieldData).eq('id', profile.id);

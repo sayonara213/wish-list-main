@@ -8,6 +8,8 @@ import styles from './auth.module.scss';
 import { SignIn } from './sign-in/sign-in';
 import { SignUp } from './sign-up/sign-up';
 
+import { Icon } from '@/components/ui/icon/icon';
+import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 import { IAuthForm } from '@/types/form.types';
 
@@ -69,6 +71,12 @@ const Auth: React.FC = () => {
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.logo}>
+        <Icon logo />
+        <Paragraph size='title' weight='bold'>
+          Wishy
+        </Paragraph>
+      </div>
       <div className={styles.container}>
         <Swiper
           effect={'flip'}

@@ -11,3 +11,9 @@
     padding: 0;
   }
 }
+
+.welcome {
+  @media screen and (max-width: 568px) {
+    display: none;
+  }
+}

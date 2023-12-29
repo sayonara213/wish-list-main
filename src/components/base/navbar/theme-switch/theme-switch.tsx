@@ -20,7 +20,7 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
   return (
     <li className={classes(styles.wrapper, styles.button)}>
       <div className={styles.icon} onClick={toggleColorScheme}>
-        <Icon name='dark_mode' size={24} />
+        <Icon name='dark_mode' size={24} color='white' />
         <AnimatePresence>
           {isExpanded && (
             <motion.div
@@ -31,13 +31,15 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
               transition={{ duration: 0.3, delay: 0.15 }}
               className={styles.span}
             >
-              <Paragraph weight='medium'>Switch theme</Paragraph>
+              <Paragraph weight='medium' color='white'>
+                Switch theme
+              </Paragraph>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
       <div className={styles.icon} onClick={toggleColorScheme}>
-        <Icon name='light_mode' size={24} />
+        <Icon name='light_mode' size={24} color='white' />
         <AnimatePresence>
           {isExpanded && (
             <motion.div
@@ -48,7 +50,9 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded 
               transition={{ duration: 0.3, delay: 0.15 }}
               className={styles.span}
             >
-              <Paragraph weight='medium'>Switch theme</Paragraph>
+              <Paragraph weight='medium' color='white'>
+                Switch theme
+              </Paragraph>
             </motion.div>
           )}
         </AnimatePresence>

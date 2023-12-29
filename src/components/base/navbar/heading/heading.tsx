@@ -17,14 +17,14 @@ export const Heading: React.FC<IHeadingProps> = ({ variants, isExpanded, toggleN
   return (
     <div className={styles.heading}>
       <button onClick={toggleNav} className={isExpanded ? '' : styles.rotate}>
-        <Icon name='arrow_left' color='muted' />
+        <Icon name='arrow_left' color='white' size={20} />
       </button>
       <div className={styles.wrapper}>
         <Icon logo />
         <AnimatePresence>
           {isExpanded && (
             <motion.div initial='hide' animate='show' exit='hide' variants={variants}>
-              <Paragraph size='lg' weight='bold'>
+              <Paragraph size='lg' weight='bold' color='white'>
                 Wishy
               </Paragraph>
             </motion.div>

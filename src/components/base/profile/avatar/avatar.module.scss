@@ -6,10 +6,10 @@
 
 .avatarWrapper {
   border-radius: 50%;
-  border: 2px solid var(--color-accent);
+  border: 2px solid var(--color-border);
   padding: 2px;
   position: relative;
-  background-color: var(--color-primary);
+  background-color: var(--color-foreground);
 
   overflow: hidden;
   box-shadow: var(--shadow-smooth);
@@ -64,8 +64,8 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background-color: var(--color-primary);
-  border: 2px solid var(--color-accent);
+  background-color: var(--color-foreground);
+  border: 2px solid var(--color-border);
   color: var(--color-primary);
   display: flex;
   justify-content: center;

@@ -17,8 +17,8 @@
   position: relative;
   text-decoration: none;
 
-  background-color: var(--color-primary);
-  border: 2px solid var(--color-accent);
+  background-color: var(--color-foreground);
+  border: 2px solid var(--color-border);
 
   @include hover-item-accent();
 }

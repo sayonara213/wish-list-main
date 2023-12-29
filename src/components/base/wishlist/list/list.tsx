@@ -27,7 +27,7 @@ export const WishlistList: React.FC = () => {
       .from('items')
       .select()
       .eq('wishlist_id', wishlist.id)
-      .order(searchParams.get('sort') || 'name', {
+      .order(searchParams.get('sort') || 'priority', {
         ascending: searchParams.get('order') === 'asc' || searchParams.has('order') === false,
       });
 

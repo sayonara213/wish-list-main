@@ -2,8 +2,10 @@
   max-width: 400px;
   width: 100%;
   padding: 78px 20px 20px 20px;
+  margin-top: 46px;
 
-  background-color: var(--color-primary);
+  background-color: var(--color-foreground);
+  border: 2px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-smooth);
 
