@@ -11,6 +11,14 @@ interface IIconProps extends React.HTMLAttributes<HTMLImageElement> {
 
 export const CustomIcon: React.FC<IIconProps> = ({ name, size = 16, onClick }) => {
   return (
-    <Image src={IMAGES[name]} alt='icon' width={size} height={size} priority onClick={onClick} />
+    <Image
+      src={IMAGES[name]}
+      alt='icon'
+      width={size}
+      height={size}
+      priority
+      onClick={onClick}
+      style={onClick && { cursor: 'pointer' }}
+    />
   );
 };

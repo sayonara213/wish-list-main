@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { BurgerNav } from './burger/burger';
 import { NavbarBody } from './navbar-body/navbar-body';
 import styles from './navbar.module.scss';
-import { NavbarWishlists } from './wishlists/wishlists';
+import { NavbarUserSearch } from './wishlists/user-search';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { motion } from 'framer-motion';
@@ -24,11 +24,21 @@ export interface INavbarItem {
 }
 
 export const Navbar = () => {
-  const [wishlists, setWishlists] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const supabase = createClientComponentClient();
+
+  const navbarItems: INavbarItem[] = [
+    { name: 'home', icon: 'home', link: '/' },
+    { name: 'profile', icon: 'person', link: '/profile' },
+    {
+      name: 'friends',
+      icon: 'diversity_1',
+      children: <NavbarUserSearch />,
+    },
+    { name: 'notifications', icon: 'notifications', link: '/notifications' },
+  ];
 
   const toggleNav = () => {
     setIsExpanded(!isExpanded);
@@ -46,35 +56,6 @@ export const Navbar = () => {
       console.error('ERROR:', error);
     }
   }
-
-  const fetchWishlists = async () => {
-    setIsLoading(true);
-
-    const { data, error } = await supabase.from('wishlists').select('*');
-    if (error) {
-      console.error('ERROR:', error);
-    }
-
-    if (!data) return;
-
-    setWishlists(data);
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    fetchWishlists();
-  }, []);
-
-  const navbarItems: INavbarItem[] = [
-    { name: 'home', icon: 'home', link: '/' },
-    { name: 'profile', icon: 'person', link: '/profile' },
-    {
-      name: 'personal wishlists',
-      icon: 'feed',
-      children: <NavbarWishlists wishlists={wishlists} />,
-    },
-    { name: 'shared wishlists', icon: 'favorite' },
-  ];
 
   return (
     <>

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { Avatar } from './avatar/avatar';
+import { ProfileAvatar } from './avatar/avatar';
 import { ProfileForm } from './profile-form/profile-form';
 import styles from './profile.module.scss';
 
@@ -55,7 +55,7 @@ export const Profile: React.FC<IProfileProps> = ({ user }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.avatar}>
-        <Avatar supabase={supabase} profile={profile} setProfile={setProfile} />
+        <ProfileAvatar supabase={supabase} profile={profile} setProfile={setProfile} />
       </div>
       <div className={styles.usernameWrapper}>
         {isLoading ? (
