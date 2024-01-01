@@ -3,6 +3,48 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export interface Database {
   public: {
     Tables: {
+      friendships: {
+        Row: {
+          created_at: string;
+          friend_id: string | null;
+          id: number;
+          status: Database['public']['Enums']['friendship_status'];
+          updated_at: string;
+          user_id: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          friend_id?: string | null;
+          id?: number;
+          status?: Database['public']['Enums']['friendship_status'];
+          updated_at?: string;
+          user_id?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          friend_id?: string | null;
+          id?: number;
+          status?: Database['public']['Enums']['friendship_status'];
+          updated_at?: string;
+          user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'friendships_friend_id_fkey';
+            columns: ['friend_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'friendships_user_id_fkey';
+            columns: ['user_id'];
+            isOneToOne: false;
+            referencedRelation: 'profiles';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       items: {
         Row: {
           created_at: string;
@@ -67,32 +109,24 @@ export interface Database {
       };
       profiles: {
         Row: {
-          avatar_url: string | null;
+          avatar_url: string;
           date_of_birth: string | null;
           id: string;
           user_name: string;
         };
         Insert: {
-          avatar_url?: string | null;
+          avatar_url?: string;
           date_of_birth?: string | null;
           id: string;
           user_name: string;
         };
         Update: {
-          avatar_url?: string | null;
+          avatar_url?: string;
           date_of_birth?: string | null;
           id?: string;
           user_name?: string;
         };
-        Relationships: [
-          {
-            foreignKeyName: 'profiles_id_fkey';
-            columns: ['id'];
-            isOneToOne: true;
-            referencedRelation: 'users';
-            referencedColumns: ['id'];
-          },
-        ];
+        Relationships: [];
       };
       shops: {
         Row: {
@@ -176,9 +210,20 @@ export interface Database {
         };
         Returns: Record<string, unknown>;
       };
+      get_user_friends: {
+        Args: {
+          current_user_id: string;
+        };
+        Returns: {
+          avatar_url: string;
+          date_of_birth: string | null;
+          id: string;
+          user_name: string;
+        }[];
+      };
     };
     Enums: {
-      [_ in never]: never;
+      friendship_status: 'pending' | 'accepted' | 'declined' | 'blocked';
     };
     CompositeTypes: {
       [_ in never]: never;

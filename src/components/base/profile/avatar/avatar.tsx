@@ -18,7 +18,7 @@ interface IAvatarProps {
   setProfile: (profile: TProfile) => void;
 }
 
-export const Avatar: React.FC<IAvatarProps> = ({ supabase, profile, setProfile }) => {
+export const ProfileAvatar: React.FC<IAvatarProps> = ({ supabase, profile, setProfile }) => {
   const [avatar, setAvatar] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
