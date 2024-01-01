@@ -28,4 +28,6 @@ const NotificationsPage = async () => {
   return <Notifications friendships={notifications} />;
 };
 
+export const dynamic = 'force-dynamic';
+
 export default NotificationsPage;

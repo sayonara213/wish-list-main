@@ -1,37 +1,41 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import styles from './user-search.module.scss';
-import { NavbarUserSearchItem } from './wishlists-item/user-search-item';
+import { NavbarUserSearchItem } from './users-search-item/user-search-item';
 
 import { Database } from '@/lib/schema';
 import { TProfile } from '@/types/database.types';
 
-import { Loader, TextInput } from '@mantine/core';
+import { Text } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
-const paginationStep = 3;
+interface INavbarUserSearchProps {
+  query: string;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoading: boolean;
+}
 
-export const NavbarUserSearch: React.FC = () => {
+const paginationStep = 4;
+
+export const NavbarUserSearch: React.FC<INavbarUserSearchProps> = ({
+  query,
+  setIsLoading,
+  isLoading,
+}) => {
   const [users, setUsers] = useState<TProfile[]>([]);
 
-  const [query, setQuery] = useState('');
   const [debounced] = useDebouncedValue(query, 200);
   const [pagination, setPagination] = useState({ from: 0, to: paginationStep });
   const [isEnd, setIsEnd] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const supabase = createClientComponentClient<Database>();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-  };
-
   const fetchUsers = async (query: string, from: number, to: number) => {
     try {
-      if (query.length < 1) return;
+      if (query.length < 2) return;
 
       const { data } = await supabase
         .from('profiles')
@@ -64,7 +68,6 @@ export const NavbarUserSearch: React.FC = () => {
   }, [debounced, pagination]);
 
   useEffect(() => {
-    setIsLoading(true);
     setPagination({ from: 0, to: paginationStep });
     setUsers([]);
     setIsEnd(false);
@@ -90,16 +93,22 @@ export const NavbarUserSearch: React.FC = () => {
     };
   }, [scrollRef]);
 
+  const noResults = query.length > 1 && users.length < 1 && !isLoading;
+
+  const noQuery = query.length < 2;
+
   return (
     <div className={styles.wrapper} ref={scrollRef}>
-      <div className={styles.input}>
-        <TextInput
-          onChange={handleChange}
-          value={query}
-          placeholder='Search for people...'
-          {...(isLoading && { rightSection: <Loader size={16} /> })}
-        />
-      </div>
+      {noResults && (
+        <div className={styles.errors}>
+          <Text size='sm'>No users found</Text>
+        </div>
+      )}
+      {noQuery && (
+        <div className={styles.errors}>
+          <Text size='sm'>Search for users by user name</Text>
+        </div>
+      )}
 
       {users.map((user) => (
         <NavbarUserSearchItem profile={user} key={user.id} />

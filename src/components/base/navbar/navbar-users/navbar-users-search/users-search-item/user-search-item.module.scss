@@ -1,8 +1,9 @@
 @import '@/styles/mixins';
 
 .item {
-  width: 100%;
-  margin-top: 8px;
+  padding: 4px;
+  margin-bottom: 4px;
+  border-radius: var(--radius-sm);
 
   display: flex;
   align-items: center;
@@ -20,4 +21,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  width: 85%;
+
+  p {
+    color: var(--color-text) !important;
+  }
 }

@@ -7,17 +7,21 @@ import styles from './user-search-item.module.scss';
 import { useAuth } from '@/components/base/provider/auth-provider';
 import { Avatar } from '@/components/ui/avatar/avatar';
 import { CustomIcon } from '@/components/ui/icon/custom-icon';
-import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 import { TProfile } from '@/types/database.types';
 
+import { Text } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 interface INavbarUserSearchItemProps {
   profile: TProfile;
+  isFriend?: boolean;
 }
 
-export const NavbarUserSearchItem: React.FC<INavbarUserSearchItemProps> = ({ profile }) => {
+export const NavbarUserSearchItem: React.FC<INavbarUserSearchItemProps> = ({
+  profile,
+  isFriend = false,
+}) => {
   const supabase = createClientComponentClient<Database>();
   const user = useAuth();
 
@@ -41,11 +45,11 @@ export const NavbarUserSearchItem: React.FC<INavbarUserSearchItemProps> = ({ pro
     <div className={styles.item}>
       <Link href={`/profile/${profile.id}`} className={styles.info}>
         <Avatar src={profile.avatar_url!} size={36} />
-        <Paragraph size='sm' color='white'>
+        <Text size='sm' c={'white'} truncate>
           {profile.user_name}
-        </Paragraph>
+        </Text>
       </Link>
-      <CustomIcon name='heart' onClick={handleAddFriend} />
+      {!isFriend && <CustomIcon name='heart' onClick={handleAddFriend} />}
     </div>
   );
 };

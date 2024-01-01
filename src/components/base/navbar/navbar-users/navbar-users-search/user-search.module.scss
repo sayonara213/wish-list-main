@@ -1,11 +1,7 @@
 .wrapper {
-  position: relative;
-  max-height: 170px;
-
+  height: 186px;
   overflow-y: scroll;
-
-  padding: 0 8px;
-  border-left: solid 2px var(--color-border-secondary);
+  padding-right: 8px;
 
   a {
     text-decoration: none;
@@ -35,9 +31,14 @@
   margin-bottom: 4px;
 }
 
-.input {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background-color: var(--color-primary);
+.errors {
+  width: 100%;
+  display: flex;
+  padding: 8px;
+
+  text-align: center;
+
+  p {
+    width: 100%;
+  }
 }

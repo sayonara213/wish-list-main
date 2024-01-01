@@ -24,12 +24,7 @@ export const BurgerNav: React.FC<IBurgerProps> = ({ navbarItems, textVariants, h
 
   return (
     <>
-      <Drawer
-        opened={open}
-        onClose={() => setOpen(false)}
-        title='menu'
-        overlayProps={{ backgroundOpacity: 0.3, blur: 1 }}
-      >
+      <Drawer opened={open} onClose={() => setOpen(false)} title='menu'>
         <NavbarBody
           isExpanded={open}
           textVariants={textVariants}

@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { BurgerNav } from './burger/burger';
 import { NavbarBody } from './navbar-body/navbar-body';
+import { NavbarUsers } from './navbar-users/navbar-users';
+import { NavbarUserSearch } from './navbar-users/navbar-users-search/user-search';
 import styles from './navbar.module.scss';
-import { NavbarUserSearch } from './wishlists/user-search';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { motion } from 'framer-motion';
@@ -35,7 +36,7 @@ export const Navbar = () => {
     {
       name: 'friends',
       icon: 'diversity_1',
-      children: <NavbarUserSearch />,
+      children: <NavbarUsers />,
     },
     { name: 'notifications', icon: 'notifications', link: '/notifications' },
   ];

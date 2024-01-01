@@ -210,6 +210,17 @@ export interface Database {
         };
         Returns: Record<string, unknown>;
       };
+      get_user_friends: {
+        Args: {
+          current_user_id: string;
+        };
+        Returns: {
+          avatar_url: string;
+          date_of_birth: string | null;
+          id: string;
+          user_name: string;
+        }[];
+      };
     };
     Enums: {
       friendship_status: 'pending' | 'accepted' | 'declined' | 'blocked';

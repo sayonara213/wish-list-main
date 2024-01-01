@@ -25,7 +25,6 @@ const liVariants = {
   show: {
     opacity: 1,
     marginTop: '8px',
-    marginLeft: '10px',
     height: 'auto',
     transition: { duration: 0.3, delay: 0.4, ease: 'easeInOut' },
   },
@@ -56,8 +55,8 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
   };
 
   return (
-    <li className={styles.wrapper} onClick={click}>
-      <div className={`${styles.item} ${(onClick || link) && styles.hover}`}>
+    <li className={styles.wrapper}>
+      <div className={`${styles.item} ${(onClick || link) && styles.hover}`} onClick={click}>
         <Icon name={icon} size={24} color='white' />
         <AnimatePresence>
           {isExpanded && (

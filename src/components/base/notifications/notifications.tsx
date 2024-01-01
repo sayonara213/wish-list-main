@@ -6,7 +6,6 @@ import { NotificationsItem } from './notifications-item/notifications-item';
 import styles from './notifications.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
-import { Paragraph } from '@/components/ui/text/text';
 import { TFriendship, TProfile } from '@/types/database.types';
 
 import { Text } from '@mantine/core';
