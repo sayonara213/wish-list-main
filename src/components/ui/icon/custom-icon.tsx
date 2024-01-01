@@ -7,6 +7,7 @@ import { IMAGES, TImage } from '@/constants/images';
 interface IIconProps extends React.HTMLAttributes<HTMLImageElement> {
   name: TImage;
   size?: number;
+  onClick?: () => void;
 }
 
 export const CustomIcon: React.FC<IIconProps> = ({ name, size = 16, onClick }) => {

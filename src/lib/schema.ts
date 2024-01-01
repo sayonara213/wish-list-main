@@ -110,21 +110,27 @@ export interface Database {
       profiles: {
         Row: {
           avatar_url: string;
-          date_of_birth: string | null;
+          bio: string | null;
+          date_of_birth: string;
+          full_name: string;
           id: string;
-          user_name: string;
+          user_name: string | null;
         };
         Insert: {
           avatar_url?: string;
-          date_of_birth?: string | null;
+          bio?: string | null;
+          date_of_birth: string;
+          full_name?: string;
           id: string;
-          user_name: string;
+          user_name?: string | null;
         };
         Update: {
           avatar_url?: string;
-          date_of_birth?: string | null;
+          bio?: string | null;
+          date_of_birth?: string;
+          full_name?: string;
           id?: string;
-          user_name?: string;
+          user_name?: string | null;
         };
         Relationships: [];
       };
@@ -152,7 +158,7 @@ export interface Database {
             foreignKeyName: 'shops_user_id_fkey';
             columns: ['user_id'];
             isOneToOne: false;
-            referencedRelation: 'users';
+            referencedRelation: 'profiles';
             referencedColumns: ['id'];
           },
         ];
@@ -216,9 +222,11 @@ export interface Database {
         };
         Returns: {
           avatar_url: string;
-          date_of_birth: string | null;
+          bio: string | null;
+          date_of_birth: string;
+          full_name: string;
           id: string;
-          user_name: string;
+          user_name: string | null;
         }[];
       };
     };

@@ -30,7 +30,7 @@ export const NavbarFriendsSearch: React.FC<INavbarFriendsSearchProps> = ({
     try {
       const { data } = await supabase
         .rpc('get_user_friends', { current_user_id: user.id })
-        .ilike('user_name', `%${query}%`);
+        .or(`user_name.ilike.%${query}%,full_name.ilike.%${query}%`);
       return data;
     } catch (error) {
       console.log('error', error);

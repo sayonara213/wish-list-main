@@ -17,16 +17,24 @@ const AppLayout = async ({ children }: { children: React.ReactNode }) => {
     data: { user },
   } = await supabase.auth.getUser();
 
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select()
+    .eq('id', user?.id!)
+    .single();
+
   if (!user) {
     redirect('/auth');
   }
 
-  const profile = await supabase.from('profiles').select().eq('id', user.id);
+  if (!profile) {
+    redirect('/auth/one-more-step');
+  }
 
   return (
     <main className={container.container}>
       <Navbar />
-      <SubNav profile={profile.data![0]} />
+      <SubNav profile={profile!} />
       {children}
     </main>
   );

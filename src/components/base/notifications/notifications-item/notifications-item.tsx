@@ -3,11 +3,15 @@ import React from 'react';
 import styles from './notifications-item.module.scss';
 
 import { Avatar } from '@/components/ui/avatar/avatar';
+import { Icon } from '@/components/ui/icon/icon';
 import { Database } from '@/lib/schema';
 import { TFriendship, TProfile } from '@/types/database.types';
+import { toNormalCase } from '@/utils/text';
+import { notify } from '@/utils/toast';
 
-import { Button, Text } from '@mantine/core';
+import { Text } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { formatDistanceToNow } from 'date-fns';
 
 interface IFiriendshipProfile extends TFriendship {
   profiles: TProfile | null;
@@ -15,23 +19,32 @@ interface IFiriendshipProfile extends TFriendship {
 
 interface INotificationsItemProps {
   notification: IFiriendshipProfile;
+  hideNotification: (id: number) => void;
 }
 
-export const NotificationsItem: React.FC<INotificationsItemProps> = ({ notification }) => {
+export const NotificationsItem: React.FC<INotificationsItemProps> = ({
+  notification,
+  hideNotification,
+}) => {
   const supabase = createClientComponentClient<Database>();
 
   const handleAction = async (status: TFriendship['status']) => {
-    try {
-      const { error } = await supabase
-        .from('friendships')
-        .update({ status: status })
-        .eq('id', notification.id);
-      if (error) {
-        console.error('ERROR:', error);
-      }
-    } catch (error) {
-      console.log('error', error);
+    const { error } = await supabase
+      .from('friendships')
+      .update({ status: status })
+      .eq('id', notification.id);
+
+    if (error) {
+      notify('error', 'Error accepting request');
+      return;
     }
+
+    notify('success', 'Friend request accepted');
+    hideNotification(notification.id);
+  };
+
+  const formatDateToNow = (date: string) => {
+    return formatDistanceToNow(new Date(date), { addSuffix: true });
   };
 
   if (!notification.profiles) return null;
@@ -43,17 +56,14 @@ export const NotificationsItem: React.FC<INotificationsItemProps> = ({ notificat
         <div className={styles.col}>
           <Text size='md'>You have a new friend request</Text>
           <Text size='sm' c='dimmed'>
-            {notification.profiles.user_name} wants to be your friend
+            {toNormalCase(notification.profiles.full_name)} wants to be your friend.{' '}
+            {formatDateToNow(notification.created_at)}
           </Text>
         </div>
       </div>
       <div className={styles.right}>
-        <Text size='sm' c='dimmed'>
-          {new Date(notification.created_at).toLocaleString()}
-        </Text>
-        <Button onClick={() => handleAction('accepted')}>Accept</Button>
-        <Button onClick={() => handleAction('declined')}>Decline</Button>
-        <Button onClick={() => handleAction('blocked')}>Block</Button>
+        <Icon onClick={() => handleAction('accepted')} name='done' />
+        <Icon onClick={() => handleAction('declined')} name='close' />
       </div>
     </div>
   );

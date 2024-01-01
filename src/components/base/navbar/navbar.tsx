@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import { BurgerNav } from './burger/burger';
 import { NavbarBody } from './navbar-body/navbar-body';
 import { NavbarUsers } from './navbar-users/navbar-users';
-import { NavbarUserSearch } from './navbar-users/navbar-users-search/user-search';
 import styles from './navbar.module.scss';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -25,7 +24,6 @@ export interface INavbarItem {
 }
 
 export const Navbar = () => {
-  const [isLoading, setIsLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
 
   const supabase = createClientComponentClient();

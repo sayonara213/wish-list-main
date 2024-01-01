@@ -59,7 +59,6 @@ export const SignIn: React.FC<IAuthFormProps> = ({ next, handleSignIn, isLoading
           <Paragraph size='sm' style={{ width: '100%', textAlign: 'center' }} color='muted'>
             Or try swiping this card {':)'}
           </Paragraph>
-          <ThemeSwitch isExpanded />
         </div>
       </div>
     </form>
