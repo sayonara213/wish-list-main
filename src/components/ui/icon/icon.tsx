@@ -17,6 +17,7 @@ export const Icon: React.FC<IIconProps> = ({
   size = 16,
   color = 'default',
   logo = false,
+  onClick,
 }) => {
   return logo ? (
     <Image src={IMAGES.logo} alt='Logo' width={24} height={24} priority />
@@ -24,6 +25,7 @@ export const Icon: React.FC<IIconProps> = ({
     <span
       style={{ fontSize: `${size}px` }}
       className={`${styles[color]} material-icons-outlined leading-none`}
+      onClick={onClick}
     >
       {name}
     </span>

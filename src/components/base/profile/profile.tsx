@@ -6,12 +6,13 @@ import { ProfileAvatar } from './avatar/avatar';
 import { ProfileForm } from './profile-form/profile-form';
 import styles from './profile.module.scss';
 
+import { BirthDate } from '@/components/ui/birth-date/birth-date';
 import { Icon } from '@/components/ui/icon/icon';
 import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 import { TProfile } from '@/types/database.types';
 
-import { Skeleton } from '@mantine/core';
+import { Skeleton, Text } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { User } from '@supabase/supabase-js';
 
@@ -65,11 +66,13 @@ export const Profile: React.FC<IProfileProps> = ({ user }) => {
           </>
         ) : (
           <>
-            <Paragraph>{profile.user_name}</Paragraph>
-            <div className={styles.bday}>
-              <Icon color='muted' name='cake' size={18} />
-              <Paragraph color='muted'>{formattedDate}</Paragraph>
-            </div>
+            <Text size='lg'>{profile.full_name}</Text>
+            {profile.user_name && (
+              <Text c={'dimmed'} size='sm'>
+                @{profile.user_name}
+              </Text>
+            )}
+            <BirthDate birthDate={profile.date_of_birth} style={{ marginTop: 12 }} />
           </>
         )}
       </div>

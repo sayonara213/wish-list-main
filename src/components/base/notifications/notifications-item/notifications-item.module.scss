@@ -1,6 +1,7 @@
 .wrapper {
   width: 100%;
   display: flex;
+  position: relative;
 
   padding: 12px;
   border-radius: var(--radius-sm);
@@ -8,22 +9,54 @@
   background-color: var(--color-foreground);
   align-items: center;
   justify-content: space-between;
+
+  @media screen and (max-width: 568px) {
+    border: none;
+    padding: 0;
+  }
 }
 
 .col {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
+
+  @media screen and (max-width: 568px) {
+    gap: 4px;
+  }
 }
 
 .left {
   display: flex;
   align-items: center;
   gap: 12px;
+
+  width: 90%;
+  @media screen and (max-width: 568px) {
+    p {
+      font-size: 12px;
+    }
+  }
 }
 
 .right {
   display: flex;
   align-items: center;
   gap: 12px;
+
+  span {
+    cursor: pointer;
+  }
+}
+
+.inline {
+  display: flex;
+  gap: 3px;
+}
+
+.date {
+  display: inline;
+  margin-left: 3px;
+  opacity: 0.6;
 }

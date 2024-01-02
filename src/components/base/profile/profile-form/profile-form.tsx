@@ -10,12 +10,11 @@ import { profileSchema } from '@/constants/validation';
 import { TProfile } from '@/types/database.types';
 import { IProfileForm } from '@/types/form.types';
 import { toNormalCase } from '@/utils/text';
+import { notify } from '@/utils/toast';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TextInput, Button, Input } from '@mantine/core';
-import { DateInput, DateValue } from '@mantine/dates';
+import { TextInput, Button, Input, Textarea } from '@mantine/core';
 import { SupabaseClient } from '@supabase/supabase-js';
-import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
 
 interface IProfileFormProps {
@@ -31,46 +30,43 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
+    setError,
   } = useForm<IProfileForm>({
     resolver: yupResolver<IProfileForm>(profileSchema),
     mode: 'onBlur',
   });
 
-  const formatDate = (date: Date) => {
-    const day = `0${date.getDate()}`.slice(-2);
-    const month = `0${date.getMonth() + 1}`.slice(-2);
-    const year = date.getFullYear();
-    return `${year}-${month}-${day}`; // Returns a date string in 'YYYY-MM-DD' format
+  const checkUserName = async (userName: string) => {
+    const { data } = await supabase.from('profiles').select('id').eq('user_name', userName);
+    return data && data.length > 0;
   };
 
   const onSubmit = async (data: IProfileForm) => {
     const fieldData = {
-      ...(data.name && { user_name: toNormalCase(data.name) }),
-      ...(data.birthDate && { date_of_birth: formatDate(data.birthDate) }),
+      ...(data.userName && { user_name: data.userName.toLowerCase() }),
+      ...(data.fullName && { full_name: toNormalCase(data.fullName) }),
+      ...(data.bio && { bio: data.bio }),
     };
 
-    if (!fieldData.user_name && !fieldData.date_of_birth) return;
+    if (Object.keys(fieldData).length < 1) return;
+
+    if (fieldData.user_name) {
+      const isUserNameTaken = await checkUserName(fieldData.user_name);
+      if (isUserNameTaken) {
+        setError('userName', { message: 'Username is already taken' });
+        return;
+      }
+    }
 
     setIsLoading(true);
 
-    console.log(fieldData);
+    const { error } = await supabase.from('profiles').update(fieldData).eq('id', profile.id);
+    setProfile({ ...profile, ...fieldData });
+    router.refresh();
+    setIsLoading(false);
 
-    try {
-      await supabase.from('profiles').update(fieldData).eq('id', profile.id);
-
-      setProfile({ ...profile, ...fieldData });
-
-      router.refresh();
-      setIsLoading(false);
-    } catch {}
-  };
-
-  const handleDateChange = (date: DateValue | null) => {
-    if (date) {
-      setValue('birthDate', date);
-    }
+    error && notify('error', 'Error updating profile');
   };
 
   const handleLogOut = async () => {
@@ -81,28 +77,40 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <Input.Wrapper
-        id='birth-date'
-        label='User name'
-        description='Set your user name to let others find you'
+        id='full-name'
+        label='Full name'
+        description='Set your full name to let others know who you are'
       >
         <TextInput
-          placeholder='Name'
-          {...(register && register('name'))}
-          error={errors['name']?.message}
+          placeholder='Full name'
+          {...(register && register('fullName'))}
+          error={errors['fullName']?.message}
           style={{ marginTop: 6 }}
         />
       </Input.Wrapper>
       <Input.Wrapper
-        id='birth-date'
-        label='Date of birth'
-        description='Let your friends know when to buy you a gift'
+        id='username'
+        label='Username'
+        description='Set your username to let others find you with ease'
       >
-        <DateInput
-          disabled={!!profile.date_of_birth}
-          onChange={handleDateChange}
-          placeholder={profile.date_of_birth || 'Date of birth'}
+        <TextInput
+          placeholder='Username'
+          {...(register && register('userName'))}
+          error={errors['userName']?.message}
           style={{ marginTop: 6 }}
-          maxDate={dayjs().subtract(6, 'year').toDate()}
+        />
+      </Input.Wrapper>
+      <Input.Wrapper
+        id='bio'
+        label='Bio'
+        description='Any details about you that you want to share with others'
+      >
+        <Textarea
+          placeholder='Bio'
+          {...(register && register('bio'))}
+          error={errors['bio']?.message}
+          {...(profile.bio && { defaultValue: profile.bio })}
+          style={{ marginTop: 6 }}
         />
       </Input.Wrapper>
       <Button loading={isLoading} type='submit'>

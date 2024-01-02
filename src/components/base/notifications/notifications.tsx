@@ -21,6 +21,11 @@ interface INotificationsProps {
 export const Notifications: React.FC<INotificationsProps> = ({ friendships }) => {
   const [notifications, setNotifications] = useState<IFiriendshipProfile[] | null>(friendships);
 
+  const hideNotification = (id: number) => {
+    const updatedNotifications = notifications?.filter((notification) => notification.id !== id);
+    setNotifications(updatedNotifications || null);
+  };
+
   const available = notifications && notifications.length > 0;
 
   return available ? (
@@ -31,7 +36,11 @@ export const Notifications: React.FC<INotificationsProps> = ({ friendships }) =>
       </div>
       <div className={styles.list}>
         {notifications.map((notification) => (
-          <NotificationsItem notification={notification} key={notification.id} />
+          <NotificationsItem
+            notification={notification}
+            key={notification.id}
+            hideNotification={hideNotification}
+          />
         ))}
       </div>
     </div>

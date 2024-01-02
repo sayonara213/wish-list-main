@@ -11,6 +11,11 @@ import type SwiperCore from 'swiper';
 
 import 'swiper/css';
 
+const options = [
+  { value: 'friends', label: 'Friends' },
+  { value: 'others', label: 'Users' },
+];
+
 export const NavbarUsers = () => {
   const [selected, setSelected] = useState('friends');
   const [search, setSearch] = useState('');
@@ -38,11 +43,11 @@ export const NavbarUsers = () => {
 
   return (
     <div className={styles.wrapper}>
-      <SegmentedControl data={['friends', 'others']} value={selected} onChange={handleSelect} />
+      <SegmentedControl data={options} value={selected} onChange={handleSelect} />
       <TextInput
         onChange={handleChange}
         value={search}
-        placeholder='Search for people...'
+        placeholder='Search for users...'
         rightSection={isLoading && <Loader size={16} />}
       />
       <div className={styles.list}>

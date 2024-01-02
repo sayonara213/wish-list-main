@@ -7,6 +7,11 @@ export interface IAuthForm {
   [key: string]: string;
 }
 
+export interface IAdditionalAuthForm {
+  fullName: string;
+  birthDate: DateValue;
+}
+
 export interface IAddLinkForm {
   linkName: string;
   linkUrl: string;
@@ -15,8 +20,9 @@ export interface IAddLinkForm {
 }
 
 export interface IProfileForm {
-  name?: string;
-  birthDate?: DateValue;
+  fullName?: string;
+  userName?: string;
+  bio?: string;
 
-  [key: string]: string | DateValue | undefined;
+  [key: string]: string | undefined;
 }

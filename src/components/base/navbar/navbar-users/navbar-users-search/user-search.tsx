@@ -34,21 +34,17 @@ export const NavbarUserSearch: React.FC<INavbarUserSearchProps> = ({
   const supabase = createClientComponentClient<Database>();
 
   const fetchUsers = async (query: string, from: number, to: number) => {
-    try {
-      if (query.length < 2) return;
+    if (query.length < 2) return;
 
-      const { data } = await supabase
-        .from('profiles')
-        .select('*')
-        .ilike('user_name', `%${query}%`)
-        .range(from, to);
+    const { data, error } = await supabase
+      .from('profiles')
+      .select('*')
+      .or(`user_name.ilike.%${query}%,full_name.ilike.%${query}%`)
+      .range(from, to);
 
-      if (!data) setIsEnd(true);
+    if (!data || error) setIsEnd(true);
 
-      return data;
-    } catch (error) {
-      console.log('error', error);
-    }
+    return data;
   };
 
   const handleFetchUsers = async (query: string) => {
