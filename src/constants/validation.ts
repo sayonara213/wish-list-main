@@ -20,7 +20,11 @@ export const authSchema = yup.object({
 });
 
 export const additionalAuthSchema = yup.object({
-  fullName: yup.string().required(),
+  fullName: yup
+    .string()
+    .min(3, 'Full name must be at least 3 characters')
+    .max(30, 'Full name must be less than 30 characters')
+    .required(),
   birthDate: yup.date().required(),
 });
 

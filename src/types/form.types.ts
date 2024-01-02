@@ -10,8 +10,6 @@ export interface IAuthForm {
 export interface IAdditionalAuthForm {
   fullName: string;
   birthDate: DateValue;
-
-  [key: string]: string | DateValue;
 }
 
 export interface IAddLinkForm {
