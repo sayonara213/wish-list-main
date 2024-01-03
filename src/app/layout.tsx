@@ -31,6 +31,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang='en'>
       <head>
         <ColorSchemeScript defaultColorScheme='auto' />
+        <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1' />
       </head>
       <body className={`${inter.className}`} suppressHydrationWarning={true}>
         <AuthProvider accessToken={accessToken}>

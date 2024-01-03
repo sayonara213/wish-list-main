@@ -12,6 +12,7 @@ interface IWishlistProviderProps {
 
 interface IWishlistContext {
   wishlist: TWishlist;
+  setWishlist: (wishlist: TWishlist) => void;
   items: TWishlistItem[];
   isEditing: boolean;
   isOwnWishlist: boolean;
@@ -34,6 +35,7 @@ const initialWishlist: IWishlistContext = {
     created_at: '',
     description: null,
   },
+  setWishlist: () => {},
   items: [],
   isOwnWishlist: false,
   isEditing: false,
@@ -54,6 +56,7 @@ export const WishlistProvider: React.FC<IWishlistProviderProps> = ({
   children,
   isOwn,
 }) => {
+  const [wishlistState, setWishlistState] = useState<TWishlist>(wishlist);
   const [items, setItems] = useState<TWishlistItem[]>([]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [orderChanged, setOrderChanged] = useState<boolean>(false);
@@ -84,7 +87,8 @@ export const WishlistProvider: React.FC<IWishlistProviderProps> = ({
   return (
     <WishlistContext.Provider
       value={{
-        wishlist,
+        wishlist: wishlistState,
+        setWishlist: setWishlistState,
         items,
         setItems,
         addItem,

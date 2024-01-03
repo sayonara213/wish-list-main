@@ -20,7 +20,7 @@ export const Wishlist: React.FC<IWishlistProps> = ({ wishlist, isOwnWishlist = f
     <WishlistProvider wishlist={wishlist!} isOwn={isOwnWishlist}>
       <main className={styles.container}>
         <WishlistToolbar />
-        {wishlist ? <WishlistList /> : <p>Wishlist not found</p>}
+        <WishlistList />
       </main>
     </WishlistProvider>
   );

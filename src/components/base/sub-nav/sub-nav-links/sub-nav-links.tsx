@@ -16,13 +16,9 @@ interface ISubNavLinksProps {
 
 export const SubNavLinks: React.FC<ISubNavLinksProps> = ({ profile }) => {
   return (
-    <div className={styles.wrapper}>
-      <Link href={'/profile'}>
-        <BirthDate birthDate={profile.date_of_birth} />
-      </Link>
-      <Link href={'/profile'}>
-        <Avatar src={profile.avatar_url!} size={36} />
-      </Link>
-    </div>
+    <Link href={'/profile'} className={styles.wrapper}>
+      <BirthDate birthDate={profile.date_of_birth} />
+      <Avatar src={profile.avatar_url!} size={36} />
+    </Link>
   );
 };

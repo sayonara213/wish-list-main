@@ -24,7 +24,7 @@
     height: max-content;
   }
 
-  @media screen and (max-width: 568px) {
+  @media screen and (max-width: 576px) {
     display: none;
   }
 }
@@ -32,7 +32,7 @@
 .burger {
   display: none;
 
-  @media screen and (max-width: 568px) {
+  @media screen and (max-width: 576px) {
     display: block;
   }
 }

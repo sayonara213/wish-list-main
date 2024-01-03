@@ -4,8 +4,9 @@
 
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
-  @media screen and (max-width: 568px) {
+  @media screen and (max-width: 576px) {
     flex-direction: column-reverse;
     align-items: center;
     padding: 0;
@@ -13,7 +14,7 @@
 }
 
 .welcome {
-  @media screen and (max-width: 568px) {
+  @media screen and (max-width: 576px) {
     display: none;
   }
 }
