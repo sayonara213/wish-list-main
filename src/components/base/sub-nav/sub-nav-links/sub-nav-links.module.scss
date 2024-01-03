@@ -4,11 +4,9 @@
 
   align-items: center;
 
-  a {
-    text-decoration: none;
-  }
+  text-decoration: none;
 
-  @media screen and (max-width: 568px) {
+  @media screen and (max-width: 576px) {
     justify-content: space-between;
     width: 100%;
     margin-bottom: 12px;

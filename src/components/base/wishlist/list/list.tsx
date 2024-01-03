@@ -10,13 +10,15 @@ import styles from './list.module.scss';
 
 import { useWishlist } from '../../provider/wishlist-provider';
 
+import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 
+import { Skeleton } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Reorder } from 'framer-motion';
 
 export const WishlistList: React.FC = () => {
-  const { items, reorder, setItems, wishlist } = useWishlist();
+  const { items, reorder, setItems, wishlist, isOwnWishlist } = useWishlist();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const searchParams = useSearchParams();
 
@@ -53,14 +55,30 @@ export const WishlistList: React.FC = () => {
     fetchItems();
   }, [searchParams]);
 
+  const isWishlistEmpty = items.length === 0 && !isLoading;
+
   return (
     <div className={styles.wrapper}>
-      <WishlistAddItem wishlistId={wishlist.id} />
+      {isOwnWishlist && <WishlistAddItem wishlistId={wishlist.id} />}
+      {isLoading && <WishlistItemSkeleton />}
+      {isWishlistEmpty && (
+        <Paragraph>{isOwnWishlist ? 'Your wishlist is empty' : 'That wishlist is empty'}</Paragraph>
+      )}
       <Reorder.Group values={items} onReorder={reorder} className={styles.list} axis='y'>
         {items.map((item) => (
           <WishlistListItem item={item} key={item.id} deleteServerItem={deleteItem} />
         ))}
       </Reorder.Group>
     </div>
+  );
+};
+
+const WishlistItemSkeleton = () => {
+  return (
+    <ul className={styles.list}>
+      <Skeleton width={'100%'} height={60} radius={8} />
+      <Skeleton width={'100%'} height={60} radius={8} />
+      <Skeleton width={'100%'} height={60} radius={8} />
+    </ul>
   );
 };

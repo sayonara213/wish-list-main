@@ -45,6 +45,6 @@ export const Notifications: React.FC<INotificationsProps> = ({ friendships }) =>
       </div>
     </div>
   ) : (
-    <div>no notifications</div>
+    <div>You will see your notifications here</div>
   );
 };

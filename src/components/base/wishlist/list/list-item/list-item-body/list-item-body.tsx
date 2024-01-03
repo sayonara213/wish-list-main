@@ -64,7 +64,7 @@ const ListItemBody: React.FC<IListItemBodyProps> = ({ item, children, isEditing 
         </div>
         <div className={styles.pair}>
           <Paragraph size='md' weight='medium'>
-            {item.price} USD
+            ${item.price}
           </Paragraph>
           {children}
         </div>
