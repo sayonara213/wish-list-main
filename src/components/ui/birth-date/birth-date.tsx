@@ -20,8 +20,8 @@ export const BirthDate: React.FC<IBirthDateProps> = ({ birthDate, ...props }) =>
 
   return (
     <div className={styles.birthday} {...props}>
-      <Icon name='cake' color='muted' />
-      <Paragraph color='muted' weight='medium'>
+      <Icon name='cake' color='secondary' />
+      <Paragraph color='secondary' weight='medium'>
         {formattedDate}
       </Paragraph>
     </div>
