@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './item-form.module.scss';
 
@@ -82,6 +82,18 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({
     setValue('price', isNaN(numericValue) ? 0 : numericValue);
   };
 
+  const fetchImageUrl = async (link: string) => {
+    const response = await fetch('/api/scrape', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ link }),
+    });
+    const data = await response.json();
+    console.log(data);
+  };
+
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.flex}>
@@ -120,6 +132,7 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({
           error={errors['link']?.message}
         />
       </Input.Wrapper>
+      <Button onClick={() => fetchImageUrl(getValues('link'))}>Get image</Button>
       <Input.Wrapper
         id='item-description'
         label='Description'
