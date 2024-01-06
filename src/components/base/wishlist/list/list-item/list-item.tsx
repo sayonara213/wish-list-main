@@ -44,7 +44,7 @@ export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item, delet
       dragListener={false}
       className={styles.dragitem}
     >
-      <ListItemBody item={item} isEditing={isEditing}>
+      <ListItemBody item={item}>
         <AnimatePresence>
           {isEditing && (
             <EditSection

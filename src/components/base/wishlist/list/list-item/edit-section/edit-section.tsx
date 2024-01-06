@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './edit-section.module.scss';
 
-import { WishlistItemForm } from '../../item-form/item-form';
+import { WishlistItemForm } from '../../add-item/item-form/item-form';
 
 import { ConfirmModal } from '@/components/ui/confirm-modal/confirm-modal';
 import { Icon } from '@/components/ui/icon/icon';
@@ -56,7 +56,13 @@ export const EditSection: React.FC<IEditSectionProps> = ({
         opened={openedDelete}
       />
       <Modal opened={openedEdit} onClose={closeEdit} title='Add new item' centered>
-        <WishlistItemForm closeModal={closeEdit} isEdit item={item} optimisticAction={handleEdit} />
+        <WishlistItemForm
+          closeModal={closeEdit}
+          isEdit
+          item={item}
+          optimisticAction={handleEdit}
+          wishlistId={item.wishlist_id!}
+        />
       </Modal>
     </>
   );

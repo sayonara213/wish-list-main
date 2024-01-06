@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { AddItemButton } from './add-item-button/add-item-button';
-
-import { WishlistItemForm } from '../item-form/item-form';
+import { WishlistItemForm } from './item-form/item-form';
 
 import { useWishlist } from '@/components/base/provider/wishlist-provider';
 

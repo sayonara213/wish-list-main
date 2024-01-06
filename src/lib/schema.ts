@@ -50,10 +50,11 @@ export interface Database {
           created_at: string;
           description: string | null;
           id: number;
+          image_url: string | null;
           is_bought: boolean;
           link: string | null;
           name: string;
-          price: number;
+          price: number | null;
           priority: number | null;
           wishlist_id: number | null;
         };
@@ -61,10 +62,11 @@ export interface Database {
           created_at?: string;
           description?: string | null;
           id?: number;
+          image_url?: string | null;
           is_bought?: boolean;
           link?: string | null;
           name?: string;
-          price: number;
+          price?: number | null;
           priority?: number | null;
           wishlist_id?: number | null;
         };
@@ -72,10 +74,11 @@ export interface Database {
           created_at?: string;
           description?: string | null;
           id?: number;
+          image_url?: string | null;
           is_bought?: boolean;
           link?: string | null;
           name?: string;
-          price?: number;
+          price?: number | null;
           priority?: number | null;
           wishlist_id?: number | null;
         };

@@ -2,13 +2,7 @@
   height: 50px;
   width: 100%;
 
-  position: absolute;
-  top: 0;
-  left: 0;
-
   background-color: var(--color-primary);
-
-  z-index: 99999;
 
   display: flex;
   justify-content: space-between;
@@ -17,4 +11,10 @@
   padding: 0 20px;
 
   box-shadow: var(--shadow-smooth);
+}
+
+.title {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
 }

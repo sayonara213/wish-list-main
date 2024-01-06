@@ -9,7 +9,7 @@ import Lottie from 'lottie-react';
 
 const Loading = () => {
   return (
-    <div className={styles.loadingContainer}>
+    <div className={styles.centerContainer}>
       <Lottie
         animationData={loader}
         loop={true}

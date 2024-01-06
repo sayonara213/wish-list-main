@@ -59,7 +59,9 @@ export const WishlistList: React.FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      {isOwnWishlist && <WishlistAddItem wishlistId={wishlist.id} />}
+      <div className={styles.buttonWrapper}>
+        {isOwnWishlist && <WishlistAddItem wishlistId={wishlist.id} />}
+      </div>
       {isLoading && <WishlistItemSkeleton />}
       {isWishlistEmpty && (
         <Paragraph>{isOwnWishlist ? 'Your wishlist is empty' : 'That wishlist is empty'}</Paragraph>

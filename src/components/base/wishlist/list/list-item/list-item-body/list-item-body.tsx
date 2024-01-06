@@ -1,8 +1,9 @@
 import React, { memo } from 'react';
 
+import Image from 'next/image';
 import Link from 'next/link';
 
-import styles from '../list-item.module.scss';
+import styles from './list-item-body.module.scss';
 
 import { ShopLinkImage } from '@/components/base/shop-links/shop-links-item/shop-link-image/shop-link-image';
 import { CustomIcon } from '@/components/ui/icon/custom-icon';
@@ -10,12 +11,12 @@ import { Paragraph } from '@/components/ui/text/text';
 import { TWishlistItem } from '@/types/database.types';
 import { classes } from '@/utils/styles';
 
+import { Text } from '@mantine/core';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface IListItemBodyProps {
   item: TWishlistItem;
   children?: React.ReactNode;
-  isEditing?: boolean;
 }
 
 const variants = {
@@ -29,7 +30,7 @@ const variants = {
   },
 };
 
-const ListItemBody: React.FC<IListItemBodyProps> = ({ item, children, isEditing }) => {
+const ListItemBody: React.FC<IListItemBodyProps> = ({ item, children }) => {
   return (
     <div className={styles.container}>
       <AnimatePresence>
@@ -46,26 +47,35 @@ const ListItemBody: React.FC<IListItemBodyProps> = ({ item, children, isEditing 
           </motion.div>
         )}
       </AnimatePresence>
-      <div className={classes(styles.wrapper, isEditing && styles.editing)}>
+      <div className={classes(styles.wrapper)}>
+        <div className={styles.pair}>
+          {item.image_url && (
+            <div className={styles.imageWrapper}>
+              <Image src={item.image_url} width={100} height={100} alt='item-image' />
+            </div>
+          )}
+          <div className={styles.main}>
+            <Paragraph size='base' weight='medium'>
+              {item.name}
+            </Paragraph>
+            {item.description && (
+              <Text size='sm' c='dimmed' lineClamp={2}>
+                {item.description}
+              </Text>
+            )}
+            {item.price && (
+              <Text size='sm' c='dimmed'>
+                ${item.price}
+              </Text>
+            )}
+          </div>
+        </div>
         <div className={styles.pair}>
           {item.link && (
             <Link href={item.link}>
               <ShopLinkImage src={item.link} />
             </Link>
           )}
-          <div className={styles.main}>
-            <Paragraph size='base' weight='medium'>
-              {item.name}
-            </Paragraph>
-            <Paragraph size='sm' weight='normal' color='muted'>
-              {item.description}
-            </Paragraph>
-          </div>
-        </div>
-        <div className={styles.pair}>
-          <Paragraph size='md' weight='medium'>
-            ${item.price}
-          </Paragraph>
           {children}
         </div>
       </div>
