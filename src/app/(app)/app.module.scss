@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex: 1;
+  height: 100%;
   gap: 40px;
 
   @media screen and (max-width: 576px) {
@@ -26,5 +27,6 @@
 
 .wishlistWrapper {
   flex: 1;
+  height: 100%;
   display: flex;
 }

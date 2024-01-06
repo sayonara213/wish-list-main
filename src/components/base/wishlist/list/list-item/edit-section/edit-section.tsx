@@ -56,7 +56,13 @@ export const EditSection: React.FC<IEditSectionProps> = ({
         opened={openedDelete}
       />
       <Modal opened={openedEdit} onClose={closeEdit} title='Add new item' centered>
-        <WishlistItemForm closeModal={closeEdit} isEdit item={item} optimisticAction={handleEdit} />
+        <WishlistItemForm
+          closeModal={closeEdit}
+          isEdit
+          item={item}
+          optimisticAction={handleEdit}
+          wishlistId={item.wishlist_id!}
+        />
       </Modal>
     </>
   );

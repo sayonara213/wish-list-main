@@ -103,6 +103,7 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({
         price: data.price || null,
         link: data.link || null,
         description: data.description || null,
+        image_url: data.imageUrl || null,
       });
     closeModal();
   };

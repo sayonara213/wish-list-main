@@ -10,12 +10,6 @@ const supabase = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_SERVICE_KEY!,
 );
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 export async function POST(req: NextRequest) {
   const formData = await req.formData();
 

@@ -6,6 +6,10 @@ import { INavbarItem } from '../navbar';
 import { NavbarBody } from '../navbar-body/navbar-body';
 import { ThemeSwitch } from '../theme-switch/theme-switch';
 
+import { CustomIcon } from '@/components/ui/icon/custom-icon';
+import { Icon } from '@/components/ui/icon/icon';
+import { Paragraph } from '@/components/ui/text/text';
+
 import { Burger, Drawer } from '@mantine/core';
 import { Variants } from 'framer-motion';
 
@@ -36,6 +40,12 @@ export const BurgerNav: React.FC<IBurgerProps> = ({ navbarItems, textVariants, h
       </Drawer>
       <div className={styles.nav}>
         <Burger opened={open} onClick={handleToggle} color='white' />
+        <div className={styles.title}>
+          <CustomIcon name='logo' size={28} />
+          <Paragraph weight='medium' size='md'>
+            Wishy
+          </Paragraph>
+        </div>
         <ThemeSwitch variants={{}} isExpanded={false} />
       </div>
     </>
