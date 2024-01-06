@@ -17,7 +17,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 interface IListItemBodyProps {
   item: TWishlistItem;
   children?: React.ReactNode;
-  isEditing?: boolean;
 }
 
 const variants = {
@@ -31,7 +30,7 @@ const variants = {
   },
 };
 
-const ListItemBody: React.FC<IListItemBodyProps> = ({ item, children, isEditing }) => {
+const ListItemBody: React.FC<IListItemBodyProps> = ({ item, children }) => {
   return (
     <div className={styles.container}>
       <AnimatePresence>
@@ -48,7 +47,7 @@ const ListItemBody: React.FC<IListItemBodyProps> = ({ item, children, isEditing 
           </motion.div>
         )}
       </AnimatePresence>
-      <div className={classes(styles.wrapper, isEditing && styles.editing)}>
+      <div className={classes(styles.wrapper)}>
         <div className={styles.pair}>
           {item.image_url && (
             <div className={styles.imageWrapper}>

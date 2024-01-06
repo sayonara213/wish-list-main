@@ -16,6 +16,10 @@
     padding-right: 20px;
   }
 
+  @media screen and (max-width: 768px) {
+    padding: 12px 20px 0 100px;
+  }
+
   @media screen and (max-width: 576px) {
     padding: 62px 20px;
     height: auto;
@@ -29,4 +33,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.loadingContainer {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @media screen and (max-width: 576px) {
+    flex: auto;
+    height: 75vh;
+  }
 }

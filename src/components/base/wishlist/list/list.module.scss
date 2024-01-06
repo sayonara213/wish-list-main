@@ -21,6 +21,17 @@
     z-index: 100;
     background: linear-gradient(to top, var(--color-foreground), transparent);
   }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    z-index: 100;
+    background: linear-gradient(to bottom, var(--color-foreground), transparent);
+  }
 }
 
 .list {
@@ -35,7 +46,7 @@
 
   overflow-y: scroll;
 
-  @media screen and (max-width: 576px) {
+  @media screen and (max-width: 768px) {
     flex: 1;
   }
 

@@ -7,7 +7,6 @@ import { NavbarBody } from '../navbar-body/navbar-body';
 import { ThemeSwitch } from '../theme-switch/theme-switch';
 
 import { CustomIcon } from '@/components/ui/icon/custom-icon';
-import { Icon } from '@/components/ui/icon/icon';
 import { Paragraph } from '@/components/ui/text/text';
 
 import { Burger, Drawer } from '@mantine/core';
@@ -28,7 +27,7 @@ export const BurgerNav: React.FC<IBurgerProps> = ({ navbarItems, textVariants, h
 
   return (
     <>
-      <Drawer opened={open} onClose={() => setOpen(false)} title='menu'>
+      <Drawer opened={open} onClose={() => setOpen(false)} title='Menu'>
         <NavbarBody
           isExpanded={open}
           textVariants={textVariants}
