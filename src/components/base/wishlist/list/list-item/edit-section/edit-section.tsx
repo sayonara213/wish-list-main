@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './edit-section.module.scss';
 
-import { WishlistItemForm } from '../../item-form/item-form';
+import { WishlistItemForm } from '../../add-item/item-form/item-form';
 
 import { ConfirmModal } from '@/components/ui/confirm-modal/confirm-modal';
 import { Icon } from '@/components/ui/icon/icon';

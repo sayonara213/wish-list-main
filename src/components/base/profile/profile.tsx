@@ -7,8 +7,6 @@ import { ProfileForm } from './profile-form/profile-form';
 import styles from './profile.module.scss';
 
 import { BirthDate } from '@/components/ui/birth-date/birth-date';
-import { Icon } from '@/components/ui/icon/icon';
-import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 import { TProfile } from '@/types/database.types';
 
@@ -26,14 +24,6 @@ export const Profile: React.FC<IProfileProps> = ({ user }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const supabase = createClientComponentClient<Database>();
-
-  const formattedDate = profile.date_of_birth
-    ? new Date(profile.date_of_birth!).toLocaleDateString('en-GB', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      })
-    : 'Set your birthday';
 
   const fetchProfile = async () => {
     setIsLoading(true);

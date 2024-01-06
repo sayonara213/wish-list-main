@@ -11,7 +11,7 @@ const fullName = yup.string().when('fullname', {
   then: (rule) => rule.min(3).max(30),
 });
 const bio = yup.string().max(300, 'Bio must be less than 300 characters');
-const linkUrl = yup.string().url('Link is not valid').required();
+export const linkUrl = yup.string().url('Link is not valid').required();
 const linkName = yup.string().required();
 
 export const authSchema = yup.object({
@@ -45,6 +45,7 @@ export const profileSchema = yup.object().shape(
 export const wishlistSchema = yup.object({
   name: yup.string().required(),
   description: yup.string().optional(),
-  price: yup.number().min(0).required(),
-  link: linkUrl,
+  price: yup.number().optional(),
+  link: yup.string().url('Link is not valid').optional(),
+  imageUrl: yup.string().optional(),
 });
