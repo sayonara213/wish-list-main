@@ -42,10 +42,17 @@ export const profileSchema = yup.object().shape(
   [['name', 'fullname']],
 );
 
-export const wishlistSchema = yup.object({
+export const wishlistItemSchema = yup.object({
   name: yup.string().required(),
   description: yup.string().optional(),
   price: yup.number().optional(),
   link: yup.string().url('Link is not valid').optional(),
   imageUrl: yup.string().optional(),
+});
+
+export const wishlistSchema = yup.object({
+  title: yup.string().required().min(3).max(30),
+  isPrivate: yup.boolean().required(),
+  description: yup.string().optional(),
+  sharedWith: yup.string().optional(),
 });

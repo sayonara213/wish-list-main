@@ -5,6 +5,7 @@ import { cookies } from 'next/headers';
 import styles from './app.module.scss';
 
 import { ShopLinks } from '@/components/base/shop-links/shop-links';
+import { UserWishlists } from '@/components/base/user-wishlists/user-wishlists';
 import { Wishlist } from '@/components/base/wishlist/wishlist';
 import { Database } from '@/lib/schema';
 
@@ -17,21 +18,17 @@ const App = async () => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { data: wishlist } = await supabase
+  const { data: wishlists } = await supabase
     .from('wishlists')
     .select()
     .eq('owner_id', user?.id!)
     .eq('is_shared', false)
-    .single();
+    .order('created_at', { ascending: false });
 
   return (
     <div className={styles.container}>
       <section className={styles.wishlistWrapper}>
-        {wishlist ? (
-          <Wishlist wishlist={wishlist} isOwnWishlist={wishlist.owner_id === user?.id} />
-        ) : (
-          <></>
-        )}
+        <UserWishlists wishlists={wishlists} />
       </section>
       <section className={styles.linksWrapper}>
         <ShopLinks userId={user?.id!} />

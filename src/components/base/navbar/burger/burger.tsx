@@ -41,7 +41,7 @@ export const BurgerNav: React.FC<IBurgerProps> = ({ navbarItems, textVariants, h
         <Burger opened={open} onClick={handleToggle} color='white' />
         <div className={styles.title}>
           <CustomIcon name='logo' size={28} />
-          <Paragraph weight='medium' size='md'>
+          <Paragraph weight='medium' size='md' color='white'>
             Wishy
           </Paragraph>
         </div>

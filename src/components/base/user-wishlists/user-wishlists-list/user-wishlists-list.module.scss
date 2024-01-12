@@ -1,0 +1,35 @@
+.list {
+  width: 100%;
+
+  a {
+    text-decoration: none;
+    color: var(--color-text);
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 0;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .name {
+    font-size: var(--size-big);
+  }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .pair {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}

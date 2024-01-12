@@ -6,12 +6,12 @@ import { Avatar } from '@/components/ui/avatar/avatar';
 import { Icon } from '@/components/ui/icon/icon';
 import { Database } from '@/lib/schema';
 import { TFriendship, TProfile } from '@/types/database.types';
+import { formatDateToNow } from '@/utils/date';
 import { toNormalCase } from '@/utils/text';
 import { notify } from '@/utils/toast';
 
 import { Text } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { formatDistanceToNow } from 'date-fns';
 
 interface IFiriendshipProfile extends TFriendship {
   profiles: TProfile | null;
@@ -41,10 +41,6 @@ export const NotificationsItem: React.FC<INotificationsItemProps> = ({
 
     notify('success', 'Friend request accepted');
     hideNotification(notification.id);
-  };
-
-  const formatDateToNow = (date: string) => {
-    return formatDistanceToNow(new Date(date), { addSuffix: true });
   };
 
   if (!notification.profiles) return null;

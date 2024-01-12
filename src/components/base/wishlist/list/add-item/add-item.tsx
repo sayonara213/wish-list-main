@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { AddItemButton } from './add-item-button/add-item-button';
 import { WishlistItemForm } from './item-form/item-form';
 
 import { useWishlist } from '@/components/base/provider/wishlist-provider';
+import { DashedButton } from '@/components/ui/dashed-button/dashed-button';
 
 import { Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -22,7 +22,7 @@ export const WishlistAddItem: React.FC<IWishlistAddItemProps> = ({ wishlistId })
       <Modal opened={opened} onClose={close} title='Add new item' centered>
         <WishlistItemForm wishlistId={wishlistId} closeModal={close} optimisticAction={addItem} />
       </Modal>
-      <AddItemButton onClick={open}>Add item</AddItemButton>
+      <DashedButton onClick={open}>New Wish!</DashedButton>
     </>
   );
 };

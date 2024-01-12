@@ -5,7 +5,7 @@ import { AddItemImage } from './item-image/item-image';
 
 import { useAuth } from '@/components/base/provider/auth-provider';
 import { useWishlist } from '@/components/base/provider/wishlist-provider';
-import { linkUrl, wishlistSchema } from '@/constants/validation';
+import { linkUrl, wishlistItemSchema } from '@/constants/validation';
 import { Database } from '@/lib/schema';
 import { TWishlistItem } from '@/types/database.types';
 import { IWishlistItemForm } from '@/types/wishlist';
@@ -58,7 +58,7 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({
           imageUrl: item?.image_url || undefined,
         }
       : undefined,
-    resolver: yupResolver<IWishlistItemForm>(wishlistSchema),
+    resolver: yupResolver<IWishlistItemForm>(wishlistItemSchema),
     mode: 'onBlur',
   });
 
