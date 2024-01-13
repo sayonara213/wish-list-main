@@ -26,3 +26,10 @@ export interface IProfileForm {
 
   [key: string]: string | undefined;
 }
+
+export interface IWishlistForm {
+  title: string;
+  isPrivate: boolean;
+  description?: string;
+  sharedWith?: string;
+}

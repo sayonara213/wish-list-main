@@ -1,0 +1,44 @@
+.list {
+  width: 100%;
+
+  a {
+    text-decoration: none;
+    color: var(--color-text);
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 12px 0;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    max-width: 70%;
+
+    @media screen and (max-width: 576px) {
+      max-width: 50%;
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .pair {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}

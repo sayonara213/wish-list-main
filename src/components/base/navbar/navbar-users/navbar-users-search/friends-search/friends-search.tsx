@@ -10,14 +10,23 @@ import { TProfile } from '@/types/database.types';
 import { useDebouncedValue } from '@mantine/hooks';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
+interface ICustomElementProps {
+  profile: TProfile;
+  onClick?: (profile: TProfile) => void;
+}
+
 interface INavbarFriendsSearchProps {
   query: string;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  CustomElement?: React.ComponentType<ICustomElementProps>;
+  extraProps?: (profile: TProfile) => void;
 }
 
 export const NavbarFriendsSearch: React.FC<INavbarFriendsSearchProps> = ({
   query,
   setIsLoading,
+  CustomElement,
+  extraProps,
 }) => {
   const [users, setUsers] = useState<TProfile[]>([]);
 
@@ -53,9 +62,13 @@ export const NavbarFriendsSearch: React.FC<INavbarFriendsSearchProps> = ({
 
   return (
     <div className={styles.wrapper}>
-      {users.map((user) => (
-        <NavbarUserSearchItem profile={user} key={user.id} isFriend />
-      ))}
+      {users.map((user) =>
+        CustomElement ? (
+          <CustomElement profile={user} key={user.id} onClick={extraProps} />
+        ) : (
+          <NavbarUserSearchItem profile={user} key={user.id} isFriend />
+        ),
+      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Image, { ImageProps } from 'next/image';
+import Image from 'next/image';
 
 interface IAvatarProps {
   src: string;

@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 
 import styles from '../../app.module.scss';
 
+import { ShopLinks } from '@/components/base/shop-links/shop-links';
 import { Wishlist } from '@/components/base/wishlist/wishlist';
 import { Database } from '@/lib/schema';
 
@@ -12,15 +13,32 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 const WishlistPage = async ({ params }: { params: { id: number } }) => {
   const supabase = createServerComponentClient<Database>({ cookies });
 
-  const { data: wishlist } = await supabase.from('wishlists').select().eq('id', params.id).single();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (wishlist === null) return null;
+  const { data: wishlist, error } = await supabase
+    .from('wishlists')
+    .select()
+    .eq('id', params.id)
+    .single();
+
+  if (wishlist === null || error) {
+    throw new Error('Wishlist not found');
+  }
+
+  const isOwn = user?.id === wishlist.owner_id;
 
   return (
     <div className={styles.container}>
       <section className={styles.wishlistWrapper}>
-        {wishlist ? <Wishlist wishlist={wishlist} isOwnWishlist={false} /> : <></>}
+        <Wishlist wishlist={wishlist} isOwnWishlist={isOwn} />
       </section>
+      {isOwn && (
+        <section className={styles.linkWrapper}>
+          <ShopLinks userId={user?.id!} />
+        </section>
+      )}
     </div>
   );
 };

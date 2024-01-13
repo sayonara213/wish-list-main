@@ -137,6 +137,45 @@ export interface Database {
         };
         Relationships: [];
       };
+      shared_wishlists: {
+        Row: {
+          created_at: string;
+          id: number;
+          title: string;
+          wishlist_id_one: number;
+          wishlist_id_two: number;
+        };
+        Insert: {
+          created_at?: string;
+          id?: number;
+          title?: string;
+          wishlist_id_one: number;
+          wishlist_id_two: number;
+        };
+        Update: {
+          created_at?: string;
+          id?: number;
+          title?: string;
+          wishlist_id_one?: number;
+          wishlist_id_two?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'shared_wishlists_wishlist_id_one_fkey';
+            columns: ['wishlist_id_one'];
+            isOneToOne: true;
+            referencedRelation: 'wishlists';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'shared_wishlists_wishlist_id_two_fkey';
+            columns: ['wishlist_id_two'];
+            isOneToOne: true;
+            referencedRelation: 'wishlists';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       shops: {
         Row: {
           id: number;
@@ -171,6 +210,7 @@ export interface Database {
           created_at: string;
           description: string | null;
           id: number;
+          is_private: boolean;
           is_shared: boolean;
           owner_id: string;
           title: string;
@@ -179,14 +219,16 @@ export interface Database {
           created_at?: string;
           description?: string | null;
           id?: number;
+          is_private?: boolean;
           is_shared?: boolean;
           owner_id: string;
-          title: string;
+          title?: string;
         };
         Update: {
           created_at?: string;
           description?: string | null;
           id?: number;
+          is_private?: boolean;
           is_shared?: boolean;
           owner_id?: string;
           title?: string;
@@ -206,6 +248,14 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
+      create_shared_wishlist: {
+        Args: {
+          user_id_one: string;
+          user_id_two: string;
+          shared_title: string;
+        };
+        Returns: number;
+      };
       delete_avatar: {
         Args: {
           avatar_full_url: string;

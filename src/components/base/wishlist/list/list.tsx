@@ -10,6 +10,8 @@ import styles from './list.module.scss';
 
 import { useWishlist } from '../../provider/wishlist-provider';
 
+import { CustomIcon } from '@/components/ui/icon/custom-icon';
+import { Icon } from '@/components/ui/icon/icon';
 import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 
@@ -59,18 +61,26 @@ export const WishlistList: React.FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.buttonWrapper}>
-        {isOwnWishlist && <WishlistAddItem wishlistId={wishlist.id} />}
-      </div>
-      {isLoading && <WishlistItemSkeleton />}
-      {isWishlistEmpty && (
-        <Paragraph>{isOwnWishlist ? 'Your wishlist is empty' : 'That wishlist is empty'}</Paragraph>
+      {isOwnWishlist && (
+        <div className={styles.buttonWrapper}>
+          <WishlistAddItem wishlistId={wishlist.id} />
+        </div>
       )}
-      <Reorder.Group values={items} onReorder={reorder} className={styles.list} axis='y'>
-        {items.map((item) => (
-          <WishlistListItem item={item} key={item.id} deleteServerItem={deleteItem} />
-        ))}
-      </Reorder.Group>
+      {isLoading && <WishlistItemSkeleton />}
+      {isWishlistEmpty ? (
+        <div className={styles.empty}>
+          <CustomIcon name={'emptyPresent'} />
+          <Paragraph size='md'>
+            {isOwnWishlist ? 'Your wishlist is empty :(' : 'That wishlist is empty'}
+          </Paragraph>
+        </div>
+      ) : (
+        <Reorder.Group values={items} onReorder={reorder} className={styles.list} axis='y'>
+          {items.map((item) => (
+            <WishlistListItem item={item} key={item.id} deleteServerItem={deleteItem} />
+          ))}
+        </Reorder.Group>
+      )}
     </div>
   );
 };

@@ -23,7 +23,7 @@ export const Icon: React.FC<IIconProps> = ({
     <Image src={IMAGES.logo} alt='Logo' width={24} height={24} priority />
   ) : (
     <span
-      style={{ fontSize: `${size}px` }}
+      style={{ fontSize: `${size}px`, cursor: onClick && 'pointer' }}
       className={`${styles[color]} material-icons-outlined leading-none`}
       onClick={onClick}
     >

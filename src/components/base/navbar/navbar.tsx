@@ -7,6 +7,7 @@ import { NavbarBody } from './navbar-body/navbar-body';
 import { NavbarUsers } from './navbar-users/navbar-users';
 import styles from './navbar.module.scss';
 
+import { useMediaQuery } from '@mantine/hooks';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { motion } from 'framer-motion';
 
@@ -27,6 +28,8 @@ export const Navbar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const supabase = createClientComponentClient();
+
+  const isMobile = useMediaQuery('(max-width: 576px)', false);
 
   const navbarItems: INavbarItem[] = [
     { name: 'home', icon: 'home', link: '/' },
@@ -58,28 +61,31 @@ export const Navbar = () => {
 
   return (
     <>
-      <div className={styles.burger}>
-        <BurgerNav
-          navbarItems={navbarItems}
-          textVariants={textVariants}
-          handleSignOut={handleSignOut}
-        />
-      </div>
-      <motion.div
-        initial='collapsed'
-        animate={isExpanded ? 'expanded' : 'collapsed'}
-        variants={sidebarVariants}
-        transition={{ duration: 0.5, ease: 'backInOut' }}
-        className={styles.navbar}
-      >
-        <NavbarBody
-          isExpanded={isExpanded}
-          textVariants={textVariants}
-          toggleNav={toggleNav}
-          navbarItems={navbarItems}
-          handleSignOut={handleSignOut}
-        />
-      </motion.div>
+      {isMobile ? (
+        <div className={styles.burger}>
+          <BurgerNav
+            navbarItems={navbarItems}
+            textVariants={textVariants}
+            handleSignOut={handleSignOut}
+          />
+        </div>
+      ) : (
+        <motion.div
+          initial='collapsed'
+          animate={isExpanded ? 'expanded' : 'collapsed'}
+          variants={sidebarVariants}
+          transition={{ duration: 0.5, ease: 'backInOut' }}
+          className={styles.navbar}
+        >
+          <NavbarBody
+            isExpanded={isExpanded}
+            textVariants={textVariants}
+            toggleNav={toggleNav}
+            navbarItems={navbarItems}
+            handleSignOut={handleSignOut}
+          />
+        </motion.div>
+      )}
     </>
   );
 };

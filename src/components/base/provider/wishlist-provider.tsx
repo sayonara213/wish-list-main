@@ -32,6 +32,7 @@ const initialWishlist: IWishlistContext = {
     owner_id: '',
     title: '',
     is_shared: false,
+    is_private: false,
     created_at: '',
     description: null,
   },
