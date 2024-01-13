@@ -88,12 +88,14 @@ export const CreateWishlistForm = () => {
         placeholder='Title'
         label='Title'
         description='Just the name of new wishlist'
+        error={errors.title?.message}
       />
       <Textarea
         {...register('description')}
         placeholder='Description...'
         label='Description'
         description='Describe to your friends what this wishlist is about'
+        error={errors.description?.message}
       ></Textarea>
       <Switch label='Is shared' onChange={handleIsSharedChange} checked={isShared} />
       <div>
