@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 
+import { ToolbarDelete } from './toolbar-delete/toolbar-delete';
 import { ToolbarEdit } from './toolbar-edit/toolbar-edit';
 import { ToolbarSort } from './toolbar-sort/toolbar-sort';
 import { ToolbarTitle } from './toolbar-title/toolbar-title';
@@ -63,6 +64,7 @@ export const WishlistToolbar: React.FC = () => {
       ) : (
         <div className={styles.pair}>
           <ToolbarSort />
+          {isOwnWishlist && <ToolbarDelete />}
           {isOwnWishlist && <ToolbarEdit isEditing={isEditing} setIsEditing={setIsEditing} />}
         </div>
       )}
@@ -72,6 +74,7 @@ export const WishlistToolbar: React.FC = () => {
       <ToolbarTitle />
       <div className={styles.pair}>
         <ToolbarSort />
+        {isOwnWishlist && <ToolbarDelete />}
         {isOwnWishlist && <ToolbarEdit isEditing={isEditing} setIsEditing={setIsEditing} />}
       </div>
     </div>

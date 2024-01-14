@@ -10,6 +10,7 @@ body {
   background-position: center;
   background-image: url('/bg-blur.svg');
   background-size: cover;
+  background-repeat: repeat-y;
 
   ::selection {
     background-color: var(--color-accent);

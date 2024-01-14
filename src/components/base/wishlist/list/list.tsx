@@ -38,8 +38,8 @@ export const WishlistList: React.FC = () => {
       return;
     }
 
-    setIsLoading(false);
     setItems(data);
+    setIsLoading(false);
   };
 
   const deleteItem = async (itemId: number) => {
@@ -58,6 +58,10 @@ export const WishlistList: React.FC = () => {
 
   const isWishlistEmpty = items.length === 0 && !isLoading;
 
+  useEffect(() => {
+    console.log('loading', isLoading);
+  }, [isLoading]);
+
   return (
     <div className={styles.wrapper}>
       {isOwnWishlist && (
@@ -65,20 +69,25 @@ export const WishlistList: React.FC = () => {
           <WishlistAddItem wishlistId={wishlist.id} />
         </div>
       )}
-      {isLoading && <WishlistItemSkeleton />}
-      {isWishlistEmpty ? (
-        <div className={styles.empty}>
-          <CustomIcon name={'emptyPresent'} />
-          <Paragraph size='md'>
-            {isOwnWishlist ? 'Your wishlist is empty :(' : 'That wishlist is empty'}
-          </Paragraph>
-        </div>
+      {isLoading ? (
+        <WishlistItemSkeleton />
       ) : (
-        <Reorder.Group values={items} onReorder={reorder} className={styles.list} axis='y'>
-          {items.map((item) => (
-            <WishlistListItem item={item} key={item.id} deleteServerItem={deleteItem} />
-          ))}
-        </Reorder.Group>
+        <>
+          {isWishlistEmpty ? (
+            <div className={styles.empty}>
+              <CustomIcon name={'emptyPresent'} />
+              <Paragraph size='md'>
+                {isOwnWishlist ? 'Your wishlist is empty :(' : 'That wishlist is empty'}
+              </Paragraph>
+            </div>
+          ) : (
+            <Reorder.Group values={items} onReorder={reorder} className={styles.list} axis='y'>
+              {items.map((item) => (
+                <WishlistListItem item={item} key={item.id} deleteServerItem={deleteItem} />
+              ))}
+            </Reorder.Group>
+          )}
+        </>
       )}
     </div>
   );

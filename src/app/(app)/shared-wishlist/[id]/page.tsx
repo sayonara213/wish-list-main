@@ -45,8 +45,14 @@ const WishlistPage = async ({ params }: { params: { id: number } }) => {
         {wishlistsJoin ? (
           <SharedWishlistProvider sharedWishlist={sharedWishlist}>
             <ToolbarSharedTitle />
-            <Wishlist wishlist={wishlist_one} isOwnWishlist={wishlist_one.owner_id === user?.id} />
-            <Wishlist wishlist={wishlist_two} isOwnWishlist={wishlist_two.owner_id === user?.id} />
+            <Wishlist
+              wishlist={wishlist_one.owner_id === user?.id ? wishlist_one : wishlist_two}
+              isOwnWishlist={true}
+            />
+            <Wishlist
+              wishlist={wishlist_two.owner_id === user?.id ? wishlist_one : wishlist_two}
+              isOwnWishlist={false}
+            />
           </SharedWishlistProvider>
         ) : (
           <></>
