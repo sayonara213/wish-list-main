@@ -60,18 +60,21 @@
   gap: 12px;
   align-items: center;
   justify-content: center;
-  margin-bottom: 40px;
 
   img {
-    width: 400px;
+    width: 240px;
     height: auto;
 
     @media screen and (max-width: 768px) {
-      width: 300px;
+      width: 200px;
     }
 
     @media screen and (max-width: 578px) {
-      width: 200px;
+      width: 140px;
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    margin: 16px 0;
   }
 }

@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.input {
+  all: unset;
+
+  width: 200px;
+
+  font-size: var(--size-big);
+  color: var(--color-text);
+}
+
+.loading {
+  opacity: 0.7;
+}

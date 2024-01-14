@@ -8,13 +8,13 @@ import styles from './user-wishlists.module.scss';
 
 import { DashedButton } from '@/components/ui/dashed-button/dashed-button';
 import { Paragraph } from '@/components/ui/text/text';
-import { TWishlist } from '@/types/database.types';
+import { ISharedWishlistJoinProfile, TWishlist } from '@/types/database.types';
 
 import { Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
 interface IUserWishlistsProps {
-  wishlists: TWishlist[] | null;
+  wishlists: (TWishlist | ISharedWishlistJoinProfile)[] | null;
 }
 
 export const UserWishlists: React.FC<IUserWishlistsProps> = ({ wishlists }) => {
