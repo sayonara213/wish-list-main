@@ -140,6 +140,7 @@ export interface Database {
       shared_wishlists: {
         Row: {
           created_at: string;
+          friendship_id: number;
           id: number;
           title: string;
           wishlist_id_one: number;
@@ -147,6 +148,7 @@ export interface Database {
         };
         Insert: {
           created_at?: string;
+          friendship_id: number;
           id?: number;
           title?: string;
           wishlist_id_one: number;
@@ -154,12 +156,20 @@ export interface Database {
         };
         Update: {
           created_at?: string;
+          friendship_id?: number;
           id?: number;
           title?: string;
           wishlist_id_one?: number;
           wishlist_id_two?: number;
         };
         Relationships: [
+          {
+            foreignKeyName: 'shared_wishlists_friendship_id_fkey';
+            columns: ['friendship_id'];
+            isOneToOne: false;
+            referencedRelation: 'friendships';
+            referencedColumns: ['id'];
+          },
           {
             foreignKeyName: 'shared_wishlists_wishlist_id_one_fkey';
             columns: ['wishlist_id_one'];
@@ -268,6 +278,12 @@ export interface Database {
           object: string;
         };
         Returns: Record<string, unknown>;
+      };
+      get_shared_wishlists_with_profiles: {
+        Args: {
+          current_user_id: string;
+        };
+        Returns: Record<string, unknown>[];
       };
       get_user_friends: {
         Args: {

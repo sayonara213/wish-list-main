@@ -14,7 +14,7 @@ const convertUTCDateToLocalDate = (date: string) => {
 };
 
 export const formatDateToNow = (date: string) => {
-  const utcDate = convertUTCDateToLocalDate(date);
+  const dateObj = new Date(date);
 
-  return formatDistanceToNow(utcDate, { addSuffix: true });
+  return formatDistanceToNow(dateObj, { addSuffix: true });
 };

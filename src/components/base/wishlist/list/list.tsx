@@ -11,7 +11,6 @@ import styles from './list.module.scss';
 import { useWishlist } from '../../provider/wishlist-provider';
 
 import { CustomIcon } from '@/components/ui/icon/custom-icon';
-import { Icon } from '@/components/ui/icon/icon';
 import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 
