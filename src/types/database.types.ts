@@ -8,5 +8,5 @@ export type TFriendship = Database['public']['Tables']['friendships']['Row'];
 export type TSharedWishlist = Database['public']['Tables']['shared_wishlists']['Row'];
 
 export interface ISharedWishlistJoinProfile extends TSharedWishlist {
-  friendship: TFriendship;
+  friend_profile: TProfile;
 }

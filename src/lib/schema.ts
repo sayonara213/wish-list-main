@@ -279,11 +279,19 @@ export interface Database {
         };
         Returns: Record<string, unknown>;
       };
-      get_shared_wishlists_with_profiles: {
+      get_shared_wishlists_with_friends: {
         Args: {
           current_user_id: string;
         };
-        Returns: Record<string, unknown>[];
+        Returns: {
+          id: number;
+          title: string;
+          wishlist_id_one: number;
+          wishlist_id_two: number;
+          friendship_id: number;
+          created_at: string;
+          friend_profile: Json;
+        }[];
       };
       get_user_friends: {
         Args: {
