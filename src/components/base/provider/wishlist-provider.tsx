@@ -65,7 +65,7 @@ export const WishlistProvider: React.FC<IWishlistProviderProps> = ({
   const addItem = (item: TWishlistItem) => {
     setItems((prevItems: TWishlistItem[]) => [
       ...prevItems,
-      { ...item, priority: prevItems.length - 1 || 0, id: Math.random() },
+      { ...item, priority: prevItems.length || 0, id: Math.random() },
     ]);
   };
 
