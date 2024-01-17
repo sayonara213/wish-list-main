@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 
 import styles from './app.module.scss';
 
+import { Birthdays } from '@/components/base/birthdays/birthdays';
 import { ShopLinks } from '@/components/base/shop-links/shop-links';
 import { UserWishlists } from '@/components/base/user-wishlists/user-wishlists';
 import { Database } from '@/lib/schema';
@@ -44,6 +45,7 @@ const App = async () => {
     <div className={styles.container}>
       <section className={styles.wishlistWrapper}>
         <UserWishlists wishlists={wishlistsList} />
+        <Birthdays userId={user.id} />
       </section>
       <section className={styles.linksWrapper}>
         <ShopLinks userId={user?.id!} />

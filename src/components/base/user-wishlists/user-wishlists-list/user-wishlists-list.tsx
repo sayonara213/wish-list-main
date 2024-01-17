@@ -12,14 +12,16 @@ interface IWishlistsListProps {
 
 export const WishlistsList: React.FC<IWishlistsListProps> = ({ wishlists }) => {
   return (
-    <ul className={styles.list}>
-      {wishlists?.map((wishlist) =>
-        'friendship_id' in wishlist ? (
-          <SharedWishlistsItem wishlist={wishlist} key={wishlist.id} />
-        ) : (
-          <WishlistsItem wishlist={wishlist} key={wishlist.id} />
-        ),
-      )}
-    </ul>
+    <div className={styles.wrapper}>
+      <ul className={styles.list}>
+        {wishlists?.map((wishlist) =>
+          'friendship_id' in wishlist ? (
+            <SharedWishlistsItem wishlist={wishlist} key={wishlist.id} />
+          ) : (
+            <WishlistsItem wishlist={wishlist} key={wishlist.id} />
+          ),
+        )}
+      </ul>
+    </div>
   );
 };

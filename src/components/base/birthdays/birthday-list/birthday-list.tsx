@@ -1,0 +1,27 @@
+import React from 'react';
+
+import { BirthdayListItem } from './birthday-list-item/birthday-list-item';
+import styles from './birthday-list.module.scss';
+
+import wrapper from '../birthdays.module.scss';
+
+import { Paragraph } from '@/components/ui/text/text';
+import { TProfile } from '@/types/database.types';
+import { classes } from '@/utils/styles';
+
+interface IBirthdayListProps {
+  friends: TProfile[];
+}
+
+export const BirthdayList: React.FC<IBirthdayListProps> = ({ friends }) => {
+  return (
+    <div className={classes(wrapper.wrapper, styles.wrapper)}>
+      <Paragraph size='md'>Upcoming birthdays:</Paragraph>
+      <div className={styles.list}>
+        {friends.map((friend) => (
+          <BirthdayListItem friend={friend} key={friend.id} />
+        ))}
+      </div>
+    </div>
+  );
+};
