@@ -63,10 +63,9 @@ export const WishlistProvider: React.FC<IWishlistProviderProps> = ({
   const [orderChanged, setOrderChanged] = useState<boolean>(false);
 
   const addItem = (item: TWishlistItem) => {
-    setItems((prevItems: TWishlistItem[]) => [
-      ...prevItems,
-      { ...item, priority: prevItems.length - 1 || 0, id: Math.random() },
-    ]);
+    const newItems = [...items, { ...item, priority: items.length }];
+
+    setItems(newItems);
   };
 
   const deleteItem = (itemId: number) => {

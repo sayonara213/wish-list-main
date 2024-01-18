@@ -22,7 +22,7 @@
     background: linear-gradient(to top, var(--color-foreground), transparent);
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 992px) {
     max-height: 500px;
   }
 }
@@ -39,7 +39,7 @@
 
   overflow-y: scroll;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 992px) {
     flex: 1;
   }
 

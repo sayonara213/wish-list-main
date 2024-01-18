@@ -4,10 +4,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { ToolbarDelete } from './toolbar-delete/toolbar-delete';
 import { ToolbarEdit } from './toolbar-edit/toolbar-edit';
+import { ToolbarLastSeen } from './toolbar-last-seen/last-seen';
 import { ToolbarSort } from './toolbar-sort/toolbar-sort';
 import { ToolbarTitle } from './toolbar-title/toolbar-title';
 import styles from './toolbar.module.scss';
 
+import { useAuth } from '../../provider/auth-provider';
+import { useSharedWishlist } from '../../provider/shared-wishlist-provider';
 import { useWishlist } from '../../provider/wishlist-provider';
 
 import { Avatar } from '@/components/ui/avatar/avatar';
@@ -20,6 +23,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export const WishlistToolbar: React.FC = () => {
   const { isEditing, setIsEditing, isOwnWishlist, wishlist } = useWishlist();
+  const { friendStatus } = useSharedWishlist();
 
   const [profile, setProfile] = useState<TProfile | null>(null);
 
@@ -53,6 +57,7 @@ export const WishlistToolbar: React.FC = () => {
             <>
               <Avatar src={profile?.avatar_url} size={36} />
               <Paragraph>{profile.full_name}</Paragraph>
+              <ToolbarLastSeen {...friendStatus} />
             </>
           ) : (
             <>
