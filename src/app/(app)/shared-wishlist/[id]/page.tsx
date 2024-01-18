@@ -1,13 +1,12 @@
 import React from 'react';
 
 import { cookies } from 'next/headers';
+import { notFound } from 'next/navigation';
 
 import container from '../../app.module.scss';
 import styles from '../shared-wishlist.module.scss';
 
-import SharedWishlistProvider from '@/components/base/provider/shared-wishlist-provider';
-import { ToolbarSharedTitle } from '@/components/base/wishlist/toolbar/toolbar-shared-title/toolbar-shared-title';
-import { Wishlist } from '@/components/base/wishlist/wishlist';
+import { SharedWishlist } from '@/components/base/shared-wishlist/shared-wishlist';
 import { Database } from '@/lib/schema';
 import { TSharedWishlist, TWishlist } from '@/types/database.types';
 
@@ -23,6 +22,7 @@ const WishlistPage = async ({ params }: { params: { id: number } }) => {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
   const { data: wishlistsJoin, error } = (await supabase
     .from('shared_wishlists')
     .select(
@@ -35,28 +35,21 @@ const WishlistPage = async ({ params }: { params: { id: number } }) => {
     .eq('id', params.id)
     .single()) as never as { data: ISharedWishlistJoin; error: Error };
 
-  if (wishlistsJoin === null) return null;
+  if (wishlistsJoin === null || !user) {
+    notFound();
+  }
 
   const { wishlist_one, wishlist_two, ...sharedWishlist } = wishlistsJoin;
 
   return (
     <div className={container.container}>
       <section className={styles.wishlistsWrapper}>
-        {wishlistsJoin ? (
-          <SharedWishlistProvider sharedWishlist={sharedWishlist}>
-            <ToolbarSharedTitle />
-            <Wishlist
-              wishlist={wishlist_one.owner_id === user?.id ? wishlist_one : wishlist_two}
-              isOwnWishlist={true}
-            />
-            <Wishlist
-              wishlist={wishlist_two.owner_id === user?.id ? wishlist_one : wishlist_two}
-              isOwnWishlist={false}
-            />
-          </SharedWishlistProvider>
-        ) : (
-          <></>
-        )}
+        <SharedWishlist
+          sharedWishlist={sharedWishlist}
+          wishlistOne={wishlist_one}
+          wishlistTwo={wishlist_two}
+          userId={user?.id}
+        />
       </section>
     </div>
   );

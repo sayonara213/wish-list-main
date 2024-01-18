@@ -77,17 +77,17 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({
       image_url: data.imageUrl || null,
     };
 
-    const { error } =
+    const { data: addedItem, error } =
       isEdit && item
-        ? await supabase
+        ? await supabase.from('items').update(reqData).eq('id', item.id).select()
+        : await supabase
             .from('items')
-            .update({ ...reqData })
-            .eq('id', item.id)
-        : await supabase.from('items').insert({
-            ...reqData,
-            wishlist_id: wishlistId,
-            priority: items.length,
-          });
+            .insert({
+              ...reqData,
+              wishlist_id: wishlistId,
+              priority: items.length,
+            })
+            .select();
 
     setIsLoading(false);
 
@@ -96,15 +96,7 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({
       return;
     }
 
-    optimisticAction &&
-      optimisticAction({
-        ...item!,
-        name: data.name,
-        price: data.price || null,
-        link: data.link || null,
-        description: data.description || null,
-        image_url: data.imageUrl || null,
-      });
+    optimisticAction && optimisticAction(addedItem[0]);
     closeModal();
   };
 

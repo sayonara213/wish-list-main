@@ -88,7 +88,7 @@ export const useWishlistListState = () => {
   useEffect(() => {
     const channel = handleRealtime();
 
-    if (!isOwnWishlist) {
+    if (!isOwnWishlist && wishlist.is_shared) {
       channel.subscribe();
     }
 
