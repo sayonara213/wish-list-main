@@ -2,7 +2,7 @@
 
 import React, { useCallback, useState, useEffect } from 'react';
 
-import SharedWishlistProvider, { IUserStatus } from '../provider/shared-wishlist-provider';
+import SharedWishlistProvider from '../provider/shared-wishlist-provider';
 import { ToolbarSharedTitle } from '../wishlist/toolbar/toolbar-shared-title/toolbar-shared-title';
 import { Wishlist } from '../wishlist/wishlist';
 
@@ -24,7 +24,7 @@ export const SharedWishlist: React.FC<ISharedWishlistProps> = ({
   wishlistTwo,
   userId,
 }) => {
-  const [friendStatus, setFriendStatus] = useState<IUserStatus | null>(null);
+  const [isFriendOnline, setIsFriendOnline] = useState<boolean>(false);
 
   const CHANNEL_NAME = `shared-wishlist-presence:${sharedWishlist.id}`;
 
@@ -44,18 +44,17 @@ export const SharedWishlist: React.FC<ISharedWishlistProps> = ({
       .on('presence', { event: 'sync' }, () => {
         const newState = channel.presenceState();
         const isOnline = !!newState[friendId]; // Check if friend is online
-        const lastSeen = new Date().toISOString();
 
-        setFriendStatus({ isOnline, lastSeen });
+        setIsFriendOnline(isOnline);
       })
       .on('presence', { event: 'leave' }, ({ key, leftPresences }) => {
         if (key === friendId) {
-          setFriendStatus({ isOnline: false, lastSeen: leftPresences[0].online_at });
+          setIsFriendOnline(false);
         }
       })
       .on('presence', { event: 'join' }, ({ key }) => {
         if (key === friendId) {
-          setFriendStatus({ isOnline: true, lastSeen: new Date().toISOString() });
+          setIsFriendOnline(true);
         }
       });
 
@@ -67,7 +66,6 @@ export const SharedWishlist: React.FC<ISharedWishlistProps> = ({
 
     const userStatus = {
       user: userId,
-      online_at: new Date().toISOString(),
     };
 
     channel.subscribe(async (status) => {
@@ -84,7 +82,7 @@ export const SharedWishlist: React.FC<ISharedWishlistProps> = ({
   }, [supabase]);
 
   return (
-    <SharedWishlistProvider sharedWishlist={sharedWishlist} friendStatus={friendStatus}>
+    <SharedWishlistProvider sharedWishlist={sharedWishlist} isFriendOnline={isFriendOnline}>
       <ToolbarSharedTitle />
       <Wishlist
         wishlist={wishlistOne.owner_id === userId ? wishlistOne : wishlistTwo}

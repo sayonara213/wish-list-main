@@ -7,10 +7,6 @@ body {
   font-weight: var(--width-medium);
 
   background-color: var(--color-background) !important;
-  background-position: center;
-  background-image: url('/bg-blur.svg');
-  background-size: cover;
-  background-repeat: repeat-y;
 
   ::selection {
     background-color: var(--color-accent);
