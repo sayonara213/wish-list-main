@@ -4,14 +4,9 @@ import { createContext, useContext, useState } from 'react';
 
 import { TSharedWishlist } from '@/types/database.types';
 
-export interface IUserStatus {
-  isOnline: boolean;
-  lastSeen: string;
-}
-
 interface ISharedWishlistProviderProps {
   sharedWishlist: TSharedWishlist;
-  friendStatus: IUserStatus | null;
+  isFriendOnline: boolean;
   children: React.ReactNode;
 }
 
@@ -22,7 +17,7 @@ interface ISharedWishlistContext {
   setTitle: (title: string) => void;
   isEditing: boolean;
   setIsEditing: (isEditing: boolean) => void;
-  friendStatus: IUserStatus | null;
+  isFriendOnline: boolean;
 }
 
 const initialWishlist: ISharedWishlistContext = {
@@ -39,14 +34,14 @@ const initialWishlist: ISharedWishlistContext = {
   setTitle: () => {},
   isEditing: false,
   setIsEditing: () => {},
-  friendStatus: null,
+  isFriendOnline: false,
 };
 
 const SharedWishlistContext = createContext<ISharedWishlistContext>(initialWishlist);
 
 export const SharedWishlistProvider: React.FC<ISharedWishlistProviderProps> = ({
   sharedWishlist,
-  friendStatus,
+  isFriendOnline,
   children,
 }) => {
   const [sharedWishlistState, setSharedWishlistState] = useState<TSharedWishlist>(sharedWishlist);
@@ -65,7 +60,7 @@ export const SharedWishlistProvider: React.FC<ISharedWishlistProviderProps> = ({
         setTitle,
         isEditing,
         setIsEditing,
-        friendStatus,
+        isFriendOnline,
       }}
     >
       {children}

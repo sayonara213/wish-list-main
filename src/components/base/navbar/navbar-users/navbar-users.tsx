@@ -43,7 +43,7 @@ export const NavbarUsers = () => {
 
   return (
     <div className={styles.wrapper}>
-      <SegmentedControl data={options} value={selected} onChange={handleSelect} />
+      <SegmentedControl color='accent' data={options} value={selected} onChange={handleSelect} />
       <TextInput
         onChange={handleChange}
         value={search}
