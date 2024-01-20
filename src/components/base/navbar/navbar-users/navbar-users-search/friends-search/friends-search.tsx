@@ -21,7 +21,6 @@ interface ICustomElementProps {
 interface INavbarFriendsSearchProps {
   query: string;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  isLoading: boolean;
   CustomElement?: React.ComponentType<ICustomElementProps>;
   extraProps?: (profile: TProfile) => void;
   closeNav?: () => void;
@@ -33,7 +32,6 @@ export const NavbarFriendsSearch: React.FC<INavbarFriendsSearchProps> = ({
   extraProps,
   closeNav,
   setIsLoading,
-  isLoading,
 }) => {
   const [users, setUsers] = useState<TProfile[]>([]);
   const [searchedUsers, setSearchedUsers] = useState<TProfile[]>([]);

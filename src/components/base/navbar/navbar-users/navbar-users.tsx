@@ -41,19 +41,13 @@ export const NavbarUsers: React.FC<INavbarUsersProps> = ({ closeNav }) => {
   }, [selected]);
 
   const components = [
-    <NavbarFriendsSearch
-      query={search}
-      setIsLoading={setIsLoading}
-      key={0}
-      closeNav={closeNav}
-      isLoading={isLoading}
-    />,
+    <NavbarFriendsSearch query={search} key={0} closeNav={closeNav} setIsLoading={setIsLoading} />,
     <NavbarUserSearch
       query={search}
-      setIsLoading={setIsLoading}
       key={1}
-      isLoading={isLoading}
       closeNav={closeNav}
+      isLoading={isLoading}
+      setIsLoading={setIsLoading}
     />,
   ];
 
