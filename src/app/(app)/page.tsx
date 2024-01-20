@@ -28,7 +28,7 @@ const App = async () => {
     .select()
     .eq('owner_id', user?.id!)
     .eq('is_shared', false)
-    .order('created_at', { ascending: false })) as never as { data: TWishlist[]; error: Error };
+    .order('updated_at', { ascending: false })) as never as { data: TWishlist[]; error: Error };
 
   const { data: sharedWishlists, error } = (await supabase.rpc(
     'get_shared_wishlists_with_friends',

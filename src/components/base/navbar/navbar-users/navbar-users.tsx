@@ -16,7 +16,11 @@ const options = [
   { value: 'others', label: 'Users' },
 ];
 
-export const NavbarUsers = () => {
+interface INavbarUsersProps {
+  closeNav?: () => void;
+}
+
+export const NavbarUsers: React.FC<INavbarUsersProps> = ({ closeNav }) => {
   const [selected, setSelected] = useState('friends');
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -37,8 +41,14 @@ export const NavbarUsers = () => {
   }, [selected]);
 
   const components = [
-    <NavbarFriendsSearch query={search} setIsLoading={setIsLoading} key={0} />,
-    <NavbarUserSearch query={search} setIsLoading={setIsLoading} key={1} isLoading={isLoading} />,
+    <NavbarFriendsSearch query={search} key={0} closeNav={closeNav} setIsLoading={setIsLoading} />,
+    <NavbarUserSearch
+      query={search}
+      key={1}
+      closeNav={closeNav}
+      isLoading={isLoading}
+      setIsLoading={setIsLoading}
+    />,
   ];
 
   return (

@@ -34,6 +34,7 @@ const initialWishlist: IWishlistContext = {
     is_shared: false,
     is_private: false,
     created_at: '',
+    updated_at: '',
     description: null,
   },
   setWishlist: () => {},

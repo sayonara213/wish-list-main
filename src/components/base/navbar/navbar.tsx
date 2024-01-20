@@ -1,14 +1,14 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 
-import { BurgerNav } from './burger/burger';
+import { BurgerNav, BurgerNavLoader } from './burger/burger';
 import { NavbarBody } from './navbar-body/navbar-body';
-import { NavbarUsers } from './navbar-users/navbar-users';
 import styles from './navbar.module.scss';
 
-import { useMediaQuery } from '@mantine/hooks';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { classes } from '@/utils/styles';
+
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { motion } from 'framer-motion';
 
 const sidebarVariants = {
@@ -25,65 +25,28 @@ export interface INavbarItem {
 }
 
 export const Navbar = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  const supabase = createClientComponentClient();
+  const [isExpanded, { toggle }] = useDisclosure(false);
 
   const isMobile = useMediaQuery('(max-width: 576px)', false);
 
-  const navbarItems: INavbarItem[] = [
-    { name: 'home', icon: 'home', link: '/' },
-    { name: 'profile', icon: 'person', link: '/profile' },
-    {
-      name: 'friends',
-      icon: 'diversity_1',
-      children: <NavbarUsers />,
-    },
-    { name: 'notifications', icon: 'notifications', link: '/notifications' },
-  ];
-
-  const toggleNav = () => {
-    setIsExpanded(!isExpanded);
-  };
-
-  const textVariants = {
-    show: { opacity: 1, x: 0, transition: { duration: 0.3, delay: 0.3 } },
-    hide: { opacity: 0, x: -30, transition: { duration: 0.3 } },
-  };
-
-  async function handleSignOut() {
-    const { error } = await supabase.auth.signOut();
-
-    if (error) {
-      console.error('ERROR:', error);
-    }
-  }
-
   return (
     <>
+      <div className={classes(styles.burger, styles.mobile)}>
+        <BurgerNavLoader />
+      </div>
       {isMobile ? (
         <div className={styles.burger}>
-          <BurgerNav
-            navbarItems={navbarItems}
-            textVariants={textVariants}
-            handleSignOut={handleSignOut}
-          />
+          <BurgerNav />
         </div>
       ) : (
         <motion.div
           initial='collapsed'
           animate={isExpanded ? 'expanded' : 'collapsed'}
           variants={sidebarVariants}
-          transition={{ duration: 0.5, ease: 'backInOut' }}
+          transition={{ duration: 0.4, ease: 'backInOut' }}
           className={styles.navbar}
         >
-          <NavbarBody
-            isExpanded={isExpanded}
-            textVariants={textVariants}
-            toggleNav={toggleNav}
-            navbarItems={navbarItems}
-            handleSignOut={handleSignOut}
-          />
+          <NavbarBody isExpanded={isExpanded} toggleNav={toggle} />
         </motion.div>
       )}
     </>

@@ -22,7 +22,7 @@ export const WishlistsItem: React.FC<IWishlistsItemProps> = ({ wishlist, isOwnWi
       </Link>
       <div className={styles.pair}>
         <Paragraph size='sm' color='muted'>
-          {formatDateToNow(wishlist.created_at)}
+          {formatDateToNow(wishlist.updated_at)}
         </Paragraph>
       </div>
     </li>

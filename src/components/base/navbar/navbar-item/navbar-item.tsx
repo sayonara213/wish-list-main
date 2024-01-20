@@ -6,6 +6,7 @@ import styles from './navbar-item.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
 import { Paragraph } from '@/components/ui/text/text';
+import { classes } from '@/utils/styles';
 import { toNormalCase } from '@/utils/text';
 
 import { AnimatePresence, Variants, motion } from 'framer-motion';
@@ -17,16 +18,29 @@ interface INavbarItemProps {
   onClick?: () => void;
   isExpanded: boolean;
   toggleNav?: () => void;
-  variants: Variants;
   children?: React.ReactNode;
 }
 
-const liVariants = {
+const textVariants: Variants = {
+  show: { opacity: 1, x: 0, transition: { duration: 0.3, delay: 0.1 } },
+  hide: { opacity: 0, x: -30, transition: { duration: 0.3 } },
+};
+
+const showAnimation = {
+  opacity: 1,
+  height: 'auto', // or set a specific height
+  transition: {
+    duration: 0.5, // duration in seconds
+    ease: 'easeInOut',
+  },
+};
+
+const childrenVariants: Variants = {
   show: {
     opacity: 1,
     marginTop: '8px',
     height: 'auto',
-    transition: { duration: 0.3, delay: 0.4, ease: 'easeInOut' },
+    transition: { duration: 0.3, delay: 0.3, ease: 'easeInOut' },
   },
   hide: {
     opacity: 0,
@@ -42,7 +56,6 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
   link,
   onClick,
   isExpanded,
-  variants,
   children,
   toggleNav,
 }) => {
@@ -55,8 +68,8 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
   };
 
   return (
-    <li className={styles.wrapper}>
-      <div className={`${styles.item} ${(onClick || link) && styles.hover}`} onClick={click}>
+    <li>
+      <div className={classes(styles.item, (onClick || link) && styles.hover)} onClick={click}>
         <Icon name={icon} size={24} color='white' />
         <AnimatePresence>
           {isExpanded && (
@@ -64,7 +77,7 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
               initial='hide'
               animate='show'
               exit='hide'
-              variants={variants}
+              variants={textVariants}
               transition={{ duration: 0.3, delay: 0.15 }}
               className={styles.span}
             >
@@ -76,13 +89,13 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
         </AnimatePresence>
       </div>
       {children && (
-        <AnimatePresence>
-          {isExpanded && (
-            <motion.div initial='hide' animate='show' exit='hide' variants={liVariants}>
-              {children}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <motion.div
+          initial='hide'
+          animate={isExpanded ? 'show' : 'hide'}
+          variants={childrenVariants}
+        >
+          {children}
+        </motion.div>
       )}
     </li>
   );

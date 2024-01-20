@@ -224,6 +224,7 @@ export interface Database {
           is_shared: boolean;
           owner_id: string;
           title: string;
+          updated_at: string;
         };
         Insert: {
           created_at?: string;
@@ -233,6 +234,7 @@ export interface Database {
           is_shared?: boolean;
           owner_id: string;
           title?: string;
+          updated_at?: string;
         };
         Update: {
           created_at?: string;
@@ -242,6 +244,7 @@ export interface Database {
           is_shared?: boolean;
           owner_id?: string;
           title?: string;
+          updated_at?: string;
         };
         Relationships: [
           {

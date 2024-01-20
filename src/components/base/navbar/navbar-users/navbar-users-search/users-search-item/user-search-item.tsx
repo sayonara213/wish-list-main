@@ -17,11 +17,13 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 interface INavbarUserSearchItemProps {
   profile: TProfile;
   isFriend?: boolean;
+  closeNav?: () => void;
 }
 
 export const NavbarUserSearchItem: React.FC<INavbarUserSearchItemProps> = ({
   profile,
   isFriend = false,
+  closeNav,
 }) => {
   const supabase = createClientComponentClient<Database>();
   const user = useAuth();
@@ -44,7 +46,7 @@ export const NavbarUserSearchItem: React.FC<INavbarUserSearchItemProps> = ({
 
   return (
     <div className={styles.item}>
-      <Link href={`/profile/${profile.id}`} className={styles.info}>
+      <Link href={`/profile/${profile.id}`} onClick={closeNav} className={styles.info}>
         <Avatar src={profile.avatar_url!} size={36} />
         <div className={styles.col}>
           <Text size='sm' className={styles.name} truncate>
