@@ -1,9 +1,5 @@
 @import '@/styles/mixins';
 
-.wrapper {
-  margin-bottom: 16px;
-}
-
 .item {
   box-sizing: content-box;
   display: flex;
@@ -18,11 +14,9 @@
 
   height: 24px;
 
-  @media screen and (max-width: 568px) {
-    background-color: transparent;
-  }
-
   @media screen and (max-width: 576px) {
+    background-color: transparent;
+
     p,
     span {
       color: var(--color-content);

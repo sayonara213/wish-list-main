@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import styles from './user-search.module.scss';
 import { NavbarUserSearchItem } from './users-search-item/user-search-item';
@@ -6,7 +6,6 @@ import { NavbarUserSearchItem } from './users-search-item/user-search-item';
 import { Database } from '@/lib/schema';
 import { TProfile } from '@/types/database.types';
 
-import { Text } from '@mantine/core';
 import { useDebouncedValue } from '@mantine/hooks';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
@@ -14,6 +13,7 @@ interface INavbarUserSearchProps {
   query: string;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   isLoading: boolean;
+  closeNav?: () => void;
 }
 
 const paginationStep = 4;
@@ -22,6 +22,7 @@ export const NavbarUserSearch: React.FC<INavbarUserSearchProps> = ({
   query,
   setIsLoading,
   isLoading,
+  closeNav,
 }) => {
   const [users, setUsers] = useState<TProfile[]>([]);
 
@@ -33,41 +34,52 @@ export const NavbarUserSearch: React.FC<INavbarUserSearchProps> = ({
 
   const supabase = createClientComponentClient<Database>();
 
-  const fetchUsers = async (query: string, from: number, to: number) => {
-    if (query.length < 2) return;
+  const fetchUsers = useCallback(
+    async (query: string, from: number, to: number) => {
+      if (query.length < 1 || isLoading) return;
 
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .or(`user_name.ilike.%${query}%,full_name.ilike.%${query}%`)
-      .range(from, to);
+      setIsLoading(true);
 
-    if (!data || error) setIsEnd(true);
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .or(`user_name.ilike.%${query}%,full_name.ilike.%${query}%`)
+        .range(from, to);
 
-    return data;
-  };
+      setIsLoading(false);
 
-  const handleFetchUsers = async (query: string) => {
-    if (isEnd) return;
+      if (!data || error || data.length < 1) setIsEnd(true);
 
+      return data;
+    },
+    [query, pagination],
+  );
+
+  const handleFetchMore = async (query: string) => {
     const newUsers = await fetchUsers(query, pagination.from, pagination.to);
-    setIsLoading(false);
     if (newUsers && newUsers.length > 0) {
       setIsEnd(false);
       setUsers((prev) => [...prev, ...newUsers]);
     }
   };
 
-  useEffect(() => {
-    if (debounced !== query) return;
-    handleFetchUsers(debounced);
-  }, [debounced, pagination]);
+  const handleFetchInitial = async () => {
+    const users = await fetchUsers(debounced, 0, paginationStep);
+    if (users) setUsers(users);
+  };
 
   useEffect(() => {
     setPagination({ from: 0, to: paginationStep });
-    setUsers([]);
     setIsEnd(false);
-  }, [query]);
+
+    handleFetchInitial();
+  }, [debounced]);
+
+  useEffect(() => {
+    if (pagination.from === 0 || isEnd) return;
+
+    handleFetchMore(debounced);
+  }, [pagination]);
 
   useEffect(() => {
     const scrollElement = scrollRef.current;
@@ -89,25 +101,10 @@ export const NavbarUserSearch: React.FC<INavbarUserSearchProps> = ({
     };
   }, [scrollRef]);
 
-  const noResults = query.length > 1 && users.length < 1 && !isLoading;
-
-  const noQuery = query.length < 2;
-
   return (
     <div className={styles.wrapper} ref={scrollRef}>
-      {noResults && (
-        <div className={styles.errors}>
-          <Text size='sm'>No users found</Text>
-        </div>
-      )}
-      {noQuery && (
-        <div className={styles.errors}>
-          <Text size='sm'>Search for users by user name</Text>
-        </div>
-      )}
-
       {users.map((user) => (
-        <NavbarUserSearchItem profile={user} key={user.id} />
+        <NavbarUserSearchItem profile={user} key={user.id} closeNav={closeNav} />
       ))}
     </div>
   );

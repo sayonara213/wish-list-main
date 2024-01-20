@@ -1,58 +1,55 @@
 import React from 'react';
 
+import styles from './navbar-body.module.scss';
+
 import { Heading } from '../heading/heading';
 import { INavbarItem } from '../navbar';
 import { NavbarItem } from '../navbar-item/navbar-item';
+import { NavbarSignOut } from '../navbar-sign-out/navbar-sign-out';
+import { NavbarUsers } from '../navbar-users/navbar-users';
 import { ThemeSwitch } from '../theme-switch/theme-switch';
-
-import { Variants } from 'framer-motion';
 
 interface INavbarBodyProps {
   isExpanded: boolean;
-  textVariants: Variants;
-  navbarItems: INavbarItem[];
   toggleNav: () => void;
   closeOnClick?: boolean;
-  handleSignOut: () => void;
 }
 
-export const NavbarBody: React.FC<INavbarBodyProps> = ({
-  isExpanded,
-  textVariants,
-  toggleNav,
-  navbarItems,
-  handleSignOut,
-  closeOnClick,
-}) => {
+export const NavbarBody: React.FC<INavbarBodyProps> = ({ isExpanded, toggleNav, closeOnClick }) => {
+  const navbarItems: INavbarItem[] = [
+    { name: 'home', icon: 'home', link: '/' },
+    { name: 'profile', icon: 'person', link: '/profile' },
+    {
+      name: 'friends',
+      icon: 'diversity_1',
+      children: <NavbarUsers closeNav={closeOnClick ? toggleNav : undefined} />,
+      onClick: toggleNav,
+    },
+    { name: 'notifications', icon: 'notifications', link: '/notifications' },
+  ];
+
   return (
     <>
-      <Heading variants={textVariants} isExpanded={isExpanded} toggleNav={toggleNav} />
-      <ul>
-        <div>
+      <Heading isExpanded={isExpanded} toggleNav={toggleNav} />
+      <ul className={styles.list}>
+        <div className={styles.list}>
           {navbarItems.map((item, index) => (
             <NavbarItem
               name={item.name}
               icon={item.icon}
               key={index}
-              variants={textVariants}
               isExpanded={isExpanded}
               toggleNav={closeOnClick ? toggleNav : undefined}
               link={item.link}
+              onClick={item.onClick}
             >
               {item.children}
             </NavbarItem>
           ))}
         </div>
-        <div>
-          <NavbarItem
-            name='log out'
-            icon='logout'
-            variants={textVariants}
-            isExpanded={isExpanded}
-            toggleNav={closeOnClick ? toggleNav : undefined}
-            onClick={handleSignOut}
-          />
-          <ThemeSwitch variants={textVariants} isExpanded={isExpanded} />
+        <div className={styles.list}>
+          <NavbarSignOut isExpanded={isExpanded} />
+          <ThemeSwitch isExpanded={isExpanded} />
         </div>
       </ul>
     </>

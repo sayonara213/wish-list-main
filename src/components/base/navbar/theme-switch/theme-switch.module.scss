@@ -25,14 +25,18 @@
 }
 
 [data-mantine-color-scheme='light'] .icon {
-  &:first-child {
-    display: none;
+  span {
+    &:first-child {
+      display: none;
+    }
   }
 }
 
 [data-mantine-color-scheme='dark'] .icon {
-  &:nth-child(2) {
-    display: none;
+  span {
+    &:nth-child(2) {
+      display: none;
+    }
   }
 }
 
@@ -42,7 +46,12 @@
 
   @include hover-item-accent();
 
-  @media screen and (max-width: 568px) {
+  @media screen and (max-width: 576px) {
     background-color: transparent;
+
+    p,
+    span {
+      color: var(--color-content);
+    }
   }
 }

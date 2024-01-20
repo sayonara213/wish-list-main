@@ -8,12 +8,16 @@ import { Paragraph } from '@/components/ui/text/text';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 
 interface IHeadingProps {
-  variants: Variants;
   isExpanded: boolean;
   toggleNav: () => void;
 }
 
-export const Heading: React.FC<IHeadingProps> = ({ variants, isExpanded, toggleNav }) => {
+const textVariants: Variants = {
+  show: { opacity: 1, x: 0, transition: { duration: 0.3, delay: 0.1 } },
+  hide: { opacity: 0, x: -30, transition: { duration: 0.3 } },
+};
+
+export const Heading: React.FC<IHeadingProps> = ({ isExpanded, toggleNav }) => {
   return (
     <div className={styles.heading}>
       <button onClick={toggleNav} className={isExpanded ? '' : styles.rotate}>
@@ -23,7 +27,7 @@ export const Heading: React.FC<IHeadingProps> = ({ variants, isExpanded, toggleN
         <Icon logo />
         <AnimatePresence>
           {isExpanded && (
-            <motion.div initial='hide' animate='show' exit='hide' variants={variants}>
+            <motion.div initial='hide' animate='show' exit='hide' variants={textVariants}>
               <Paragraph size='lg' weight='bold' color='white'>
                 Wishy
               </Paragraph>

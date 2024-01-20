@@ -10,6 +10,7 @@ interface IIconProps extends React.HTMLAttributes<HTMLParagraphElement> {
   logo?: boolean;
   size?: number;
   color?: 'link' | 'default' | 'muted' | 'white' | 'secondary';
+  className?: string;
 }
 
 export const Icon: React.FC<IIconProps> = ({
@@ -18,13 +19,14 @@ export const Icon: React.FC<IIconProps> = ({
   color = 'default',
   logo = false,
   onClick,
+  className,
 }) => {
   return logo ? (
     <Image src={IMAGES.logo} alt='Logo' width={24} height={24} priority />
   ) : (
     <span
       style={{ fontSize: `${size}px`, cursor: onClick && 'pointer' }}
-      className={`${styles[color]} material-icons-outlined leading-none`}
+      className={`${styles[color]} material-icons-outlined leading-none ${className}`}
       onClick={onClick}
     >
       {name}

@@ -18,6 +18,12 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const inter = Exo_2({ subsets: ['latin'] });
 
+export const viewport = {
+  themeColor: '#7745e9',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const supabase = createServerComponentClient<Database>({ cookies });
 
@@ -31,7 +37,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang='en'>
       <head>
         <ColorSchemeScript defaultColorScheme='auto' />
-        <meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1' />
       </head>
       <body className={`${inter.className}`} suppressHydrationWarning={true}>
         <AuthProvider accessToken={accessToken}>

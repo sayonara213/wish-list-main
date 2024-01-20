@@ -10,43 +10,31 @@ import { useMantineColorScheme } from '@mantine/core';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 
 interface IThemeSwitchProps {
-  variants?: Variants;
   isExpanded?: boolean;
 }
 
-export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ variants, isExpanded }) => {
+const textVariants: Variants = {
+  show: { opacity: 1, x: 0, transition: { duration: 0.3, delay: 0.1 } },
+  hide: { opacity: 0, x: -30, transition: { duration: 0.3 } },
+};
+
+export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ isExpanded }) => {
   const { toggleColorScheme } = useMantineColorScheme();
 
   return (
     <li className={classes(styles.wrapper, styles.button)}>
       <div className={styles.icon} onClick={toggleColorScheme}>
-        <Icon name='dark_mode' size={24} color='white' />
+        <>
+          <Icon name='dark_mode' size={24} color='white' />
+          <Icon name='light_mode' size={24} color='white' />
+        </>
         <AnimatePresence>
           {isExpanded && (
             <motion.div
               initial='hide'
               animate='show'
               exit='hide'
-              variants={variants}
-              transition={{ duration: 0.3, delay: 0.15 }}
-              className={styles.span}
-            >
-              <Paragraph weight='medium' color='white'>
-                Switch theme
-              </Paragraph>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-      <div className={styles.icon} onClick={toggleColorScheme}>
-        <Icon name='light_mode' size={24} color='white' />
-        <AnimatePresence>
-          {isExpanded && (
-            <motion.div
-              initial='hide'
-              animate='show'
-              exit='hide'
-              variants={variants}
+              variants={textVariants}
               transition={{ duration: 0.3, delay: 0.15 }}
               className={styles.span}
             >
