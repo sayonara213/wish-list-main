@@ -3,11 +3,11 @@ import React from 'react';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-import container from '../../app.module.scss';
 import styles from '../shared-wishlist.module.scss';
 
 import { SharedWishlist } from '@/components/base/shared-wishlist/shared-wishlist';
 import { Database } from '@/lib/schema';
+import container from '@/styles/app/app.module.scss';
 import { TSharedWishlist, TWishlist } from '@/types/database.types';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';

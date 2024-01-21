@@ -48,6 +48,8 @@ export const WishlistToolbar: React.FC = () => {
     }
   }, [wishlist]);
 
+  console.log('render toolbar');
+
   return wishlist.is_shared ? (
     <div className={styles.wrapper}>
       {!isOwnWishlist ? (

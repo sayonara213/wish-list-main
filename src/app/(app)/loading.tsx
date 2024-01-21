@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import styles from './app.module.scss';
+import styles from '@/styles/app/app.module.scss';
 
 import { Skeleton } from '@mantine/core';
 

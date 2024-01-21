@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { WishlistAddItem } from './add-item/add-item';
 import { WishlistListItem } from './list-item/list-item';
