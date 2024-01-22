@@ -8,10 +8,10 @@ import { BirthdayCalendar } from './birthday-calendar/birthday-calendar';
 import { BirthdayList } from './birthday-list/birthday-list';
 import styles from './birthdays.module.scss';
 
-import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Text } from '@mantine/core';
 
 interface IBirthdayCalendarProps {
   userId: string;
@@ -28,9 +28,9 @@ export const Birthdays: React.FC<IBirthdayCalendarProps> = async ({ userId }) =>
 
   return (
     <div className={styles.container}>
-      <Paragraph size='lg' weight='medium'>
+      <Text size='xxl' fw='bold'>
         Birthdays
-      </Paragraph>
+      </Text>
       <div className={styles.row}>
         {haveFriends ? (
           <>
@@ -39,9 +39,9 @@ export const Birthdays: React.FC<IBirthdayCalendarProps> = async ({ userId }) =>
           </>
         ) : (
           <div className={styles.wrapper} style={{ width: '100%' }}>
-            <Paragraph>
+            <Text>
               You don&apos;t have any friends right now, search for them by opening navigation bar
-            </Paragraph>
+            </Text>
           </div>
         )}
       </div>

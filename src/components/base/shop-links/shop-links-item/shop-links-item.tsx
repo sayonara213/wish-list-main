@@ -5,12 +5,11 @@ import Image from 'next/image';
 import styles from './shop-links-item.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
-import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 import { TShop } from '@/types/database.types';
 import { extractBaseDomain } from '@/utils/text';
 
-import { Skeleton } from '@mantine/core';
+import { Skeleton, Text } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { motion } from 'framer-motion';
 
@@ -69,7 +68,7 @@ export const ShopLinksItem: React.FC<IShopLinksItemProps> = ({ shop, deleteLink 
           loading='lazy'
           alt='icon'
         />
-        <Paragraph size='sm'>{link_name}</Paragraph>
+        <Text size='sm'>{link_name}</Text>
       </a>
     </motion.div>
   );

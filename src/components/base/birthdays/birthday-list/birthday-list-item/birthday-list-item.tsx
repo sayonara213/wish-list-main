@@ -5,9 +5,9 @@ import Link from 'next/link';
 import styles from './birthday-list-item.module.scss';
 
 import { Avatar } from '@/components/ui/avatar/avatar';
-import { Paragraph } from '@/components/ui/text/text';
 import { TProfile } from '@/types/database.types';
 import { formatBirthdayToNow } from '@/utils/date';
+import { Text } from '@mantine/core';
 
 interface IBirthdayListItemProps {
   friend: TProfile;
@@ -21,11 +21,11 @@ export const BirthdayListItem: React.FC<IBirthdayListItemProps> = ({ friend }) =
     <Link href={`/profile/${friend.id}`} className={styles.wrapper}>
       <div className={styles.pair}>
         <Avatar src={friend.avatar_url} size={36} />
-        <Paragraph size='sm'>{friend.full_name}</Paragraph>
+        <Text size='sm'>{friend.full_name}</Text>
       </div>
-      <Paragraph size='sm' color='muted'>
+      <Text size='sm' c='dimmed'>
         {birthDate.toLocaleDateString()} ({distance})
-      </Paragraph>
+      </Text>
     </Link>
   );
 };

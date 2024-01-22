@@ -3,10 +3,9 @@
 import styles from './theme-switch.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
-import { Paragraph } from '@/components/ui/text/text';
 import { classes } from '@/utils/styles';
 
-import { useMantineColorScheme } from '@mantine/core';
+import { Text, useMantineColorScheme } from '@mantine/core';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 
 interface IThemeSwitchProps {
@@ -38,9 +37,9 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ isExpanded }) => {
               transition={{ duration: 0.3, delay: 0.15 }}
               className={styles.span}
             >
-              <Paragraph weight='medium' color='white'>
+              <Text fw='bold' c='white'>
                 Switch theme
-              </Paragraph>
+              </Text>
             </motion.div>
           )}
         </AnimatePresence>

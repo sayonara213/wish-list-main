@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation';
 import styles from './navbar-item.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
-import { Paragraph } from '@/components/ui/text/text';
 import { classes } from '@/utils/styles';
 import { toNormalCase } from '@/utils/text';
 
 import { AnimatePresence, Variants, motion } from 'framer-motion';
+import { Text } from '@mantine/core';
 
 interface INavbarItemProps {
   name: string;
@@ -81,9 +81,9 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
               transition={{ duration: 0.3, delay: 0.15 }}
               className={styles.span}
             >
-              <Paragraph weight='medium' color='white'>
+              <Text fw={'bold'} c='white'>
                 {toNormalCase(name)}
-              </Paragraph>
+              </Text>
             </motion.div>
           )}
         </AnimatePresence>

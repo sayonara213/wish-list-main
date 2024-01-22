@@ -9,7 +9,6 @@ import { SignIn } from './sign-in/sign-in';
 import { SignUp } from './sign-up/sign-up';
 
 import { Icon } from '@/components/ui/icon/icon';
-import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 import { IAuthForm } from '@/types/form.types';
 
@@ -21,6 +20,7 @@ import type SwiperCore from 'swiper';
 
 import 'swiper/css';
 import 'swiper/css/effect-flip';
+import { Text } from '@mantine/core';
 
 const Auth: React.FC = () => {
   const swiperRef = useRef<SwiperCore>();
@@ -73,9 +73,9 @@ const Auth: React.FC = () => {
     <div className={styles.wrapper}>
       <div className={styles.logo}>
         <Icon logo />
-        <Paragraph size='title' weight='bold'>
+        <Text size='50px' fw='bold'>
           Wishy
-        </Paragraph>
+        </Text>
       </div>
       <div className={styles.container}>
         <Swiper

@@ -7,7 +7,6 @@ import styles from './list-item-body.module.scss';
 
 import { ShopLinkImage } from '@/components/base/shop-links/shop-links-item/shop-link-image/shop-link-image';
 import { CustomIcon } from '@/components/ui/icon/custom-icon';
-import { Paragraph } from '@/components/ui/text/text';
 import { TWishlistItem } from '@/types/database.types';
 import { classes } from '@/utils/styles';
 
@@ -55,9 +54,7 @@ const ListItemBody: React.FC<IListItemBodyProps> = ({ item, children }) => {
             </div>
           )}
           <div className={styles.main}>
-            <Paragraph size='base' weight='medium'>
-              {item.name}
-            </Paragraph>
+            <Text fw='bold'>{item.name}</Text>
             {item.description && (
               <Text size='sm' c='dimmed' lineClamp={2}>
                 {item.description}

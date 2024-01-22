@@ -13,11 +13,10 @@ import { useSharedWishlist } from '../../provider/shared-wishlist-provider';
 import { useWishlist } from '../../provider/wishlist-provider';
 
 import { Avatar } from '@/components/ui/avatar/avatar';
-import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 import { TProfile } from '@/types/database.types';
 
-import { Skeleton } from '@mantine/core';
+import { Skeleton, Text } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export const WishlistToolbar: React.FC = () => {
@@ -48,8 +47,6 @@ export const WishlistToolbar: React.FC = () => {
     }
   }, [wishlist]);
 
-  console.log('render toolbar');
-
   return wishlist.is_shared ? (
     <div className={styles.wrapper}>
       {!isOwnWishlist ? (
@@ -57,7 +54,7 @@ export const WishlistToolbar: React.FC = () => {
           {profile ? (
             <>
               <Avatar src={profile?.avatar_url} size={36} />
-              <Paragraph>{profile.full_name}</Paragraph>
+              <Text>{profile.full_name}</Text>
               <ToolbarLastSeen isOnline={isFriendOnline} />
             </>
           ) : (

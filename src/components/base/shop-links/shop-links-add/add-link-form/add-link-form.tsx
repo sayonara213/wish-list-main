@@ -3,14 +3,13 @@ import React, { useState } from 'react';
 import styles from './add-link-form.module.scss';
 
 import { useAuth } from '@/components/base/provider/auth-provider';
-import { Paragraph } from '@/components/ui/text/text';
 import { addLinkSchema } from '@/constants/validation';
 import { Database } from '@/lib/schema';
 import { TShop } from '@/types/database.types';
 import { IAddLinkForm } from '@/types/form.types';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Input, Button } from '@mantine/core';
+import { Input, Button, Text } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useForm } from 'react-hook-form';
 
@@ -56,7 +55,7 @@ export const AddLinkForm: React.FC<IAddLinkFormProps> = ({ addLink, closePopover
 
   return (
     <div className={styles.wrapper}>
-      <Paragraph size='sm'>Add link</Paragraph>
+      <Text size='sm'>Add link</Text>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <Input
           size='sm'

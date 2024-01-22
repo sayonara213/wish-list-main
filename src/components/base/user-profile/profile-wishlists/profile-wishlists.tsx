@@ -2,16 +2,15 @@ import React from 'react';
 
 import { cookies } from 'next/headers';
 
-import { ProfileWishlistsItem } from './profile-wishlists-item/profile-wishlists-item';
 import styles from './profile-wishlists.module.scss';
 
 import { WishlistsList } from '../../user-wishlists/user-wishlists-list/user-wishlists-list';
 
-import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 import { TProfile } from '@/types/database.types';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Text } from '@mantine/core';
 
 interface ProfileWishlistsProps {
   profile: TProfile;
@@ -28,7 +27,7 @@ const ProfileWishlists: React.FC<ProfileWishlistsProps> = async ({ profile }) =>
 
   return (
     <div className={styles.wrapper}>
-      <Paragraph size='md'>{profile.full_name}&apos;s wishlists:</Paragraph>
+      <Text size='md'>{profile.full_name}&apos;s wishlists:</Text>
       {wishlists && <WishlistsList wishlists={wishlists} />}
     </div>
   );

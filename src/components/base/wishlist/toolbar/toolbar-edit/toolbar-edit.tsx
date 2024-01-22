@@ -5,10 +5,10 @@ import styles from '../toolbar.module.scss';
 import { useSharedWishlist } from '@/components/base/provider/shared-wishlist-provider';
 import { useWishlist } from '@/components/base/provider/wishlist-provider';
 import { Icon } from '@/components/ui/icon/icon';
-import { Paragraph } from '@/components/ui/text/text';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Text } from '@mantine/core';
 
 interface IToolbarEditProps {
   isEditing: boolean;
@@ -26,9 +26,7 @@ export const ToolbarEdit: React.FC<IToolbarEditProps> = ({ isEditing, setIsEditi
         setOrderChanged(false);
         const { data, error } = await supabase.from('items').upsert(items);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const handleClick = async () => {
@@ -54,7 +52,7 @@ export const ToolbarEdit: React.FC<IToolbarEditProps> = ({ isEditing, setIsEditi
             style={{ position: 'absolute' }}
           >
             <Icon name='check' />
-            <Paragraph>Save</Paragraph>
+            <Text>Save</Text>
           </motion.div>
         ) : (
           <motion.div
@@ -67,7 +65,7 @@ export const ToolbarEdit: React.FC<IToolbarEditProps> = ({ isEditing, setIsEditi
             style={{ position: 'absolute' }}
           >
             <Icon name='edit' />
-            <Paragraph>Edit</Paragraph>
+            <Text>Edit</Text>
           </motion.div>
         )}
       </AnimatePresence>

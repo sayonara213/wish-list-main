@@ -8,6 +8,7 @@ import { Database } from '@/lib/schema';
 import styles from '@/styles/app/app.module.scss';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { notFound } from 'next/navigation';
 
 const WishlistPage = async ({
   params,
@@ -29,7 +30,7 @@ const WishlistPage = async ({
     .single();
 
   if (wishlist === null || error) {
-    throw new Error('Wishlist not found');
+    notFound();
   }
 
   const isOwn = user?.id === wishlist.owner_id;

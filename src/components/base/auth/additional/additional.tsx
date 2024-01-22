@@ -68,6 +68,11 @@ export const AuthAdditional = () => {
     }
   };
 
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    router.push('/');
+  };
+
   return (
     <div className={classes(container.container, styles.wrapper)}>
       <Text size='xl'>One more step...</Text>
@@ -99,6 +104,9 @@ export const AuthAdditional = () => {
         </Input.Wrapper>
         <Button loading={isLoading} type='submit'>
           Finish
+        </Button>
+        <Button onClick={handleLogout} variant='outline'>
+          Back
         </Button>
       </form>
     </div>

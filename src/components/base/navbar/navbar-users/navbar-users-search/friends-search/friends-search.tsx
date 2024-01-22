@@ -4,12 +4,11 @@ import styles from '../user-search.module.scss';
 import { NavbarUserSearchItem } from '../users-search-item/user-search-item';
 
 import { useAuth } from '@/components/base/provider/auth-provider';
-import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 import { TProfile } from '@/types/database.types';
 import { notify } from '@/utils/toast';
 
-import { Loader } from '@mantine/core';
+import { Loader, Text } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import PullToRefresh from 'react-simple-pull-to-refresh';
 
@@ -97,9 +96,9 @@ export const NavbarFriendsSearch: React.FC<INavbarFriendsSearchProps> = ({
       maxPullDownDistance={60}
       pullDownThreshold={50}
       pullingContent={
-        <Paragraph size='sm' color='muted'>
+        <Text size='sm' c='dimmed'>
           Pull to refresh
-        </Paragraph>
+        </Text>
       }
       refreshingContent={
         <div className={styles.loader}>

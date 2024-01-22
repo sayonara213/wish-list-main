@@ -30,4 +30,8 @@ export const themeMantine: MantineThemeOverride = {
       '#090416',
     ],
   },
+  fontSizes: {
+    xxl: '1.75rem',
+    xxxl: '2rem',
+  },
 };

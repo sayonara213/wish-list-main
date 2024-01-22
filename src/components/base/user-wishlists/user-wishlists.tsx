@@ -7,10 +7,9 @@ import { WishlistsList } from './user-wishlists-list/user-wishlists-list';
 import styles from './user-wishlists.module.scss';
 
 import { DashedButton } from '@/components/ui/dashed-button/dashed-button';
-import { Paragraph } from '@/components/ui/text/text';
 import { ISharedWishlistJoinProfile, TWishlist } from '@/types/database.types';
 
-import { Modal } from '@mantine/core';
+import { Modal, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
 interface IUserWishlistsProps {
@@ -22,9 +21,9 @@ export const UserWishlists: React.FC<IUserWishlistsProps> = ({ wishlists }) => {
 
   return (
     <div className={styles.wrapper}>
-      <Paragraph size='lg' weight='medium'>
+      <Text size='xxl' fw='bold'>
         Your wishlists:
-      </Paragraph>
+      </Text>
       <div className={styles.list}>
         <DashedButton onClick={open}>New Wishlist</DashedButton>
         <Modal
