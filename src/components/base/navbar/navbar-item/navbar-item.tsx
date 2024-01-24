@@ -26,15 +26,6 @@ const textVariants: Variants = {
   hide: { opacity: 0, x: -30, transition: { duration: 0.3 } },
 };
 
-const showAnimation = {
-  opacity: 1,
-  height: 'auto', // or set a specific height
-  transition: {
-    duration: 0.5, // duration in seconds
-    ease: 'easeInOut',
-  },
-};
-
 const childrenVariants: Variants = {
   show: {
     opacity: 1,
@@ -47,6 +38,9 @@ const childrenVariants: Variants = {
     height: 0,
     marginTop: '0px',
     transition: { duration: 0.3, ease: 'easeInOut' },
+    transitionEnd: {
+      display: 'none',
+    },
   },
 };
 

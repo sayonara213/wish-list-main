@@ -3,8 +3,6 @@ import React from 'react';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-import styles from '../shared-wishlist.module.scss';
-
 import { SharedWishlist } from '@/components/base/shared-wishlist/shared-wishlist';
 import { Database } from '@/lib/schema';
 import container from '@/styles/app/app.module.scss';
@@ -50,7 +48,7 @@ const WishlistPage = async ({
 
   return (
     <div className={container.container}>
-      <section className={styles.wishlistsWrapper}>
+      <section className={container.sharedWishlistWrapper}>
         <SharedWishlist
           sharedWishlist={sharedWishlist}
           wishlistOne={wishlist_one}
