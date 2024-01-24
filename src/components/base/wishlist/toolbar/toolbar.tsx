@@ -42,44 +42,50 @@ export const WishlistToolbar: React.FC = () => {
   }, [wishlist, supabase]);
 
   useEffect(() => {
-    if (!isOwnWishlist && wishlist.is_shared) {
+    if (!isOwnWishlist) {
       fetchProfile();
     }
   }, [wishlist]);
 
-  return wishlist.is_shared ? (
+  const RenderToolbarItems = () => (
+    <>
+      <ToolbarSort />
+      {isOwnWishlist && <ToolbarDelete />}
+      {isOwnWishlist && <ToolbarEdit isEditing={isEditing} setIsEditing={setIsEditing} />}
+    </>
+  );
+
+  const RenderProfileSection = () => (
+    <div className={styles.profile}>
+      {profile ? (
+        <>
+          <Avatar src={profile?.avatar_url} size={36} />
+          <Text>{profile.full_name}</Text>
+          <ToolbarLastSeen isOnline={isFriendOnline} />
+        </>
+      ) : (
+        <>
+          <Skeleton height={36} width={36} radius='100%' />
+          <Skeleton height={16} width={100} radius='sm' />
+        </>
+      )}
+    </div>
+  );
+
+  return (
     <div className={styles.wrapper}>
+      {!wishlist.is_shared && <ToolbarTitle />}
+
       {!isOwnWishlist ? (
-        <div className={styles.profile}>
-          {profile ? (
-            <>
-              <Avatar src={profile?.avatar_url} size={36} />
-              <Text>{profile.full_name}</Text>
-              <ToolbarLastSeen isOnline={isFriendOnline} />
-            </>
-          ) : (
-            <>
-              <Skeleton height={36} width={36} radius='100%' />
-              <Skeleton height={16} width={100} radius='sm' />
-            </>
-          )}
+        <div className={styles.pair}>
+          <RenderProfileSection />
+          {!wishlist.is_shared && <RenderToolbarItems />}
         </div>
       ) : (
         <div className={styles.pair}>
-          <ToolbarSort />
-          {isOwnWishlist && <ToolbarDelete />}
-          {isOwnWishlist && <ToolbarEdit isEditing={isEditing} setIsEditing={setIsEditing} />}
+          <RenderToolbarItems />
         </div>
       )}
-    </div>
-  ) : (
-    <div className={styles.wrapper}>
-      <ToolbarTitle />
-      <div className={styles.pair}>
-        <ToolbarSort />
-        {isOwnWishlist && <ToolbarDelete />}
-        {isOwnWishlist && <ToolbarEdit isEditing={isEditing} setIsEditing={setIsEditing} />}
-      </div>
     </div>
   );
 };

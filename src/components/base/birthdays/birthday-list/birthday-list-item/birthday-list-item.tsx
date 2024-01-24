@@ -23,7 +23,7 @@ export const BirthdayListItem: React.FC<IBirthdayListItemProps> = ({ friend }) =
         <Avatar src={friend.avatar_url} size={36} />
         <Text size='sm'>{friend.full_name}</Text>
       </div>
-      <Text size='sm' c='dimmed'>
+      <Text size='sm' c='dimmed' ta={'right'}>
         {birthDate.toLocaleDateString()} ({distance})
       </Text>
     </Link>

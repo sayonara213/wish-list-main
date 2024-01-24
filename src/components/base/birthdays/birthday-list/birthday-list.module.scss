@@ -4,4 +4,33 @@
 
 .list {
   margin-top: 12px;
+  width: 100%;
+  max-height: 180px;
+  overflow-y: scroll;
+
+  padding-right: 8px;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-border-secondary);
+    border-radius: var(--radius-sm);
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: var(--color-border);
+    border-radius: var(--radius-sm);
+  }
+
+  &::-webkit-scrollbar-corner {
+    background-color: var(--color-background);
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--color-text);
+  }
 }

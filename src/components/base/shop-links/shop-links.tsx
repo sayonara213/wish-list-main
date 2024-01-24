@@ -48,18 +48,13 @@ export const ShopLinks: React.FC<IShopLinksProps> = ({ userId }) => {
   };
 
   return (
-    <div>
-      <div className={styles.wrapper}>
-        <Text size='md' fw='bold'>
-          Shops
-        </Text>
-        <Text size='sm' c='dimmed'>
-          Save links to your favourite shops!
-        </Text>
-      </div>
+    <div className={styles.wrapper}>
+      <Text size='xxl' fw='bold'>
+        Shops
+      </Text>
       <AnimatePresence mode='popLayout'>
         {isLoading ? (
-          <motion.div>
+          <motion.div className={styles.list}>
             <ShopLinksLoader />
           </motion.div>
         ) : (
@@ -92,10 +87,10 @@ export const ShopLinks: React.FC<IShopLinksProps> = ({ userId }) => {
 
 export const ShopLinksLoader: React.FC = () => {
   return (
-    <div className={styles.list}>
+    <>
       <ShopLinksItemLoading />
       <ShopLinksItemLoading />
       <ShopLinksItemLoading />
-    </div>
+    </>
   );
 };

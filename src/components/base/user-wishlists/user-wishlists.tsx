@@ -9,8 +9,9 @@ import styles from './user-wishlists.module.scss';
 import { DashedButton } from '@/components/ui/dashed-button/dashed-button';
 import { ISharedWishlistJoinProfile, TWishlist } from '@/types/database.types';
 
-import { Modal, Text } from '@mantine/core';
+import { ActionIcon, Button, Modal, Text } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { Icon } from '@/components/ui/icon/icon';
 
 interface IUserWishlistsProps {
   wishlists: (TWishlist | ISharedWishlistJoinProfile)[] | null;
@@ -21,11 +22,20 @@ export const UserWishlists: React.FC<IUserWishlistsProps> = ({ wishlists }) => {
 
   return (
     <div className={styles.wrapper}>
-      <Text size='xxl' fw='bold'>
-        Your wishlists:
-      </Text>
+      <div className={styles.title}>
+        <Text size='xxl' fw='bold'>
+          Your wishlists
+        </Text>
+        <ActionIcon
+          variant='gradient'
+          gradient={{ from: '#7745e9', to: '#9a45e9', deg: 45 }}
+          size='md'
+          onClick={open}
+        >
+          <Icon name='add' />
+        </ActionIcon>
+      </div>
       <div className={styles.list}>
-        <DashedButton onClick={open}>New Wishlist</DashedButton>
         <Modal
           opened={opened}
           onClose={close}

@@ -7,13 +7,35 @@
 }
 
 .list {
-  flex: 1;
+  flex-grow: 1;
 
   background-color: var(--color-foreground);
   border-radius: var(--radius-sm);
   border: 2px solid var(--color-border);
 
-  padding: 16px 16px 0 16px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  position: relative;
+  padding: 16px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    width: calc(100% - 30px);
+
+    height: 20px;
+
+    background: linear-gradient(to top, var(--color-foreground), transparent);
+  }
+
+  @media screen and (max-width: 1200px) {
+    height: 400px;
+  }
 }
 
 .modal {
@@ -22,4 +44,10 @@
       display: none;
     }
   }
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }

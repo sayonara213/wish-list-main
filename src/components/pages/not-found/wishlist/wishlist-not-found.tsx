@@ -17,7 +17,7 @@ export const WishlistNotFound = () => {
         OOPS!
       </Text>
       <Text size='lg' ta={'center'} style={{ marginBottom: '24px' }}>
-        Wishlist can't be found, or you don't have access to it.
+        Wishlist can&apos;t be found, or you don&apos;t have access to it.
       </Text>
       <Button component={Link} href={'/'}>
         Return to Home

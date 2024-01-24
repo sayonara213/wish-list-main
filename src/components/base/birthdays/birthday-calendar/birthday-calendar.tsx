@@ -76,6 +76,7 @@ export const BirthdayCalendar: React.FC<IBirthdayCalendarProps> = ({ friends }) 
   return (
     <div className={styles.wrapper}>
       <Calendar
+        size='xs'
         defaultDate={getClosestBirthday()}
         renderDay={handleRenderDay}
         getMonthControlProps={handleRenderMonth}
