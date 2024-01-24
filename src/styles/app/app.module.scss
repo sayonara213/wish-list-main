@@ -2,7 +2,7 @@
   display: flex;
   flex: 1;
   height: 100%;
-  gap: 40px;
+  gap: 20px;
 
   @media screen and (max-width: 1200px) {
     flex-direction: column;
@@ -27,8 +27,15 @@
 
 .wishlistWrapper {
   flex: 1;
-  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.sharedWishlistWrapper {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }

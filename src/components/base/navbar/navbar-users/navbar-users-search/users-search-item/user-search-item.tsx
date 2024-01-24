@@ -49,7 +49,7 @@ export const NavbarUserSearchItem: React.FC<INavbarUserSearchItemProps> = ({
       <Link href={`/profile/${profile.id}`} onClick={closeNav} className={styles.info}>
         <Avatar src={profile.avatar_url!} size={36} />
         <div className={styles.col}>
-          <Text size='sm' className={styles.name} truncate>
+          <Text size='sm' truncate>
             {profile.full_name}
           </Text>
           {profile.user_name && (

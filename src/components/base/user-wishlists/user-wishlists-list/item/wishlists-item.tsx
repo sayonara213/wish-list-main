@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 import styles from '../user-wishlists-list.module.scss';
 
-import { Paragraph } from '@/components/ui/text/text';
 import { TWishlist } from '@/types/database.types';
 import { formatDateToNow } from '@/utils/date';
 import { toNormalCase } from '@/utils/text';
+import { Text } from '@mantine/core';
 
 interface IWishlistsItemProps {
   wishlist: TWishlist;
@@ -21,9 +21,9 @@ export const WishlistsItem: React.FC<IWishlistsItemProps> = ({ wishlist, isOwnWi
         {toNormalCase(wishlist.title)}
       </Link>
       <div className={styles.pair}>
-        <Paragraph size='sm' color='muted'>
+        <Text size='sm' c='dimmed'>
           {formatDateToNow(wishlist.updated_at)}
-        </Paragraph>
+        </Text>
       </div>
     </li>
   );

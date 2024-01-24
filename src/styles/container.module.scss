@@ -2,18 +2,19 @@
   height: 100vh;
   width: 100%;
 
-  padding: 12px 320px 12px 320px;
+  padding: 12px 220px 20px 300px;
   position: relative;
 
   display: flex;
   flex-direction: column;
 
   @media screen and (max-width: 1200px) {
+    height: auto;
+    min-height: 100vh;
     padding: 12px 120px;
   }
 
   @media screen and (max-width: 992px) {
-    height: auto;
     padding: 12px 20px 0 100px;
   }
 

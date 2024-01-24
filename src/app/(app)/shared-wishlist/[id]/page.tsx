@@ -3,21 +3,26 @@ import React from 'react';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-import container from '../../app.module.scss';
-import styles from '../shared-wishlist.module.scss';
-
 import { SharedWishlist } from '@/components/base/shared-wishlist/shared-wishlist';
 import { Database } from '@/lib/schema';
+import container from '@/styles/app/app.module.scss';
 import { TSharedWishlist, TWishlist } from '@/types/database.types';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Wishlist } from '@/components/base/wishlist/wishlist';
 
 interface ISharedWishlistJoin extends TSharedWishlist {
   wishlist_one: TWishlist;
   wishlist_two: TWishlist;
 }
 
-const WishlistPage = async ({ params }: { params: { id: number } }) => {
+const WishlistPage = async ({
+  params,
+  searchParams,
+}: {
+  params: { id: number };
+  searchParams: { [key: string]: string | undefined };
+}) => {
   const supabase = createServerComponentClient<Database>({ cookies });
   const {
     data: { user },
@@ -43,13 +48,24 @@ const WishlistPage = async ({ params }: { params: { id: number } }) => {
 
   return (
     <div className={container.container}>
-      <section className={styles.wishlistsWrapper}>
+      <section className={container.sharedWishlistWrapper}>
         <SharedWishlist
           sharedWishlist={sharedWishlist}
           wishlistOne={wishlist_one}
           wishlistTwo={wishlist_two}
           userId={user?.id}
-        />
+        >
+          <Wishlist
+            wishlist={wishlist_one.owner_id === user.id ? wishlist_one : wishlist_two}
+            searchParams={searchParams}
+            isOwnWishlist={true}
+          />
+          <Wishlist
+            wishlist={wishlist_two.owner_id === user.id ? wishlist_one : wishlist_two}
+            searchParams={searchParams}
+            isOwnWishlist={false}
+          />
+        </SharedWishlist>
       </section>
     </div>
   );

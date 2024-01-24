@@ -1,11 +1,12 @@
 'use client';
 
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import { TWishlist, TWishlistItem } from '@/types/database.types';
 
 interface IWishlistProviderProps {
   wishlist: TWishlist;
+  items: TWishlistItem[];
   isOwn: boolean;
   children: React.ReactNode;
 }
@@ -55,43 +56,50 @@ const WishlistContext = createContext<IWishlistContext>(initialWishlist);
 
 export const WishlistProvider: React.FC<IWishlistProviderProps> = ({
   wishlist,
+  items,
   children,
   isOwn,
 }) => {
   const [wishlistState, setWishlistState] = useState<TWishlist>(wishlist);
-  const [items, setItems] = useState<TWishlistItem[]>([]);
+  const [wishlistItems, setWishlistItems] = useState<TWishlistItem[]>(items);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [orderChanged, setOrderChanged] = useState<boolean>(false);
 
   const addItem = (item: TWishlistItem) => {
     const newItems = [...items, { ...item, priority: items.length }];
 
-    setItems(newItems);
+    setWishlistItems(newItems);
   };
 
   const deleteItem = (itemId: number) => {
-    setItems((prevItems: TWishlistItem[]) => prevItems.filter((item) => item.id !== itemId));
+    setWishlistItems((prevItems: TWishlistItem[]) =>
+      prevItems.filter((item) => item.id !== itemId),
+    );
   };
 
   const updateItem = (updatedItem: TWishlistItem) => {
-    setItems((prevItems: TWishlistItem[]) =>
+    setWishlistItems((prevItems: TWishlistItem[]) =>
       prevItems.map((item) => (item.id === updatedItem.id ? updatedItem : item)),
     );
   };
 
   const reorder = (items: TWishlistItem[]) => {
     const reorderedItems = items.map((item, index) => ({ ...item, priority: index }));
-    setItems(reorderedItems);
+    setWishlistItems(reorderedItems);
     setOrderChanged(true);
   };
+
+  useEffect(() => {
+    setWishlistItems(items);
+  }, [items]);
 
   return (
     <WishlistContext.Provider
       value={{
         wishlist: wishlistState,
         setWishlist: setWishlistState,
-        items,
-        setItems,
+        items: wishlistItems,
+        setItems: setWishlistItems,
         addItem,
         deleteItem,
         updateItem,

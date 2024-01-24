@@ -18,7 +18,7 @@ import {
 export const useWishlistListState = () => {
   const { items, reorder, setItems, wishlist, isOwnWishlist, addItem, updateItem, deleteItem } =
     useWishlist();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const searchParams = useSearchParams();
 
   const supabase = createClientComponentClient<Database>();
@@ -49,15 +49,7 @@ export const useWishlistListState = () => {
   };
 
   const realtimeUpdateItem = (payload: RealtimePostgresUpdatePayload<TWishlistItem>) => {
-    if (payload.new.priority !== payload.old.priority) {
-      console.log('reorder');
-
-      fetchItems();
-    } else {
-      console.log('update');
-
-      updateItem(payload.new);
-    }
+    payload.new.priority !== payload.old.priority ? fetchItems() : updateItem(payload.new);
   };
 
   const realtimeDeleteItem = async (payload: RealtimePostgresDeletePayload<TWishlistItem>) => {
@@ -96,10 +88,6 @@ export const useWishlistListState = () => {
       supabase.removeChannel(channel);
     };
   }, [supabase]);
-
-  useEffect(() => {
-    fetchItems();
-  }, [searchParams]);
 
   const isWishlistEmpty = items.length === 0 && !isLoading;
 

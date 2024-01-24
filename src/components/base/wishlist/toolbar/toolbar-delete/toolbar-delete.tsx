@@ -8,12 +8,12 @@ import { useSharedWishlist } from '@/components/base/provider/shared-wishlist-pr
 import { useWishlist } from '@/components/base/provider/wishlist-provider';
 import { ConfirmModal } from '@/components/ui/confirm-modal/confirm-modal';
 import { Icon } from '@/components/ui/icon/icon';
-import { Paragraph } from '@/components/ui/text/text';
 import { Database } from '@/lib/schema';
 import { notify } from '@/utils/toast';
 
 import { useDisclosure } from '@mantine/hooks';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Text } from '@mantine/core';
 
 export const ToolbarDelete = () => {
   const { wishlist } = useWishlist();
@@ -48,7 +48,7 @@ export const ToolbarDelete = () => {
       />
       <div className={styles.button} onClick={open}>
         <Icon name='delete' />
-        <Paragraph>Delete</Paragraph>
+        <Text>Delete</Text>
       </div>
     </>
   );

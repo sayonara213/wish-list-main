@@ -8,10 +8,9 @@ import { useRouter } from 'next/navigation';
 import styles from '../toolbar.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
-import { Paragraph } from '@/components/ui/text/text';
 import { toNormalCase } from '@/utils/text';
 
-import { Menu, MenuDropdown, MenuItem } from '@mantine/core';
+import { Menu, MenuDropdown, MenuItem, Text } from '@mantine/core';
 
 const sortOptions = [
   { value: 'priority', label: 'Priority', icon: 'star' },
@@ -63,8 +62,8 @@ export const ToolbarSort: React.FC = () => {
       <Menu.Target>
         <button className={styles.button}>
           <Icon name='sort'></Icon>
-          <Paragraph>{sort}</Paragraph>
-          <Paragraph>{order}</Paragraph>
+          <Text>{sort}</Text>
+          <Text>{order}</Text>
         </button>
       </Menu.Target>
       <MenuDropdown className={styles.dropdown}>

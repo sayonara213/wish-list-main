@@ -8,13 +8,12 @@ import styles from './list.module.scss';
 import { useWishlistListState } from './list.state';
 
 import { CustomIcon } from '@/components/ui/icon/custom-icon';
-import { Paragraph } from '@/components/ui/text/text';
 
-import { Skeleton } from '@mantine/core';
+import { Skeleton, Text } from '@mantine/core';
 import { Reorder } from 'framer-motion';
 
 export const WishlistList: React.FC = () => {
-  const { isOwnWishlist, wishlist, isLoading, items, reorder, handleDeleteItem, isWishlistEmpty } =
+  const { isOwnWishlist, wishlist, items, reorder, handleDeleteItem, isWishlistEmpty } =
     useWishlistListState();
 
   return (
@@ -24,25 +23,19 @@ export const WishlistList: React.FC = () => {
           <WishlistAddItem wishlistId={wishlist.id} />
         </div>
       )}
-      {isLoading ? (
-        <WishlistItemSkeleton />
+      {isWishlistEmpty ? (
+        <div className={styles.empty}>
+          <CustomIcon name={'emptyPresent'} />
+          <Text size='xl'>
+            {isOwnWishlist ? 'Your wishlist is empty :(' : 'That wishlist is empty'}
+          </Text>
+        </div>
       ) : (
-        <>
-          {isWishlistEmpty ? (
-            <div className={styles.empty}>
-              <CustomIcon name={'emptyPresent'} />
-              <Paragraph size='md'>
-                {isOwnWishlist ? 'Your wishlist is empty :(' : 'That wishlist is empty'}
-              </Paragraph>
-            </div>
-          ) : (
-            <Reorder.Group values={items} onReorder={reorder} className={styles.list} axis='y'>
-              {items.map((item) => (
-                <WishlistListItem item={item} key={item.id} deleteServerItem={handleDeleteItem} />
-              ))}
-            </Reorder.Group>
-          )}
-        </>
+        <Reorder.Group values={items} onReorder={reorder} className={styles.list} axis='y'>
+          {items.map((item) => (
+            <WishlistListItem item={item} key={item.id} deleteServerItem={handleDeleteItem} />
+          ))}
+        </Reorder.Group>
       )}
     </div>
   );

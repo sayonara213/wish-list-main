@@ -1,4 +1,6 @@
 .wrapper {
+  width: 100%;
+
   display: flex;
   align-items: center;
   gap: 16px;
@@ -7,10 +9,11 @@
 .input {
   all: unset;
 
-  width: 300px;
+  width: 100%;
 
-  font-size: var(--size-big);
+  font-size: var(--size-large);
   color: var(--color-text);
+  font-weight: var(--width-medium);
 }
 
 .loading {

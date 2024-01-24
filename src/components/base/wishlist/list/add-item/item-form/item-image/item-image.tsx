@@ -5,10 +5,9 @@ import Image, { ImageLoader } from 'next/image';
 import styles from './item-image.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
-import { Paragraph } from '@/components/ui/text/text';
 import { notify } from '@/utils/toast';
 
-import { Input, Loader } from '@mantine/core';
+import { Input, Loader, Text } from '@mantine/core';
 
 interface IAddItemImageProps {
   link: string | null;
@@ -98,7 +97,7 @@ export const AddItemImage: React.FC<IAddItemImageProps> = ({
             />
           </>
         ) : (
-          <Paragraph>Select Image</Paragraph>
+          <Text>Select Image</Text>
         )}
         {isLoading && (
           <div className={styles.overlay}>

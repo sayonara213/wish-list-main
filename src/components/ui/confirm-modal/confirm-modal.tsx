@@ -4,9 +4,7 @@ import React, { useState } from 'react';
 
 import styles from './confirm-modal.module.scss';
 
-import { Paragraph } from '../text/text';
-
-import { Button, Modal } from '@mantine/core';
+import { Button, Modal, Text } from '@mantine/core';
 
 interface IConfirmModalProps {
   title: string;
@@ -34,7 +32,7 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = ({
 
   return (
     <Modal opened={opened} onClose={onCancel} title={title} centered>
-      <Paragraph>{description}</Paragraph>
+      <Text>{description}</Text>
       <div className={styles.wrapper}>
         <Button onClick={handleConfirm} loading={isLoading}>
           Confirm

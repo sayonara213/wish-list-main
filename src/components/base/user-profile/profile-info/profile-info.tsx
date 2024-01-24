@@ -6,8 +6,8 @@ import styles from './profile-info.module.scss';
 
 import { Avatar } from '@/components/ui/avatar/avatar';
 import { BirthDate } from '@/components/ui/birth-date/birth-date';
-import { Paragraph } from '@/components/ui/text/text';
 import { TProfile } from '@/types/database.types';
+import { Text } from '@mantine/core';
 
 interface IProfileInfoProps {
   profile: TProfile;
@@ -18,15 +18,15 @@ const ProfileInfo: React.FC<IProfileInfoProps> = ({ profile }) => {
     <div className={styles.wrapper}>
       <Avatar size={128} src={profile.avatar_url} className={styles.avatar} />
       <div>
-        <Paragraph size={'md'}>{profile.full_name}</Paragraph>
+        <Text size='md'>{profile.full_name}</Text>
         {profile.user_name && (
-          <Paragraph size={'sm'} color='muted'>
+          <Text size={'sm'} c='dimmed'>
             @{profile.user_name}
-          </Paragraph>
+          </Text>
         )}
       </div>
       <BirthDate birthDate={profile.date_of_birth} />
-      {profile.bio && <Paragraph className={styles.bio}>{profile.bio}</Paragraph>}
+      {profile.bio && <Text className={styles.bio}>{profile.bio}</Text>}
     </div>
   );
 };

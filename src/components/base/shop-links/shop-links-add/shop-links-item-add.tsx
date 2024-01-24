@@ -4,10 +4,9 @@ import { AddLinkForm } from './add-link-form/add-link-form';
 import styles from './shop-links-item-add.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
-import { Paragraph } from '@/components/ui/text/text';
 import { TShop } from '@/types/database.types';
 
-import { Popover } from '@mantine/core';
+import { Popover, Text } from '@mantine/core';
 
 interface IShopLinksItemAddProps {
   addLink: (link: TShop) => void;
@@ -28,7 +27,7 @@ export const ShopLinksItemAdd: React.FC<IShopLinksItemAddProps> = ({ addLink }) 
       <Popover.Target>
         <div className={styles.button} onClick={() => setIsOpened((o) => !o)}>
           <Icon name='add' size={32} />
-          <Paragraph size='sm'>Add</Paragraph>
+          <Text size='sm'>Add</Text>
         </div>
       </Popover.Target>
       <Popover.Dropdown>

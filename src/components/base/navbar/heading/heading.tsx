@@ -3,9 +3,9 @@ import React from 'react';
 import styles from './heading.module.scss';
 
 import { Icon } from '@/components/ui/icon/icon';
-import { Paragraph } from '@/components/ui/text/text';
 
 import { AnimatePresence, Variants, motion } from 'framer-motion';
+import { Text } from '@mantine/core';
 
 interface IHeadingProps {
   isExpanded: boolean;
@@ -28,9 +28,9 @@ export const Heading: React.FC<IHeadingProps> = ({ isExpanded, toggleNav }) => {
         <AnimatePresence>
           {isExpanded && (
             <motion.div initial='hide' animate='show' exit='hide' variants={textVariants}>
-              <Paragraph size='lg' weight='bold' color='white'>
+              <Text size='xxl' fw='bold' c='white'>
                 Wishy
-              </Paragraph>
+              </Text>
             </motion.div>
           )}
         </AnimatePresence>

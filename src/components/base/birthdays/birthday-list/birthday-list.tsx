@@ -5,9 +5,9 @@ import styles from './birthday-list.module.scss';
 
 import wrapper from '../birthdays.module.scss';
 
-import { Paragraph } from '@/components/ui/text/text';
 import { TProfile } from '@/types/database.types';
 import { classes } from '@/utils/styles';
+import { Text } from '@mantine/core';
 
 interface IBirthdayListProps {
   friends: TProfile[];
@@ -16,7 +16,7 @@ interface IBirthdayListProps {
 export const BirthdayList: React.FC<IBirthdayListProps> = ({ friends }) => {
   return (
     <div className={classes(wrapper.wrapper, styles.wrapper)}>
-      <Paragraph size='md'>Upcoming birthdays:</Paragraph>
+      <Text size='lg'>Upcoming birthdays:</Text>
       <div className={styles.list}>
         {friends.map((friend) => (
           <BirthdayListItem friend={friend} key={friend.id} />

@@ -6,11 +6,11 @@ import { ShopLinksItemAdd } from './shop-links-add/shop-links-item-add';
 import { ShopLinksItem, ShopLinksItemLoading } from './shop-links-item/shop-links-item';
 import styles from './shop-links.module.scss';
 
-import { Paragraph } from '@/components/ui/text/text';
 import { TShop } from '@/types/database.types';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Text } from '@mantine/core';
 
 interface IShopLinksProps {
   userId: string;
@@ -48,18 +48,13 @@ export const ShopLinks: React.FC<IShopLinksProps> = ({ userId }) => {
   };
 
   return (
-    <div>
-      <div className={styles.wrapper}>
-        <Paragraph size='md' weight='medium'>
-          Shops
-        </Paragraph>
-        <Paragraph size='sm' color='muted'>
-          Save links to your favourite shops!
-        </Paragraph>
-      </div>
+    <div className={styles.wrapper}>
+      <Text size='xxl' fw='bold'>
+        Shops
+      </Text>
       <AnimatePresence mode='popLayout'>
         {isLoading ? (
-          <motion.div>
+          <motion.div className={styles.list}>
             <ShopLinksLoader />
           </motion.div>
         ) : (
@@ -92,10 +87,10 @@ export const ShopLinks: React.FC<IShopLinksProps> = ({ userId }) => {
 
 export const ShopLinksLoader: React.FC = () => {
   return (
-    <div className={styles.list}>
+    <>
       <ShopLinksItemLoading />
       <ShopLinksItemLoading />
       <ShopLinksItemLoading />
-    </div>
+    </>
   );
 };

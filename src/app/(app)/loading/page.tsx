@@ -2,22 +2,12 @@
 
 import React from 'react';
 
-import loader from '@/assets/animations/loader.json';
-import styles from '@/styles/container.module.scss';
-
-import Lottie from 'lottie-react';
+import { AppLoading } from '@/components/pages/loading/app/app-loading';
+import { WishlistLoading } from '@/components/pages/loading/wishlist/wishlist-loading';
+import { SharedWishlistLoading } from '@/components/pages/loading/shared-wishlist/shared-wishlist-loading';
 
 const Loading = () => {
-  return (
-    <div className={styles.centerContainer}>
-      <Lottie
-        animationData={loader}
-        loop={true}
-        size={40}
-        style={{ width: 84, height: 84 }}
-      ></Lottie>
-    </div>
-  );
+  return <SharedWishlistLoading />;
 };
 
 export default Loading;

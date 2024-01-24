@@ -8,7 +8,6 @@ import { WishlistFormFriends } from './friends/wishlist-form-friends';
 import { useAuth } from '../../provider/auth-provider';
 
 import { Avatar } from '@/components/ui/avatar/avatar';
-import { Paragraph } from '@/components/ui/text/text';
 import { wishlistSchema } from '@/constants/validation';
 import { Database } from '@/lib/schema';
 import { TProfile } from '@/types/database.types';
@@ -16,7 +15,7 @@ import { IWishlistForm } from '@/types/form.types';
 import { notify } from '@/utils/toast';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Input, Switch, TextInput, Textarea } from '@mantine/core';
+import { Button, Input, Switch, Text, TextInput, Textarea } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
@@ -113,7 +112,7 @@ export const CreateWishlistForm = () => {
                   <div className={styles.friend}>
                     <div className={styles.section}>
                       <Avatar src={profile.avatar_url} size={32} />
-                      <Paragraph>{profile.full_name}</Paragraph>
+                      <Text>{profile.full_name}</Text>
                     </div>
 
                     <Button onClick={() => setProfile(undefined)}>Remove</Button>

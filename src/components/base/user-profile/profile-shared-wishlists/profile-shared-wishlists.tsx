@@ -27,7 +27,6 @@ export const ProfileSharedWishlists: React.FC<IProfileSharedWishlistsProps> = ({
     if (error) {
       console.error(error);
     }
-    console.log(wishlistId);
   };
 
   return (

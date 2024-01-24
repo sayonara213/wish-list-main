@@ -30,9 +30,7 @@ export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item, delet
     try {
       await deleteServerItem(item.id);
       deleteItem(item.id);
-    } catch {
-      console.log('error deleting item');
-    }
+    } catch {}
   };
 
   return (
