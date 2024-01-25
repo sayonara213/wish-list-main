@@ -5,6 +5,7 @@ import { NavbarItem } from '../navbar-item/navbar-item';
 import { Database } from '@/lib/schema';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { IconLogout } from '@tabler/icons-react';
 
 interface INavbarSignOutProps {
   isExpanded: boolean;
@@ -21,6 +22,11 @@ export const NavbarSignOut: React.FC<INavbarSignOutProps> = ({ isExpanded }) => 
     }
   }
   return (
-    <NavbarItem name='sign out' icon='logout' onClick={handleSignOut} isExpanded={isExpanded} />
+    <NavbarItem
+      name='sign out'
+      icon={<IconLogout color='white' />}
+      onClick={handleSignOut}
+      isExpanded={isExpanded}
+    />
   );
 };

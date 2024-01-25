@@ -7,26 +7,34 @@ import { useRouter } from 'next/navigation';
 
 import styles from '../toolbar.module.scss';
 
-import { Icon } from '@/components/ui/icon/icon';
 import { toNormalCase } from '@/utils/text';
 
 import { Menu, MenuDropdown, MenuItem, Text } from '@mantine/core';
+import {
+  IconCalendar,
+  IconMoneybag,
+  IconSortAscending,
+  IconStar,
+  IconTextGrammar,
+  IconTrendingDown,
+  IconTrendingUp,
+} from '@tabler/icons-react';
 
 const sortOptions = [
-  { value: 'priority', label: 'Priority', icon: 'star' },
-  { value: 'name', label: 'Name', icon: 'text_format' },
-  { value: 'price', label: 'Price', icon: 'payments' },
-  { value: 'created_at', label: 'Date added', icon: 'calendar_today' },
+  { value: 'priority', label: 'Priority', icon: <IconStar color='var(--text-color)' /> },
+  { value: 'name', label: 'Name', icon: <IconTextGrammar color='var(--text-color)' /> },
+  { value: 'price', label: 'Price', icon: <IconMoneybag color='var(--text-color)' /> },
+  { value: 'created_at', label: 'Date added', icon: <IconCalendar color='var(--text-color)' /> },
 ];
 
 const orderOptions = [
   {
     value: 'asc',
-    icon: 'trending_up',
+    icon: <IconTrendingUp color='var(--text-color)' />,
   },
   {
     value: 'desc',
-    icon: 'trending_down',
+    icon: <IconTrendingDown color='var(--text-color)' />,
   },
 ];
 
@@ -61,7 +69,7 @@ export const ToolbarSort: React.FC = () => {
     <Menu transitionProps={{ transition: 'rotate-right', duration: 150 }}>
       <Menu.Target>
         <button className={styles.button}>
-          <Icon name='sort'></Icon>
+          <IconSortAscending name='sort' />
           <Text>{sort}</Text>
           <Text>{order}</Text>
         </button>
@@ -75,7 +83,7 @@ export const ToolbarSort: React.FC = () => {
               setQuery('sort', option.value, option.label);
             }}
             className={option.value === sort.toLowerCase() ? styles.selected : ''}
-            leftSection={<Icon name={option.icon} />}
+            leftSection={option.icon}
           >
             {option.label}
           </MenuItem>
@@ -89,7 +97,7 @@ export const ToolbarSort: React.FC = () => {
             onClick={() => {
               setQuery('order', option.value, '');
             }}
-            leftSection={<Icon name={option.icon} />}
+            leftSection={option.icon}
             className={option.value === order.toLowerCase() ? styles.selected : ''}
           >
             {option.value}

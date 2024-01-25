@@ -4,7 +4,6 @@ import Image from 'next/image';
 
 import styles from './shop-links-item.module.scss';
 
-import { Icon } from '@/components/ui/icon/icon';
 import { Database } from '@/lib/schema';
 import { TShop } from '@/types/database.types';
 import { extractBaseDomain } from '@/utils/text';
@@ -12,6 +11,7 @@ import { extractBaseDomain } from '@/utils/text';
 import { Skeleton, Text } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { motion } from 'framer-motion';
+import { IconTrash } from '@tabler/icons-react';
 
 interface IShopLinksItemProps {
   shop: TShop;
@@ -57,7 +57,7 @@ export const ShopLinksItem: React.FC<IShopLinksItemProps> = ({ shop, deleteLink 
       onMouseLeave={() => setIsHovered(false)}
     >
       <div onClick={handleDelete} className={styles.delete}>
-        <Icon name='delete' size={16} color='default' />
+        <IconTrash color='var(--text-color)' size={16} />
       </div>
 
       <a className={styles.link} href={link_url} target='_blank'>

@@ -18,7 +18,7 @@ const sidebarVariants = {
 
 export interface INavbarItem {
   name: string;
-  icon: string;
+  icon: React.ReactNode;
   link?: string;
   children?: React.ReactNode;
   onClick?: () => void;

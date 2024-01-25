@@ -2,10 +2,11 @@ import React from 'react';
 
 import styles from './heading.module.scss';
 
-import { Icon } from '@/components/ui/icon/icon';
+import { Logo } from '@/components/ui/icon/logo';
 
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 import { Text } from '@mantine/core';
+import { IconLayoutSidebarRightExpand } from '@tabler/icons-react';
 
 interface IHeadingProps {
   isExpanded: boolean;
@@ -21,10 +22,10 @@ export const Heading: React.FC<IHeadingProps> = ({ isExpanded, toggleNav }) => {
   return (
     <div className={styles.heading}>
       <button onClick={toggleNav} className={isExpanded ? '' : styles.rotate}>
-        <Icon name='arrow_left' color='white' size={20} />
+        <IconLayoutSidebarRightExpand color='white' />
       </button>
       <div className={styles.wrapper}>
-        <Icon logo />
+        <Logo />
         <AnimatePresence>
           {isExpanded && (
             <motion.div initial='hide' animate='show' exit='hide' variants={textVariants}>

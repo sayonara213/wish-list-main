@@ -4,10 +4,10 @@ import Image, { ImageLoader } from 'next/image';
 
 import styles from './item-image.module.scss';
 
-import { Icon } from '@/components/ui/icon/icon';
 import { notify } from '@/utils/toast';
 
 import { Input, Loader, Text } from '@mantine/core';
+import { IconTrash } from '@tabler/icons-react';
 
 interface IAddItemImageProps {
   link: string | null;
@@ -86,7 +86,7 @@ export const AddItemImage: React.FC<IAddItemImageProps> = ({
       <div className={styles.container} onClick={triggerFileInput}>
         {image ? (
           <>
-            <Icon name='delete' className={styles.delete} onClick={deleteImage} />
+            <IconTrash color='var(--text-color)' onClick={deleteImage} />
             <Image
               src={image}
               alt='item-image'

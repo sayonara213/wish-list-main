@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 
 import styles from './navbar-item.module.scss';
 
-import { Icon } from '@/components/ui/icon/icon';
 import { classes } from '@/utils/styles';
 import { toNormalCase } from '@/utils/text';
 
@@ -13,7 +12,7 @@ import { Text } from '@mantine/core';
 
 interface INavbarItemProps {
   name: string;
-  icon: string;
+  icon: React.ReactNode;
   link?: string;
   onClick?: () => void;
   isExpanded: boolean;
@@ -64,7 +63,7 @@ export const NavbarItem: React.FC<INavbarItemProps> = ({
   return (
     <li>
       <div className={classes(styles.item, (onClick || link) && styles.hover)} onClick={click}>
-        <Icon name={icon} size={24} color='white' />
+        {icon}
         <AnimatePresence>
           {isExpanded && (
             <motion.div

@@ -2,8 +2,8 @@ import React from 'react';
 
 import styles from './birth-date.module.scss';
 
-import { Icon } from '../icon/icon';
 import { Text } from '@mantine/core';
+import { IconCake } from '@tabler/icons-react';
 
 interface IBirthDateProps extends React.HTMLAttributes<HTMLDivElement> {
   birthDate: string | null;
@@ -20,7 +20,7 @@ export const BirthDate: React.FC<IBirthDateProps> = ({ birthDate, ...props }) =>
 
   return (
     <div className={styles.birthday} {...props}>
-      <Icon name='cake' color='secondary' />
+      <IconCake color='var(--color-text-secondary)' />
       <Text fw='bold'>{formattedDate}</Text>
     </div>
   );

@@ -7,13 +7,13 @@ import styles from '../toolbar.module.scss';
 import { useSharedWishlist } from '@/components/base/provider/shared-wishlist-provider';
 import { useWishlist } from '@/components/base/provider/wishlist-provider';
 import { ConfirmModal } from '@/components/ui/confirm-modal/confirm-modal';
-import { Icon } from '@/components/ui/icon/icon';
 import { Database } from '@/lib/schema';
 import { notify } from '@/utils/toast';
 
 import { useDisclosure } from '@mantine/hooks';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Text } from '@mantine/core';
+import { IconTrash } from '@tabler/icons-react';
 
 export const ToolbarDelete = () => {
   const { wishlist } = useWishlist();
@@ -47,7 +47,7 @@ export const ToolbarDelete = () => {
         description='Are you sure you want to delete that wishlist?'
       />
       <div className={styles.button} onClick={open}>
-        <Icon name='delete' />
+        <IconTrash color='var(--text-color)' />
         <Text>Delete</Text>
       </div>
     </>

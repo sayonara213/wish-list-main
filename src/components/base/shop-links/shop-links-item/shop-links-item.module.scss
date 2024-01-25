@@ -62,5 +62,11 @@
 
   &:hover {
     background-color: var(--color-primary);
+
+    path {
+      transition: all var(--transition-duration) var(--transition-timing-function);
+
+      stroke: var(--color-foreground);
+    }
   }
 }

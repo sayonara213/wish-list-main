@@ -8,6 +8,7 @@ import { NavbarItem } from '../navbar-item/navbar-item';
 import { NavbarSignOut } from '../navbar-sign-out/navbar-sign-out';
 import { NavbarUsers } from '../navbar-users/navbar-users';
 import { ThemeSwitch } from '../theme-switch/theme-switch';
+import { IconBell, IconHome, IconUser, IconUsers } from '@tabler/icons-react';
 
 interface INavbarBodyProps {
   isExpanded: boolean;
@@ -17,15 +18,15 @@ interface INavbarBodyProps {
 
 export const NavbarBody: React.FC<INavbarBodyProps> = ({ isExpanded, toggleNav, closeOnClick }) => {
   const navbarItems: INavbarItem[] = [
-    { name: 'home', icon: 'home', link: '/' },
-    { name: 'profile', icon: 'person', link: '/profile' },
+    { name: 'home', icon: <IconHome color='white' />, link: '/' },
+    { name: 'profile', icon: <IconUser color='white' />, link: '/profile' },
     {
       name: 'friends',
-      icon: 'diversity_1',
+      icon: <IconUsers color='white' />,
       children: <NavbarUsers closeNav={closeOnClick ? toggleNav : undefined} />,
       onClick: toggleNav,
     },
-    { name: 'notifications', icon: 'notifications', link: '/notifications' },
+    { name: 'notifications', icon: <IconBell color='white' />, link: '/notifications' },
   ];
 
   return (
