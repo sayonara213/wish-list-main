@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-const email = yup.string().email('Email is not valid').required();
+const email = yup.string().email('Email is not valid').required('Email is required');
 const password = yup.string().min(6, 'Password must be at least 6 characters').required();
 const userName = yup.string().when('name', {
   is: (value: string) => value?.length,

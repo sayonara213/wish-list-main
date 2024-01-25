@@ -28,15 +28,7 @@
 
 .container {
   width: 400px;
-  overflow: visible;
-
-  @media screen and (max-width: 576px) {
-    width: 100%;
-  }
-}
-
-.form {
-  width: 100%;
+  padding: 20px;
 
   display: flex;
   flex-direction: column;
@@ -50,10 +42,13 @@
   .box {
     display: flex;
     flex-direction: column;
-    padding: 40px;
     gap: 20px;
 
     position: relative;
+  }
+
+  @media screen and (max-width: 576px) {
+    width: 100%;
   }
 }
 
