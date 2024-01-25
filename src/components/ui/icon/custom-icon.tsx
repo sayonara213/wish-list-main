@@ -19,7 +19,7 @@ export const CustomIcon: React.FC<IIconProps> = ({ name, size = 16, onClick }) =
       height={size}
       priority
       onClick={onClick}
-      style={onClick && { cursor: 'pointer' }}
+      style={{ cursor: 'pointer', objectFit: 'contain' }}
     />
   );
 };

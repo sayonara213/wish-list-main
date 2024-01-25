@@ -1,73 +1,69 @@
 'use client';
 
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
 import styles from './auth.module.scss';
-import { SignIn } from './sign-in/sign-in';
-import { SignUp } from './sign-up/sign-up';
+import { AuthForm } from './auth-form/auth-form';
 
 import { Icon } from '@/components/ui/icon/icon';
 import { Database } from '@/lib/schema';
 import { IAuthForm } from '@/types/form.types';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { EffectFlip } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
 
-import type SwiperCore from 'swiper';
-
-import 'swiper/css';
-import 'swiper/css/effect-flip';
 import { Text } from '@mantine/core';
+import { AuthProviders } from './auth-providers/auth-providers';
+import { Provider } from '@supabase/supabase-js';
+import { notify } from '@/utils/toast';
 
 const Auth: React.FC = () => {
-  const swiperRef = useRef<SwiperCore>();
   const [isLoading, setIsLoading] = useState(false);
+  const [isSignIn, setIsSignIn] = useState(true);
 
   const router = useRouter();
   const supabase = createClientComponentClient<Database>();
 
-  const handleNext = useCallback(() => {
-    if (!swiperRef.current) return;
-    swiperRef.current.slideNext();
-  }, []);
-
-  const handleSignIn = async (values: IAuthForm) => {
-    const { email, password } = values;
-    setIsLoading(true);
-    try {
-      await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      setIsLoading(false);
-      router.refresh();
-    } catch (error) {
-      setIsLoading(false);
-    }
+  const switchAuth = () => {
+    setIsSignIn((prev) => !prev);
   };
 
-  const handleSignUp = async (values: IAuthForm) => {
-    const { email, password } = values;
+  const handleAuth = async (values: IAuthForm) => {
     setIsLoading(true);
-    try {
-      await supabase.auth.signUp({
-        email,
-        password,
-      });
+    const { error } = isSignIn
+      ? await supabase.auth.signInWithPassword(values)
+      : await supabase.auth.signUp(values);
+
+    setIsLoading(false);
+
+    if (error) {
+      notify('error', error.message);
       setIsLoading(false);
-      router.refresh();
-    } catch (error) {
-      setIsLoading(false);
+      return;
     }
+
+    router.refresh();
   };
 
-  const components = [
-    <SignIn next={handleNext} handleSignIn={handleSignIn} isLoading={isLoading} key={0} />,
-    <SignUp next={handleNext} handleSignUp={handleSignUp} isLoading={isLoading} key={1} />,
-  ];
+  const handleOAuth = async (provider: Provider) => {
+    setIsLoading(true);
+
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: provider,
+      options: {
+        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,
+      },
+    });
+
+    if (error) {
+      notify('error', error.message);
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(false);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -78,19 +74,19 @@ const Auth: React.FC = () => {
         </Text>
       </div>
       <div className={styles.container}>
-        <Swiper
-          effect={'flip'}
-          loop
-          onBeforeInit={(swiper) => {
-            swiperRef.current = swiper;
-          }}
-          modules={[EffectFlip]}
-          speed={800}
+        <Text size='lg'>{isSignIn ? 'Sign In' : 'Sign Up'}</Text>
+        <AuthForm isSignIn={isSignIn} handleProceed={handleAuth} isLoading={isLoading} />
+        <AuthProviders handleOAuth={handleOAuth} />
+        <Text
+          size='sm'
+          c={'dimmed'}
+          ta={'right'}
+          td={'underline'}
+          style={{ cursor: 'pointer' }}
+          onClick={switchAuth}
         >
-          {components.map((component, index) => (
-            <SwiperSlide key={index}>{component}</SwiperSlide>
-          ))}
-        </Swiper>
+          {isSignIn ? 'New to Wishy? Join Now' : 'Already have an account? Sign in here'}
+        </Text>
       </div>
     </div>
   );
