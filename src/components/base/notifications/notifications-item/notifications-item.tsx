@@ -3,7 +3,6 @@ import React from 'react';
 import styles from './notifications-item.module.scss';
 
 import { Avatar } from '@/components/ui/avatar/avatar';
-import { Icon } from '@/components/ui/icon/icon';
 import { Database } from '@/lib/schema';
 import { TFriendship, TProfile } from '@/types/database.types';
 import { formatDateToNow } from '@/utils/date';
@@ -12,6 +11,7 @@ import { notify } from '@/utils/toast';
 
 import { Text } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { IconCheck, IconX } from '@tabler/icons-react';
 
 interface IFiriendshipProfile extends TFriendship {
   profiles: TProfile | null;
@@ -58,8 +58,8 @@ export const NotificationsItem: React.FC<INotificationsItemProps> = ({
         </div>
       </div>
       <div className={styles.right}>
-        <Icon onClick={() => handleAction('accepted')} name='done' />
-        <Icon onClick={() => handleAction('declined')} name='close' />
+        <IconCheck color='var(--text-color)' onClick={() => handleAction('accepted')} />
+        <IconX color='var(--text-color)' onClick={() => handleAction('declined')} />
       </div>
     </div>
   );

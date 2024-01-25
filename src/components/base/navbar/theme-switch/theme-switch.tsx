@@ -2,10 +2,10 @@
 
 import styles from './theme-switch.module.scss';
 
-import { Icon } from '@/components/ui/icon/icon';
 import { classes } from '@/utils/styles';
 
 import { Text, useMantineColorScheme } from '@mantine/core';
+import { IconMoon, IconSun } from '@tabler/icons-react';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
 
 interface IThemeSwitchProps {
@@ -24,8 +24,8 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ isExpanded }) => {
     <li className={classes(styles.wrapper, styles.button)}>
       <div className={styles.icon} onClick={toggleColorScheme}>
         <>
-          <Icon name='dark_mode' size={24} color='white' />
-          <Icon name='light_mode' size={24} color='white' />
+          <IconSun size={24} color='white' />
+          <IconMoon size={24} color='white' />
         </>
         <AnimatePresence>
           {isExpanded && (

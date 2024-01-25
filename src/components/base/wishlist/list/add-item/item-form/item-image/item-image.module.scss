@@ -32,7 +32,7 @@
     border-color: var(--color-border-secondary);
   }
 
-  span {
+  svg {
     position: absolute;
     top: 0;
     right: 0;
@@ -40,13 +40,19 @@
     padding: 0;
     border: none;
     background: none;
-    color: var(--color-text-muted);
+
     font-size: var(--size-normal);
     line-height: 1;
     transition: color var(--transition-duration) var(--transition-timing-function);
 
+    path {
+      stroke: var(--color-text-muted);
+    }
+
     &:hover {
-      color: var(--color-text);
+      path {
+        stroke: var(--text-color);
+      }
     }
   }
 }

@@ -4,11 +4,11 @@ import styles from '../toolbar.module.scss';
 
 import { useSharedWishlist } from '@/components/base/provider/shared-wishlist-provider';
 import { useWishlist } from '@/components/base/provider/wishlist-provider';
-import { Icon } from '@/components/ui/icon/icon';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Text } from '@mantine/core';
+import { IconCheck, IconEdit } from '@tabler/icons-react';
 
 interface IToolbarEditProps {
   isEditing: boolean;
@@ -51,7 +51,7 @@ export const ToolbarEdit: React.FC<IToolbarEditProps> = ({ isEditing, setIsEditi
             transition={{ duration: 0.2 }}
             style={{ position: 'absolute' }}
           >
-            <Icon name='check' />
+            <IconCheck color='var(--text-color)' />
             <Text>Save</Text>
           </motion.div>
         ) : (
@@ -64,7 +64,7 @@ export const ToolbarEdit: React.FC<IToolbarEditProps> = ({ isEditing, setIsEditi
             transition={{ duration: 0.2 }}
             style={{ position: 'absolute' }}
           >
-            <Icon name='edit' />
+            <IconEdit color='var(--text-color)' />
             <Text>Edit</Text>
           </motion.div>
         )}

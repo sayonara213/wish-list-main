@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import styles from './auth.module.scss';
 import { AuthForm } from './auth-form/auth-form';
 
-import { Icon } from '@/components/ui/icon/icon';
+import { Logo } from '@/components/ui/icon/logo';
 import { Database } from '@/lib/schema';
 import { IAuthForm } from '@/types/form.types';
 
@@ -68,7 +68,7 @@ const Auth: React.FC = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.logo}>
-        <Icon logo />
+        <Logo />
         <Text size='50px' fw='bold'>
           Wishy
         </Text>

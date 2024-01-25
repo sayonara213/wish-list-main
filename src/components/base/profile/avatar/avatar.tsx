@@ -5,12 +5,12 @@ import { useRouter } from 'next/navigation';
 
 import styles from './avatar.module.scss';
 
-import { Icon } from '@/components/ui/icon/icon';
 import { API_URL } from '@/constants/api';
 import { TProfile } from '@/types/database.types';
 
 import { LoadingOverlay, Skeleton } from '@mantine/core';
 import { SupabaseClient } from '@supabase/supabase-js';
+import { IconTrash, IconUpload } from '@tabler/icons-react';
 
 interface IAvatarProps {
   supabase: SupabaseClient;
@@ -90,12 +90,12 @@ export const ProfileAvatar: React.FC<IAvatarProps> = ({ supabase, profile, setPr
   return (
     <div className={styles.wrapper}>
       <div className={styles.delete} onClick={setDefaultAvatar}>
-        <Icon name='delete' size={16} />
+        <IconTrash size={16} color='var(--text-color)' />
       </div>
       <div className={styles.avatarWrapper} onClick={handleClick}>
         <LoadingOverlay visible={isUploading} overlayProps={{ blur: 2 }} />
         <div className={styles.upload}>
-          <Icon name='upload' size={24} />
+          <IconUpload size={24} color='white' />
         </div>
         {profile.avatar_url ? (
           <Image

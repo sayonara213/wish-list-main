@@ -5,10 +5,10 @@ import React, { useState } from 'react';
 import { NotificationsItem } from './notifications-item/notifications-item';
 import styles from './notifications.module.scss';
 
-import { Icon } from '@/components/ui/icon/icon';
 import { TFriendship, TProfile } from '@/types/database.types';
 
 import { Text } from '@mantine/core';
+import { IconBell } from '@tabler/icons-react';
 
 interface IFiriendshipProfile extends TFriendship {
   profiles: TProfile | null;
@@ -31,7 +31,7 @@ export const Notifications: React.FC<INotificationsProps> = ({ friendships }) =>
   return available ? (
     <div className={styles.wrapper}>
       <div className={styles.title}>
-        <Icon name='notifications' />
+        <IconBell name='notifications' color='var(--text-color)' />
         <Text size='lg'>Notifications</Text>
       </div>
       <div className={styles.list}>

@@ -5,12 +5,18 @@ import styles from './edit-section.module.scss';
 import { WishlistItemForm } from '../../add-item/item-form/item-form';
 
 import { ConfirmModal } from '@/components/ui/confirm-modal/confirm-modal';
-import { Icon } from '@/components/ui/icon/icon';
 import { TWishlistItem } from '@/types/database.types';
 
 import { Modal } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { motion } from 'framer-motion';
+import {
+  IconDotsVertical,
+  IconDragDrop,
+  IconEdit,
+  IconGripVertical,
+  IconTrash,
+} from '@tabler/icons-react';
 
 interface IEditSectionProps {
   handleDrag: (event: React.PointerEvent) => void;
@@ -38,14 +44,14 @@ export const EditSection: React.FC<IEditSectionProps> = ({
       >
         <div className={styles.edit}>
           <button onClick={openEdit}>
-            <Icon name='edit' />
+            <IconEdit color='var(--text-color)' />
           </button>
           <button onClick={openDelete}>
-            <Icon name='delete' />
+            <IconTrash color='var(--text-color)' />
           </button>
         </div>
         <button className={styles.drag} style={{ touchAction: 'none' }} onPointerDown={handleDrag}>
-          <Icon name='drag_indicator' size={32} />
+          <IconGripVertical color='var(--text-color)' />
         </button>
       </motion.div>
       <ConfirmModal
