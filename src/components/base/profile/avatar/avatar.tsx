@@ -8,9 +8,11 @@ import styles from './avatar.module.scss';
 import { API_URL } from '@/constants/api';
 import { TProfile } from '@/types/database.types';
 
-import { LoadingOverlay, Skeleton } from '@mantine/core';
+import { LoadingOverlay, Modal, Skeleton } from '@mantine/core';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { IconTrash, IconUpload } from '@tabler/icons-react';
+import { useDisclosure } from '@mantine/hooks';
+import { AvatarEdit } from './avatar-edit/avatar-edit';
 
 interface IAvatarProps {
   supabase: SupabaseClient;
@@ -23,6 +25,7 @@ export const ProfileAvatar: React.FC<IAvatarProps> = ({ supabase, profile, setPr
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const [opened, { open, close }] = useDisclosure(false);
 
   const changeAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -51,14 +54,14 @@ export const ProfileAvatar: React.FC<IAvatarProps> = ({ supabase, profile, setPr
     router.refresh();
   };
 
-  const uploadAvatar = async () => {
-    if (!avatar) return;
+  const uploadAvatar = async (file: File) => {
+    if (!file) return;
 
     setIsUploading(true);
     const fileName = `avatar${Date.now()}`;
     const uploadedUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/${API_URL.avatars}/${profile.id}/${fileName}`;
 
-    await supabase.storage.from('avatars').upload(`${profile.id}/${fileName}`, avatar, {
+    await supabase.storage.from('avatars').upload(`${profile.id}/${fileName}`, file, {
       cacheControl: '3600',
       upsert: true,
     });
@@ -84,7 +87,10 @@ export const ProfileAvatar: React.FC<IAvatarProps> = ({ supabase, profile, setPr
   };
 
   useEffect(() => {
-    uploadAvatar();
+    //uploadAvatar();
+    if (avatar) {
+      open();
+    }
   }, [avatar]);
 
   return (
@@ -117,6 +123,16 @@ export const ProfileAvatar: React.FC<IAvatarProps> = ({ supabase, profile, setPr
         hidden
         ref={fileInputRef}
       />
+      <Modal opened={opened} onClose={close} centered withCloseButton={false}>
+        {avatar && (
+          <AvatarEdit
+            src={URL.createObjectURL(avatar)}
+            setAvatar={setAvatar}
+            close={close}
+            uploadAvatar={uploadAvatar}
+          />
+        )}
+      </Modal>
     </div>
   );
 };
