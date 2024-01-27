@@ -7,21 +7,24 @@ import { Profile } from '@/components/base/profile/profile';
 import styles from '@/styles/container.module.scss';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { Database } from '@/lib/schema';
 
 const ProfilePage = async () => {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerComponentClient<Database>({ cookies });
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect('/auth');
+  const { data: profile } = await supabase.from('profiles').select().eq('id', user?.id!).single();
+
+  if (!profile) {
+    return;
   }
 
   return (
     <div className={styles.centerContainer}>
-      <Profile user={user} />
+      <Profile profile={profile} />
     </div>
   );
 };

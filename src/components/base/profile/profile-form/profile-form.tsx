@@ -27,12 +27,19 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
+  const initialState: IProfileForm = {
+    userName: profile.user_name || '',
+    fullName: profile.full_name || '',
+    bio: profile.bio || '',
+  };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     setError,
   } = useForm<IProfileForm>({
+    defaultValues: initialState,
     resolver: yupResolver<IProfileForm>(profileSchema),
     mode: 'onBlur',
   });
