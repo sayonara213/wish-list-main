@@ -19,19 +19,7 @@
   gap: 16px;
 
   position: relative;
-  padding: 16px;
-
-  &::before {
-    content: '';
-    position: absolute;
-    bottom: 14px;
-    left: 0;
-    width: calc(100% - 30px);
-
-    height: 20px;
-
-    background: linear-gradient(to top, var(--color-foreground), transparent);
-  }
+  overflow: hidden;
 
   @media screen and (max-width: 1200px) {
     height: 400px;

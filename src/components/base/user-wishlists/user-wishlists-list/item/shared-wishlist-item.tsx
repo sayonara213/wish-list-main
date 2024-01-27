@@ -22,8 +22,8 @@ export const SharedWishlistsItem: React.FC<ISharedWishlistsItemProps> = ({
   isOwnWishlist,
 }) => {
   return (
-    <li className={styles.item}>
-      <Link href={`/shared-wishlist/${wishlist.id}`} className={styles.shared}>
+    <Link href={`/shared-wishlist/${wishlist.id}`} className={styles.item}>
+      <li className={styles.shared}>
         <Avatar src={wishlist.friend_profile?.avatar_url!} size={36} />
         <div className={styles.pair}>
           <Text fw='bold' className={styles.title}>
@@ -33,12 +33,12 @@ export const SharedWishlistsItem: React.FC<ISharedWishlistsItemProps> = ({
             {wishlist.friend_profile?.full_name}
           </Text>
         </div>
-      </Link>
+      </li>
       <div className={styles.right}>
         <Text size='sm' c='dimmed'>
           {formatDateToNow(wishlist.created_at)}
         </Text>
       </div>
-    </li>
+    </Link>
   );
 };
