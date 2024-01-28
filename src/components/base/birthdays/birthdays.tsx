@@ -35,7 +35,9 @@ export const Birthdays: React.FC<IBirthdayCalendarProps> = async ({ userId }) =>
         {haveFriends ? (
           <>
             <BirthdayCalendar friends={friends} />
-            <BirthdayList friends={friends} />
+            <div className={styles.col}>
+              <BirthdayList friends={friends} />
+            </div>
           </>
         ) : (
           <div className={styles.wrapper} style={{ width: '100%' }}>
