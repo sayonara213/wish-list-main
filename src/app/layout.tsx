@@ -15,8 +15,26 @@ import '@/styles/globals.scss';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
+import { Metadata } from 'next';
 
 const inter = Exo_2({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  applicationName: 'Wishy',
+  title: {
+    default: 'Wishy',
+    template: '%s | Wishy',
+  },
+  description: 'Wishy is a social wishlist app',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Wishy',
+  },
+  formatDetection: {
+    telephone: false,
+  },
+};
 
 export const viewport = {
   themeColor: '#7745e9',
