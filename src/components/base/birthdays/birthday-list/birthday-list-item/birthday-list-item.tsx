@@ -11,11 +11,12 @@ import { Text } from '@mantine/core';
 
 interface IBirthdayListItemProps {
   friend: TProfile;
+  locale: string;
 }
 
-export const BirthdayListItem: React.FC<IBirthdayListItemProps> = ({ friend }) => {
+export const BirthdayListItem: React.FC<IBirthdayListItemProps> = ({ friend, locale }) => {
   const birthDate = new Date(friend.date_of_birth);
-  const distance = formatBirthdayToNow(birthDate.toDateString());
+  const distance = formatBirthdayToNow(birthDate.toDateString(), locale);
 
   return (
     <Link href={`/profile/${friend.id}`} className={styles.wrapper}>

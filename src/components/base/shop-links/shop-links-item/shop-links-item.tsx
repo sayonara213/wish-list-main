@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 
 import Image from 'next/image';
@@ -40,10 +42,8 @@ export const ShopLinksItem: React.FC<IShopLinksItemProps> = ({ shop, deleteLink 
   const supabase = createClientComponentClient<Database>();
 
   const handleDelete = async () => {
-    try {
-      await supabase.from('shops').delete().eq('id', shop.id);
-      deleteLink(shop.id);
-    } catch {}
+    await supabase.from('shops').delete().eq('id', shop.id);
+    deleteLink(shop.id);
   };
 
   return (
@@ -72,8 +72,4 @@ export const ShopLinksItem: React.FC<IShopLinksItemProps> = ({ shop, deleteLink 
       </a>
     </motion.div>
   );
-};
-
-export const ShopLinksItemLoading: React.FC = () => {
-  return <Skeleton height={80} width={80} />;
 };

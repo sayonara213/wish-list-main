@@ -75,10 +75,19 @@
       }
     },
     "birthdays": {
-      "title": "Birthdays"
+      "title": "Birthdays",
+      "tooltip": "'s birthday"
     },
     "shops": {
-      "title": "Shops"
+      "title": "Shops",
+      "add": "Add",
+      "modal": {
+        "title": "Save link",
+        "submit": "Save"
+      }
+    },
+    "subNav": {
+      "title": "Welcome back, {name}!"
     }
   },
   "Navigation": {

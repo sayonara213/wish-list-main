@@ -7,14 +7,15 @@ import { TProfile } from '@/types/database.types';
 
 interface IBirthdayListProps {
   friends: TProfile[];
+  locale: string;
 }
 
-export const BirthdayList: React.FC<IBirthdayListProps> = ({ friends }) => {
+export const BirthdayList: React.FC<IBirthdayListProps> = ({ friends, locale }) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.list}>
         {friends.map((friend) => (
-          <BirthdayListItem friend={friend} key={friend.id} />
+          <BirthdayListItem friend={friend} key={friend.id} locale={locale} />
         ))}
       </div>
     </div>

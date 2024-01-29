@@ -12,6 +12,8 @@ import { Database } from '@/lib/schema';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Text } from '@mantine/core';
+import { useTranslations } from 'next-intl';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 interface IBirthdayCalendarProps {
   userId: string;
@@ -19,6 +21,9 @@ interface IBirthdayCalendarProps {
 
 export const Birthdays: React.FC<IBirthdayCalendarProps> = async ({ userId }) => {
   const supabase = createServerComponentClient<Database>({ cookies });
+
+  const t = await getTranslations('HomePage.birthdays');
+  const locale = await getLocale();
 
   const { data: friends, error } = await supabase.rpc('get_user_friends', {
     current_user_id: userId,
@@ -29,14 +34,14 @@ export const Birthdays: React.FC<IBirthdayCalendarProps> = async ({ userId }) =>
   return (
     <div className={styles.container}>
       <Text size='xxl' fw='bold'>
-        Birthdays
+        {t('title')}
       </Text>
       <div className={styles.row}>
         {haveFriends ? (
           <>
-            <BirthdayCalendar friends={friends} />
+            <BirthdayCalendar friends={friends} locale={locale} tooltip={t('tooltip')} />
             <div className={styles.col}>
-              <BirthdayList friends={friends} />
+              <BirthdayList friends={friends} locale={locale} />
             </div>
           </>
         ) : (

@@ -12,6 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Input, Button, Text } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useForm } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 
 interface IAddLinkFormProps {
   addLink: (link: TShop) => void;
@@ -20,6 +21,7 @@ interface IAddLinkFormProps {
 
 export const AddLinkForm: React.FC<IAddLinkFormProps> = ({ addLink, closePopover }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const t = useTranslations('HomePage.shops.modal');
 
   const supabase = createClientComponentClient<Database>();
 
@@ -55,7 +57,7 @@ export const AddLinkForm: React.FC<IAddLinkFormProps> = ({ addLink, closePopover
 
   return (
     <div className={styles.wrapper}>
-      <Text size='sm'>Add link</Text>
+      <Text size='sm'>{t('title')}</Text>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <Input
           size='sm'
@@ -70,7 +72,7 @@ export const AddLinkForm: React.FC<IAddLinkFormProps> = ({ addLink, closePopover
           error={errors['linkUrl']?.message}
         />
         <Button size='sm' fullWidth type='submit' loading={isLoading}>
-          Add
+          {t('submit')}
         </Button>
       </form>
     </div>

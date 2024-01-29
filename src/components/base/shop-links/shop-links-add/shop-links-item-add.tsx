@@ -7,6 +7,7 @@ import { TShop } from '@/types/database.types';
 
 import { Popover, Text } from '@mantine/core';
 import { IconPlus } from '@tabler/icons-react';
+import { useTranslations } from 'next-intl';
 
 interface IShopLinksItemAddProps {
   addLink: (link: TShop) => void;
@@ -14,6 +15,7 @@ interface IShopLinksItemAddProps {
 
 export const ShopLinksItemAdd: React.FC<IShopLinksItemAddProps> = ({ addLink }) => {
   const [isOpened, setIsOpened] = useState(false);
+  const t = useTranslations('HomePage.shops');
 
   return (
     <Popover
@@ -27,7 +29,7 @@ export const ShopLinksItemAdd: React.FC<IShopLinksItemAddProps> = ({ addLink }) 
       <Popover.Target>
         <div className={styles.button} onClick={() => setIsOpened((o) => !o)}>
           <IconPlus color='var(--text-color)' size={32} />
-          <Text size='sm'>Add</Text>
+          <Text size='sm'>{t('add')}</Text>
         </div>
       </Popover.Target>
       <Popover.Dropdown>

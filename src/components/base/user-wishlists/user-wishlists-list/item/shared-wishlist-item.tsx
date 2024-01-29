@@ -14,13 +14,10 @@ import { Text } from '@mantine/core';
 
 interface ISharedWishlistsItemProps {
   wishlist: ISharedWishlistJoinProfile;
-  isOwnWishlist?: boolean;
+  locale: string;
 }
 
-export const SharedWishlistsItem: React.FC<ISharedWishlistsItemProps> = ({
-  wishlist,
-  isOwnWishlist,
-}) => {
+export const SharedWishlistsItem: React.FC<ISharedWishlistsItemProps> = ({ wishlist, locale }) => {
   return (
     <Link href={`/shared-wishlist/${wishlist.id}`} className={styles.item}>
       <li className={styles.shared}>
@@ -36,7 +33,7 @@ export const SharedWishlistsItem: React.FC<ISharedWishlistsItemProps> = ({
       </li>
       <div className={styles.right}>
         <Text size='sm' c='dimmed'>
-          {formatDateToNow(wishlist.created_at)}
+          {formatDateToNow(wishlist.created_at, locale)}
         </Text>
       </div>
     </Link>
