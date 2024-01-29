@@ -42,7 +42,13 @@ export const viewport = {
   maximumScale: 1,
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+  params: { locale },
+}: {
+  children: React.ReactNode;
+  params: { locale: string };
+}) {
   const supabase = createServerComponentClient<Database>({ cookies });
 
   const {
@@ -52,7 +58,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const accessToken = session?.access_token || null;
 
   return (
-    <html lang='en'>
+    <html lang={locale}>
       <head>
         <ColorSchemeScript defaultColorScheme='auto' />
       </head>

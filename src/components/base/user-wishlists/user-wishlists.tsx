@@ -1,52 +1,35 @@
-'use client';
-
 import React from 'react';
 
-import { CreateWishlistForm } from './create-wishlist-form/create-wishlist-form';
 import { WishlistsList } from './user-wishlists-list/user-wishlists-list';
 import styles from './user-wishlists.module.scss';
 
 import { ISharedWishlistJoinProfile, TWishlist } from '@/types/database.types';
 
-import { ActionIcon, Button, Modal, Text } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
-import { IconPlus } from '@tabler/icons-react';
+import { Text } from '@mantine/core';
+
+import { CreateWishlistButton } from './create-wishlist-button/create-wishlist-button';
+import { NextIntlClientProvider, useMessages, useTranslations } from 'next-intl';
+import { pick } from 'lodash';
 
 interface IUserWishlistsProps {
   wishlists: (TWishlist | ISharedWishlistJoinProfile)[] | null;
 }
 
 export const UserWishlists: React.FC<IUserWishlistsProps> = ({ wishlists }) => {
-  const [opened, { open, close }] = useDisclosure(false);
+  const t = useTranslations('HomePage');
+  const messages = useMessages();
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>
         <Text size='xxl' fw='bold'>
-          Your wishlists
+          {t('wishlists.title')}
         </Text>
-        <ActionIcon
-          variant='gradient'
-          gradient={{ from: '#7745e9', to: '#9a45e9', deg: 45 }}
-          size='md'
-          onClick={open}
-        >
-          <IconPlus />
-        </ActionIcon>
+        <NextIntlClientProvider messages={pick(messages, 'HomePage')}>
+          <CreateWishlistButton modalTitle={t('create.title')} />
+        </NextIntlClientProvider>
       </div>
-      <div className={styles.list}>
-        <Modal
-          opened={opened}
-          onClose={close}
-          withCloseButton={false}
-          centered
-          title='Create wishlist'
-          className={styles.modal}
-        >
-          <CreateWishlistForm />
-        </Modal>
-        {wishlists && <WishlistsList wishlists={wishlists} />}
-      </div>
+      <div className={styles.list}>{wishlists && <WishlistsList wishlists={wishlists} />}</div>
     </div>
   );
 };

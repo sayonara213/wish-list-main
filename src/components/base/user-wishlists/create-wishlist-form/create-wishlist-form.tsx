@@ -19,6 +19,7 @@ import { Button, Input, Switch, Text, TextInput, Textarea } from '@mantine/core'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 
 const variants = {
   open: { opacity: 1, height: 'auto' },
@@ -32,6 +33,8 @@ export const CreateWishlistForm = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { push } = useRouter();
   const user = useAuth();
+
+  const t = useTranslations('HomePage.create.form');
 
   const {
     register,
@@ -84,19 +87,19 @@ export const CreateWishlistForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <TextInput
         {...register('title')}
-        placeholder='Title'
-        label='Title'
-        description='Just the name of new wishlist'
-        error={errors.title?.message}
+        placeholder={t('title.label')}
+        label={t('title.label')}
+        description={t('title.description')}
+        error={errors.title && t('title.error')}
       />
       <Textarea
         {...register('description')}
-        placeholder='Description...'
-        label='Description'
-        description='Describe to your friends what this wishlist is about'
-        error={errors.description?.message}
+        placeholder={t('description.label')}
+        label={t('description.label')}
+        description={t('description.description')}
+        error={errors.description && t('description.error')}
       ></Textarea>
-      <Switch label='Is shared' onChange={handleIsSharedChange} checked={isShared} />
+      <Switch label={t('shared.label')} onChange={handleIsSharedChange} checked={isShared} />
       <div>
         <AnimatePresence>
           {isShared ? (
@@ -108,7 +111,7 @@ export const CreateWishlistForm = () => {
                 variants={variants}
                 key='friend-profile'
               >
-                <Input.Wrapper label={'Shared with:'}>
+                <Input.Wrapper label={t('shared.selected')}>
                   <div className={styles.friend}>
                     <div className={styles.section}>
                       <Avatar src={profile.avatar_url} size={32} />
@@ -127,10 +130,7 @@ export const CreateWishlistForm = () => {
                 variants={variants}
                 key='wishlist-form'
               >
-                <Input.Wrapper
-                  label={'Select friend'}
-                  description={'Choose friend to create shared wishlist with'}
-                >
+                <Input.Wrapper label={t('shared.action')} description={t('shared.description')}>
                   <WishlistFormFriends onSelect={handleSetFriend} />
                 </Input.Wrapper>
               </motion.div>
@@ -143,13 +143,13 @@ export const CreateWishlistForm = () => {
               variants={variants}
               key='is-private'
             >
-              <Switch label='Is private' {...register('isPrivate')} />
+              <Switch label={t('private.label')} {...register('isPrivate')} />
             </motion.div>
           )}
         </AnimatePresence>
       </div>
       <Button type='submit' fullWidth loading={isLoading} disabled={isLoading}>
-        Create
+        {t('submit.label')}
       </Button>
     </form>
   );

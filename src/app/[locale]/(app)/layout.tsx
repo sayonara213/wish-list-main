@@ -9,22 +9,23 @@ import { Database } from '@/lib/schema';
 import container from '@/styles/container.module.scss';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+
+import pick from 'lodash/pick';
 
 const AppLayout = async ({ children }: { children: React.ReactNode }) => {
   const supabase = createServerComponentClient<Database>({ cookies });
+  const messages = await getMessages();
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select()
-    .eq('id', user?.id!)
-    .single();
+  const { data: profile } = await supabase.from('profiles').select().eq('id', user?.id!).single();
 
   if (!user) {
-    redirect('/auth');
+    redirect('/auth/sign-in');
   }
 
   if (!profile) {
@@ -33,7 +34,9 @@ const AppLayout = async ({ children }: { children: React.ReactNode }) => {
 
   return (
     <main className={container.container}>
-      <Navbar />
+      <NextIntlClientProvider messages={pick(messages, 'Navigation')}>
+        <Navbar />
+      </NextIntlClientProvider>
       <SubNav profile={profile!} />
       {children}
     </main>

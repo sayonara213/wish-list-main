@@ -1,7 +1,11 @@
+const createNextIntlPlugin = require('next-intl/plugin');
+
 const withSerwist = require('@serwist/next').default({
   swSrc: 'src/app/sw.ts',
   swDest: 'public/sw.js',
 });
+
+const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -24,6 +28,4 @@ const nextConfig = {
   },
 };
 
-module.exports = withSerwist({
-  ...nextConfig,
-});
+module.exports = withSerwist(withNextIntl(nextConfig));

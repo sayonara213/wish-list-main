@@ -1,0 +1,102 @@
+{
+  "AuthPage": {
+    "signIn": {
+      "title": "Sign In",
+      "option": "New to Wishy? Join now"
+    },
+    "signUp": {
+      "title": "Sign Up",
+      "option": "Already have an account? Sign in"
+    },
+    "fields": {
+      "email": {
+        "label": "Email",
+        "error": "Email is required"
+      },
+      "password": {
+        "label": "Password",
+        "error": "Password must be at least 6 characters"
+      }
+    },
+    "providers": {
+      "label": "Sign in with",
+      "divider": "OR"
+    },
+    "AuthAdditional": {
+      "title": "One more step...",
+      "sub": "Let others know more about you!",
+      "fields": {
+        "name": {
+          "label": "Full Name",
+          "description": "Set your full name to let others know who you are",
+          "error": "Full name is required"
+        },
+        "birthday": {
+          "label": "Date of Birth",
+          "description": "Let your friends know when to buy you a gift",
+          "error": "Date of birth is required"
+        },
+        "buttons": {
+          "submit": "Finish",
+          "back": "Back"
+        }
+      }
+    }
+  },
+  "HomePage": {
+    "wishlists": {
+      "title": "My Wishlists"
+    },
+    "create": {
+      "title": "Create a Wishlist",
+      "form": {
+        "title": {
+          "label": "Title",
+          "description": "Give your wishlist a title",
+          "error": "Title is required"
+        },
+        "description": {
+          "label": "Description",
+          "description": "Give your wishlist a description"
+        },
+        "shared": {
+          "label": "Is Shared",
+          "action": "Select friend",
+          "description": "Select a friend to share your wishlist with",
+          "placeholder": "Select a friend",
+          "selected": "Shared with:"
+        },
+        "private": {
+          "label": "Is Private"
+        },
+        "submit": {
+          "label": "Create"
+        }
+      }
+    },
+    "birthdays": {
+      "title": "Birthdays"
+    },
+    "shops": {
+      "title": "Shops"
+    }
+  },
+  "Navigation": {
+    "home": "Home",
+    "profile": "Profile",
+    "friends": "Friends",
+    "notifications": "Notifications",
+    "signOut": "Sign Out",
+    "localeSwitch": "Switch language",
+    "themeSwitch": "Switch theme",
+    "users": {
+      "options": {
+        "friends": "Friends",
+        "users": "Users"
+      },
+      "field": {
+        "label": "Search for users"
+      }
+    }
+  }
+}

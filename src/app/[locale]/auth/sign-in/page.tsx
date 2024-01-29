@@ -7,7 +7,7 @@ import Auth from '@/components/base/auth/auth';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
-const AuthPage = async () => {
+const SignInPage = async () => {
   const supabase = createServerComponentClient({ cookies });
   const { data } = await supabase.auth.getUser();
 
@@ -15,7 +15,7 @@ const AuthPage = async () => {
     redirect('/');
   }
 
-  return <Auth />;
+  return <Auth isSignIn />;
 };
 
-export default AuthPage;
+export default SignInPage;

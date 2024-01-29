@@ -9,6 +9,8 @@ import { NavbarSignOut } from '../navbar-sign-out/navbar-sign-out';
 import { NavbarUsers } from '../navbar-users/navbar-users';
 import { ThemeSwitch } from '../theme-switch/theme-switch';
 import { IconBell, IconHome, IconUser, IconUsers } from '@tabler/icons-react';
+import { LocaleSwitch } from '../locale-switch/locale-switch';
+import { useTranslations } from 'next-intl';
 
 interface INavbarBodyProps {
   isExpanded: boolean;
@@ -17,16 +19,18 @@ interface INavbarBodyProps {
 }
 
 export const NavbarBody: React.FC<INavbarBodyProps> = ({ isExpanded, toggleNav, closeOnClick }) => {
+  const t = useTranslations('Navigation');
+
   const navbarItems: INavbarItem[] = [
-    { name: 'home', icon: <IconHome color='white' />, link: '/' },
-    { name: 'profile', icon: <IconUser color='white' />, link: '/profile' },
+    { name: t('home'), icon: <IconHome color='white' />, link: '/' },
+    { name: t('profile'), icon: <IconUser color='white' />, link: '/profile' },
     {
-      name: 'friends',
+      name: t('friends'),
       icon: <IconUsers color='white' />,
       children: <NavbarUsers closeNav={closeOnClick ? toggleNav : undefined} />,
       onClick: toggleNav,
     },
-    { name: 'notifications', icon: <IconBell color='white' />, link: '/notifications' },
+    { name: t('notifications'), icon: <IconBell color='white' />, link: '/notifications' },
   ];
 
   return (
@@ -49,6 +53,7 @@ export const NavbarBody: React.FC<INavbarBodyProps> = ({ isExpanded, toggleNav, 
           ))}
         </div>
         <div className={styles.list}>
+          <LocaleSwitch isExpanded={isExpanded} />
           <NavbarSignOut isExpanded={isExpanded} />
           <ThemeSwitch isExpanded={isExpanded} />
         </div>
