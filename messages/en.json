@@ -104,7 +104,99 @@
         "users": "Users"
       },
       "field": {
-        "label": "Search for users"
+        "label": "Search for users",
+        "pull": "Pull to refresh"
+      }
+    }
+  },
+  "ProfilePage": {
+    "fields": {
+      "name": {
+        "label": "Full Name",
+        "description": "Set your full name to let others know who you are",
+        "error": "Full name is required"
+      },
+      "userName": {
+        "label": "User name",
+        "description": "Set your user name to let others find you easily",
+        "error": "User name is wrong"
+      },
+      "bio": {
+        "label": "Bio",
+        "description": "Any details about you, that you want to share with others"
+      },
+      "buttons": {
+        "submit": "Save",
+        "logOut": "Log out"
+      }
+    }
+  },
+  "NotificationsPage": {
+    "title": "Notifications",
+    "empty": "You don't have any notifications now",
+    "item": {
+      "friend": {
+        "title": "You have a new friend request",
+        "body": "{name} wants to be your friend"
+      }
+    }
+  },
+  "WishlistPage": {
+    "toolbar": {
+      "delete": {
+        "title": "Delete wishlist",
+        "body": "Are you sure you want to delete this wishlist?",
+        "cancel": "Cancel",
+        "delete": "Delete"
+      },
+      "sort": {
+        "sortBy": {
+          "title": "Sort by",
+          "priority": "Priority",
+          "price": "Price",
+          "name": "Name",
+          "date": "Date added"
+        },
+        "sortOrder": {
+          "title": "Sort order",
+          "asc": "Ascending",
+          "desc": "Descending"
+        }
+      }
+    },
+    "add": {
+      "title": "Make a wish!",
+      "form": {
+        "title": "Add new wish",
+        "fields": {
+          "name": {
+            "label": "Name",
+            "description": "Give your wish a name",
+            "error": "Name is required"
+          },
+          "description": {
+            "label": "Description",
+            "description": "Here you can add some description of the item, let others know why you want it"
+          },
+          "price": {
+            "label": "Price",
+            "description": "How much does it cost? (in USD)"
+          },
+          "link": {
+            "label": "Link",
+            "description": "Add a link to the item, so others can buy it for you",
+            "error": "Link is wrong"
+          },
+          "image": {
+            "label": "Image",
+            "description": "Wishy will try to set image automatically when you add a link",
+            "error": "Something went wrong",
+            "action": "Select image"
+          },
+          "save": {
+            "label": "Make a wish!"
+          }
+        }
       }
     }
   }

@@ -11,6 +11,7 @@ import { notify } from '@/utils/toast';
 import { Loader, Text } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import PullToRefresh from 'react-simple-pull-to-refresh';
+import { useTranslations } from 'next-intl';
 
 interface ICustomElementProps {
   profile: TProfile;
@@ -35,6 +36,7 @@ export const NavbarFriendsSearch: React.FC<INavbarFriendsSearchProps> = ({
   const [users, setUsers] = useState<TProfile[]>([]);
   const [searchedUsers, setSearchedUsers] = useState<TProfile[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations('Navigation.users');
 
   const supabase = createClientComponentClient<Database>();
   const user = useAuth();
@@ -97,7 +99,7 @@ export const NavbarFriendsSearch: React.FC<INavbarFriendsSearchProps> = ({
       pullDownThreshold={50}
       pullingContent={
         <Text size='sm' c='dimmed'>
-          Pull to refresh
+          {t('field.pull')}
         </Text>
       }
       refreshingContent={

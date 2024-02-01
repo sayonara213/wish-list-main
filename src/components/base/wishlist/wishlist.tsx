@@ -12,6 +12,9 @@ import { Database } from '@/lib/schema';
 import { TWishlist } from '@/types/database.types';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { pick } from 'lodash';
 
 interface IWishlistProps {
   wishlist: TWishlist;
@@ -25,6 +28,7 @@ export const Wishlist: React.FC<IWishlistProps> = async ({
   searchParams,
 }) => {
   const supabase = createServerComponentClient<Database>({ cookies });
+  const messages = await getMessages();
 
   const { data: items, error } = await supabase
     .from('items')
@@ -37,8 +41,10 @@ export const Wishlist: React.FC<IWishlistProps> = async ({
   return (
     <WishlistProvider wishlist={wishlist!} isOwn={isOwnWishlist} items={items || []}>
       <main className={styles.container}>
-        <WishlistToolbar />
-        <WishlistList />
+        <NextIntlClientProvider messages={pick(messages, 'WishlistPage')}>
+          <WishlistToolbar />
+          <WishlistList />
+        </NextIntlClientProvider>
       </main>
     </WishlistProvider>
   );

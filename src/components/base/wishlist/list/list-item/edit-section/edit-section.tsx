@@ -44,10 +44,10 @@ export const EditSection: React.FC<IEditSectionProps> = ({
       >
         <div className={styles.edit}>
           <button onClick={openEdit}>
-            <IconEdit color='var(--text-color)' />
+            <IconEdit color='var(--text-color)' size={20} />
           </button>
           <button onClick={openDelete}>
-            <IconTrash color='var(--text-color)' />
+            <IconTrash color='var(--text-color)' size={20} />
           </button>
         </div>
         <button className={styles.drag} style={{ touchAction: 'none' }} onPointerDown={handleDrag}>

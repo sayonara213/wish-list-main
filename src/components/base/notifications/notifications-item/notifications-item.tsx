@@ -12,6 +12,8 @@ import { notify } from '@/utils/toast';
 import { Text } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { IconCheck, IconX } from '@tabler/icons-react';
+import { useLocale, useTranslations } from 'next-intl';
+import Link from 'next/link';
 
 interface IFiriendshipProfile extends TFriendship {
   profiles: TProfile | null;
@@ -27,6 +29,8 @@ export const NotificationsItem: React.FC<INotificationsItemProps> = ({
   hideNotification,
 }) => {
   const supabase = createClientComponentClient<Database>();
+  const t = useTranslations('NotificationsPage.item');
+  const locale = useLocale();
 
   const handleAction = async (status: TFriendship['status']) => {
     const { error } = await supabase
@@ -47,16 +51,18 @@ export const NotificationsItem: React.FC<INotificationsItemProps> = ({
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.left}>
+      <Link href={`/profile/${notification.profiles.id}`} className={styles.left}>
         <Avatar src={notification.profiles?.avatar_url} size={40} />
         <div className={styles.col}>
-          <Text size='md'>You have a new friend request</Text>
+          <Text size='md'>{t('friend.title')}</Text>
+          <Text size='sm'>
+            {t('friend.body', { name: toNormalCase(notification.profiles.full_name) })}
+          </Text>
           <Text size='sm' c='dimmed'>
-            {toNormalCase(notification.profiles.full_name)} wants to be your friend.{' '}
-            {formatDateToNow(notification.created_at)}
+            {formatDateToNow(notification.created_at, locale)}
           </Text>
         </div>
-      </div>
+      </Link>
       <div className={styles.right}>
         <IconCheck color='var(--text-color)' onClick={() => handleAction('accepted')} />
         <IconX color='var(--text-color)' onClick={() => handleAction('declined')} />

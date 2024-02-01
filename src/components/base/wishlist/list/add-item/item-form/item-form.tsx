@@ -15,6 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Button, NumberInput, TextInput, Textarea } from '@mantine/core';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useForm } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 
 interface IWishlistItemFormProps {
   wishlistId: number;
@@ -41,6 +42,8 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({
   const { items } = useWishlist();
 
   const supabase = createClientComponentClient<Database>();
+
+  const t = useTranslations('WishlistPage.add.form.fields');
 
   const {
     register,
@@ -141,11 +144,11 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({
     <form className={styles.wrapper} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.flex}>
         <TextInput
-          label='Name'
-          description='Name of the item'
-          placeholder='Name'
+          label={t('name.label')}
+          description={t('name.description')}
+          placeholder={t('name.label')}
           {...(register && register('name'))}
-          error={errors['name']?.message}
+          error={errors['name'] && t('name.error')}
           className={styles.input}
         />
         <NumberInput
@@ -158,8 +161,8 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({
           decimalScale={2}
           thousandSeparator=','
           className={styles.input}
-          label='Price'
-          description='Price of the item in USD'
+          label={t('price.label')}
+          description={t('price.description')}
         />
       </div>
       <TextInput
@@ -167,8 +170,8 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({
         {...(register && register('link'))}
         onBlur={(event) => handleLinkToParse(event.target.value, event)}
         error={errors['link']?.message}
-        label='Link'
-        description='Set link where someone can buy that item'
+        label={t('link.label')}
+        description={t('link.description')}
       />
       <AddItemImage
         link={linkToParse}
@@ -180,11 +183,11 @@ export const WishlistItemForm: React.FC<IWishlistItemFormProps> = ({
       <Textarea
         className={styles.input}
         {...(register && register('description'))}
-        label='Description'
-        description='Here you can add some description of the item, let others know why you want it'
+        label={t('description.label')}
+        description={t('description.description')}
       />
       <Button type='submit' loading={isLoading} disabled={isLoading}>
-        Save
+        {t('save.label')}
       </Button>
     </form>
   );

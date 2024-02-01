@@ -8,6 +8,7 @@ import { TProfile } from '@/types/database.types';
 
 import { useDebouncedValue } from '@mantine/hooks';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useTranslations } from 'next-intl';
 
 interface INavbarUserSearchProps {
   query: string;

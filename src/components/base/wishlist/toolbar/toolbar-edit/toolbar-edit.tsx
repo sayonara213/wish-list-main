@@ -1,13 +1,10 @@
 import React from 'react';
 
-import styles from '../toolbar.module.scss';
-
 import { useSharedWishlist } from '@/components/base/provider/shared-wishlist-provider';
 import { useWishlist } from '@/components/base/provider/wishlist-provider';
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { AnimatePresence, motion } from 'framer-motion';
-import { Text } from '@mantine/core';
+import { ActionIcon } from '@mantine/core';
 import { IconCheck, IconEdit } from '@tabler/icons-react';
 
 interface IToolbarEditProps {
@@ -39,36 +36,12 @@ export const ToolbarEdit: React.FC<IToolbarEditProps> = ({ isEditing, setIsEditi
   };
 
   return (
-    <button className={styles.edit} onClick={handleClick} style={{ position: 'relative' }}>
-      <AnimatePresence>
-        {isEditing ? (
-          <motion.div
-            key={'save'}
-            className={styles.button}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.2 }}
-            style={{ position: 'absolute' }}
-          >
-            <IconCheck color='var(--text-color)' />
-            <Text>Save</Text>
-          </motion.div>
-        ) : (
-          <motion.div
-            key={'edit'}
-            className={styles.button}
-            initial={false}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            style={{ position: 'absolute' }}
-          >
-            <IconEdit color='var(--text-color)' />
-            <Text>Edit</Text>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </button>
+    <ActionIcon
+      onClick={handleClick}
+      variant='gradient'
+      gradient={{ from: '#e79c33', to: '#e28418' }}
+    >
+      {isEditing ? <IconCheck size={20} /> : <IconEdit size={20} />}
+    </ActionIcon>
   );
 };

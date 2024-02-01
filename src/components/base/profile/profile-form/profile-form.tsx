@@ -16,6 +16,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { TextInput, Button, Input, Textarea } from '@mantine/core';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { useForm } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 
 interface IProfileFormProps {
   supabase: SupabaseClient;
@@ -26,6 +27,7 @@ interface IProfileFormProps {
 export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, setProfile }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const t = useTranslations('ProfilePage.fields');
 
   const initialState: IProfileForm = {
     userName: profile.user_name || '',
@@ -83,48 +85,40 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <Input.Wrapper
-        id='full-name'
-        label='Full name'
-        description='Set your full name to let others know who you are'
-      >
+      <Input.Wrapper id='full-name' label={t('name.label')} description={t('name.description')}>
         <TextInput
-          placeholder='Full name'
+          placeholder={t('name.label')}
           {...(register && register('fullName'))}
-          error={errors['fullName']?.message}
+          error={errors['fullName'] && t('name.error')}
           style={{ marginTop: 6 }}
         />
       </Input.Wrapper>
       <Input.Wrapper
         id='username'
-        label='Username'
-        description='Set your username to let others find you with ease'
+        label={t('userName.label')}
+        description={t('userName.description')}
       >
         <TextInput
-          placeholder='Username'
+          placeholder={t('userName.label')}
           {...(register && register('userName'))}
-          error={errors['userName']?.message}
+          error={errors['userName'] && t('userName.error')}
           style={{ marginTop: 6 }}
         />
       </Input.Wrapper>
-      <Input.Wrapper
-        id='bio'
-        label='Bio'
-        description='Any details about you that you want to share with others'
-      >
+      <Input.Wrapper id='bio' label={t('bio.label')} description={t('bio.description')}>
         <Textarea
-          placeholder='Bio'
+          placeholder={t('bio.label')}
           {...(register && register('bio'))}
-          error={errors['bio']?.message}
+          error={errors['bio'] && t('bio.error')}
           {...(profile.bio && { defaultValue: profile.bio })}
           style={{ marginTop: 6 }}
         />
       </Input.Wrapper>
       <Button loading={isLoading} type='submit'>
-        Save
+        {t('buttons.submit')}
       </Button>
       <Button variant='light' color='red' onClick={handleLogOut} className={styles.logout}>
-        Log out
+        {t('buttons.logOut')}
       </Button>
     </form>
   );
