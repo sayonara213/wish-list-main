@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -17,6 +17,7 @@ import { TextInput, Button, Input, Textarea } from '@mantine/core';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
+import { normalizeProfileForm } from '@/utils/profile';
 
 interface IProfileFormProps {
   supabase: SupabaseClient;
@@ -52,18 +53,14 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
   };
 
   const onSubmit = async (data: IProfileForm) => {
-    const fieldData = {
-      ...(data.userName && { user_name: data.userName.toLowerCase() }),
-      ...(data.fullName && { full_name: toNormalCase(data.fullName) }),
-      ...(data.bio && { bio: data.bio }),
-    };
+    const fieldData = normalizeProfileForm(data, profile);
 
     if (Object.keys(fieldData).length < 1) return;
 
     if (fieldData.user_name) {
       const isUserNameTaken = await checkUserName(fieldData.user_name);
       if (isUserNameTaken) {
-        setError('userName', { message: 'Username is already taken' });
+        setError('userName', { message: 'taken' });
         return;
       }
     }
@@ -83,13 +80,19 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
     router.refresh();
   };
 
+  useEffect(() => {
+    if (errors['userName']) {
+      console.log(errors['userName']);
+    }
+  }, [errors['userName']]);
+
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <Input.Wrapper id='full-name' label={t('name.label')} description={t('name.description')}>
         <TextInput
           placeholder={t('name.label')}
           {...(register && register('fullName'))}
-          error={errors['fullName'] && t('name.error')}
+          error={errors['fullName']?.message && t('name.error')}
           style={{ marginTop: 6 }}
         />
       </Input.Wrapper>
@@ -101,7 +104,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
         <TextInput
           placeholder={t('userName.label')}
           {...(register && register('userName'))}
-          error={errors['userName'] && t('userName.error')}
+          error={errors['userName']?.message && t('userName.error')}
           style={{ marginTop: 6 }}
         />
       </Input.Wrapper>

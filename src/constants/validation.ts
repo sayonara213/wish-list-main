@@ -2,14 +2,11 @@ import * as yup from 'yup';
 
 const email = yup.string().email('Email is not valid').required('Email is required');
 const password = yup.string().min(6, 'Password must be at least 6 characters').required();
-const userName = yup.string().when('name', {
+const userName = yup.string().when('userName', {
   is: (value: string) => value?.length,
-  then: (rule) => rule.min(3).max(20),
+  then: (rule) => rule.min(3).max(20).required(),
 });
-const fullName = yup.string().when('fullname', {
-  is: (value: string) => value?.length,
-  then: (rule) => rule.min(3).max(30),
-});
+const fullName = yup.string().min(3).max(30).required();
 const bio = yup.string().max(300, 'Bio must be less than 300 characters');
 export const linkUrl = yup.string().url('Link is not valid').required();
 const linkName = yup.string().required();
@@ -39,7 +36,7 @@ export const profileSchema = yup.object().shape(
     fullName: fullName,
     bio: bio,
   },
-  [['name', 'fullname']],
+  [['userName', 'userName']],
 );
 
 export const wishlistItemSchema = yup.object({

@@ -119,7 +119,8 @@
       "userName": {
         "label": "User name",
         "description": "Set your user name to let others find you easily",
-        "error": "User name is wrong"
+        "error": "User name is wrong",
+        "errorTaken": "User name is already taken"
       },
       "bio": {
         "label": "Bio",
@@ -162,6 +163,10 @@
           "asc": "Ascending",
           "desc": "Descending"
         }
+      },
+      "user": {
+        "online": "User is currently viewing this page",
+        "offline": "User is offline"
       }
     },
     "add": {
