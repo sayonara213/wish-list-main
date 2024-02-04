@@ -7,6 +7,7 @@ import { NavbarFriendsSearch } from '@/components/base/navbar/navbar-users/navba
 import { TProfile } from '@/types/database.types';
 
 import { Loader, TextInput } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 
 interface IWishlistFormFriendsProps {
   onSelect: (friend: TProfile) => void;
@@ -15,6 +16,7 @@ interface IWishlistFormFriendsProps {
 export const WishlistFormFriends: React.FC<IWishlistFormFriendsProps> = ({ onSelect }) => {
   const [query, setQuery] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const t = useTranslations('HomePage.create.form');
 
   const handleSetQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -25,7 +27,7 @@ export const WishlistFormFriends: React.FC<IWishlistFormFriendsProps> = ({ onSel
       <TextInput
         value={query}
         onChange={handleSetQuery}
-        placeholder='Select Friend...'
+        placeholder={t('shared.placeholder')}
         rightSection={isLoading && <Loader size={16} />}
       />
       <NavbarFriendsSearch

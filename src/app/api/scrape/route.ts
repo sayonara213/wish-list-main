@@ -4,6 +4,7 @@ import ogs from 'open-graph-scraper';
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { url } = await req.json();
+  console.log(url);
 
   if (!url) {
     return NextResponse.json({ error: 'No URL provided' }, { status: 400 });

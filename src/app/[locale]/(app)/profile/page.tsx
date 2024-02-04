@@ -8,10 +8,13 @@ import styles from '@/styles/container.module.scss';
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Database } from '@/lib/schema';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { pick } from 'lodash';
 
 const ProfilePage = async () => {
   const supabase = createServerComponentClient<Database>({ cookies });
-
+  const messages = await getMessages();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -24,7 +27,9 @@ const ProfilePage = async () => {
 
   return (
     <div className={styles.centerContainer}>
-      <Profile profile={profile} />
+      <NextIntlClientProvider messages={pick(messages, 'ProfilePage.fields', 'Common')}>
+        <Profile profile={profile} />
+      </NextIntlClientProvider>
     </div>
   );
 };

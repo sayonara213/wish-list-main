@@ -9,11 +9,20 @@ import { TProfile } from '@/types/database.types';
 import { Tooltip, Avatar } from '@mantine/core';
 import { Calendar } from '@mantine/dates';
 
+import enLocale from 'dayjs/locale/en';
+import ukLocale from 'dayjs/locale/uk';
+
 interface IBirthdayCalendarProps {
   friends: TProfile[];
+  locale: string;
+  tooltip: string;
 }
 
-export const BirthdayCalendar: React.FC<IBirthdayCalendarProps> = ({ friends }) => {
+export const BirthdayCalendar: React.FC<IBirthdayCalendarProps> = ({
+  friends,
+  locale,
+  tooltip,
+}) => {
   const handleRenderDay = (date: Date) => {
     const day = date.getDate();
     const month = date.getMonth();
@@ -26,7 +35,7 @@ export const BirthdayCalendar: React.FC<IBirthdayCalendarProps> = ({ friends }) 
     });
 
     return friend ? (
-      <Tooltip label={`${friend.full_name}'s birthday`}>
+      <Tooltip label={`${friend.full_name} ${tooltip}`}>
         <div className={styles.friend}>
           <Avatar src={friend.avatar_url} size={26} />
         </div>
@@ -73,9 +82,12 @@ export const BirthdayCalendar: React.FC<IBirthdayCalendarProps> = ({ friends }) 
     return bdayDate;
   };
 
+  const dateLocale = (locale === 'en' ? enLocale : ukLocale) as never as string;
+
   return (
     <div className={styles.wrapper}>
       <Calendar
+        locale={dateLocale}
         size='xs'
         defaultDate={getClosestBirthday()}
         renderDay={handleRenderDay}

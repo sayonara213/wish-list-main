@@ -7,6 +7,7 @@ import { classes } from '@/utils/styles';
 import { Text, useMantineColorScheme } from '@mantine/core';
 import { IconMoon, IconSun } from '@tabler/icons-react';
 import { AnimatePresence, Variants, motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 interface IThemeSwitchProps {
   isExpanded?: boolean;
@@ -19,6 +20,7 @@ const textVariants: Variants = {
 
 export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ isExpanded }) => {
   const { toggleColorScheme } = useMantineColorScheme();
+  const t = useTranslations('Navigation');
 
   return (
     <li className={classes(styles.wrapper, styles.button)}>
@@ -38,7 +40,7 @@ export const ThemeSwitch: React.FC<IThemeSwitchProps> = ({ isExpanded }) => {
               className={styles.span}
             >
               <Text fw='bold' c='white'>
-                Switch theme
+                {t('themeSwitch')}
               </Text>
             </motion.div>
           )}

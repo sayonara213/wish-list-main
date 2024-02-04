@@ -9,8 +9,8 @@ import { useWishlistListState } from './list.state';
 
 import { CustomIcon } from '@/components/ui/icon/custom-icon';
 
-import { Skeleton, Text } from '@mantine/core';
-import { Reorder } from 'framer-motion';
+import { Text } from '@mantine/core';
+import { AnimatePresence, Reorder } from 'framer-motion';
 
 export const WishlistList: React.FC = () => {
   const { isOwnWishlist, wishlist, items, reorder, handleDeleteItem, isWishlistEmpty } =
@@ -32,21 +32,13 @@ export const WishlistList: React.FC = () => {
         </div>
       ) : (
         <Reorder.Group values={items} onReorder={reorder} className={styles.list} axis='y'>
-          {items.map((item) => (
-            <WishlistListItem item={item} key={item.id} deleteServerItem={handleDeleteItem} />
-          ))}
+          <AnimatePresence>
+            {items.map((item) => (
+              <WishlistListItem item={item} key={item.id} deleteServerItem={handleDeleteItem} />
+            ))}
+          </AnimatePresence>
         </Reorder.Group>
       )}
     </div>
-  );
-};
-
-const WishlistItemSkeleton = () => {
-  return (
-    <ul className={styles.list}>
-      <Skeleton width={'100%'} height={60} radius={8} />
-      <Skeleton width={'100%'} height={60} radius={8} />
-      <Skeleton width={'100%'} height={60} radius={8} />
-    </ul>
   );
 };

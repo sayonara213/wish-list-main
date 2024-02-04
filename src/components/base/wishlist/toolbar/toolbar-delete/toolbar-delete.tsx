@@ -12,12 +12,15 @@ import { notify } from '@/utils/toast';
 
 import { useDisclosure } from '@mantine/hooks';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { Text } from '@mantine/core';
+import { ActionIcon, Text } from '@mantine/core';
 import { IconTrash } from '@tabler/icons-react';
+import { useTranslations } from 'next-intl';
 
 export const ToolbarDelete = () => {
   const { wishlist } = useWishlist();
   const { sharedWishlist } = useSharedWishlist();
+  const t = useTranslations('WishlistPage.toolbar');
+  const commonT = useTranslations('Common');
 
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -29,11 +32,10 @@ export const ToolbarDelete = () => {
       ? await supabase.from('shared_wishlists').delete().eq('id', sharedWishlist.id)
       : await supabase.from('wishlists').delete().eq('id', wishlist.id);
     if (error) {
-      notify('error', 'Error deleting wishlist');
+      notify('error', commonT('errors.default'));
       return;
     } else {
       router.push('/');
-      notify('success', 'Wishlist deleted successfully');
     }
   };
 
@@ -43,13 +45,12 @@ export const ToolbarDelete = () => {
         opened={opened}
         onConfirm={handleDeleteWishlist}
         onCancel={close}
-        title='Delete wishlist'
-        description='Are you sure you want to delete that wishlist?'
+        title={t('delete.title')}
+        description={t('delete.body')}
       />
-      <div className={styles.button} onClick={open}>
-        <IconTrash color='var(--text-color)' />
-        <Text>Delete</Text>
-      </div>
+      <ActionIcon onClick={open} variant='gradient' gradient={{ from: '#c92c2c', to: '#cc1987' }}>
+        <IconTrash size={20} />
+      </ActionIcon>
     </>
   );
 };

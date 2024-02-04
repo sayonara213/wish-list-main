@@ -8,6 +8,7 @@ import { notify } from '@/utils/toast';
 
 import { Input, Loader, Text } from '@mantine/core';
 import { IconTrash } from '@tabler/icons-react';
+import { useTranslations } from 'next-intl';
 
 interface IAddItemImageProps {
   link: string | null;
@@ -27,6 +28,7 @@ export const AddItemImage: React.FC<IAddItemImageProps> = ({
   const [image, setImage] = useState<string | null>(initialImage || null);
   const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const t = useTranslations('WishlistPage.add.form.fields.image');
 
   const handleFetchImage = useCallback(async () => {
     if (!link) return;
@@ -79,10 +81,7 @@ export const AddItemImage: React.FC<IAddItemImageProps> = ({
   };
 
   return (
-    <Input.Wrapper
-      description='Wishy will try to set image automatically when you add a link'
-      label='Image'
-    >
+    <Input.Wrapper label={t('label')} description={t('description')}>
       <div className={styles.container} onClick={triggerFileInput}>
         {image ? (
           <>
@@ -97,7 +96,7 @@ export const AddItemImage: React.FC<IAddItemImageProps> = ({
             />
           </>
         ) : (
-          <Text>Select Image</Text>
+          <Text>{t('action')}</Text>
         )}
         {isLoading && (
           <div className={styles.overlay}>

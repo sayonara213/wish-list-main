@@ -1,7 +1,10 @@
+'use client';
+
 import { CustomIcon } from '@/components/ui/icon/custom-icon';
 import { toNormalCase } from '@/utils/text';
 import { Button } from '@mantine/core';
 import { Provider } from '@supabase/supabase-js';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 
 interface IAuthProvidersItemProps {
@@ -15,6 +18,8 @@ export const AuthProvidersItem: React.FC<IAuthProvidersItemProps> = ({
   onClick,
   disabled,
 }) => {
+  const t = useTranslations('AuthPage.providers');
+
   return (
     <Button
       rightSection={<CustomIcon name={name as never} size={20} />}
@@ -23,7 +28,7 @@ export const AuthProvidersItem: React.FC<IAuthProvidersItemProps> = ({
       onClick={() => onClick(name)}
       disabled={disabled}
     >
-      Authorize with {toNormalCase(name)}
+      {t('label')} {toNormalCase(name)}
     </Button>
   );
 };

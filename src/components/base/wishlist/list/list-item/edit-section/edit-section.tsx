@@ -17,6 +17,7 @@ import {
   IconGripVertical,
   IconTrash,
 } from '@tabler/icons-react';
+import { useTranslations } from 'next-intl';
 
 interface IEditSectionProps {
   handleDrag: (event: React.PointerEvent) => void;
@@ -34,6 +35,8 @@ export const EditSection: React.FC<IEditSectionProps> = ({
   const [openedDelete, { open: openDelete, close: closeDelete }] = useDisclosure(false);
   const [openedEdit, { open: openEdit, close: closeEdit }] = useDisclosure(false);
 
+  const t = useTranslations('WishlistPage');
+
   return (
     <>
       <motion.div
@@ -44,10 +47,10 @@ export const EditSection: React.FC<IEditSectionProps> = ({
       >
         <div className={styles.edit}>
           <button onClick={openEdit}>
-            <IconEdit color='var(--text-color)' />
+            <IconEdit color='var(--text-color)' size={20} />
           </button>
           <button onClick={openDelete}>
-            <IconTrash color='var(--text-color)' />
+            <IconTrash color='var(--text-color)' size={20} />
           </button>
         </div>
         <button className={styles.drag} style={{ touchAction: 'none' }} onPointerDown={handleDrag}>
@@ -55,13 +58,13 @@ export const EditSection: React.FC<IEditSectionProps> = ({
         </button>
       </motion.div>
       <ConfirmModal
-        title='Confirmation'
-        description={'Are you sure you want to delete this item?'}
+        title={t('item.delete.title')}
+        description={t('item.delete.description')}
         onConfirm={handleDelete}
         onCancel={closeDelete}
         opened={openedDelete}
       />
-      <Modal opened={openedEdit} onClose={closeEdit} title='Add new item' centered>
+      <Modal opened={openedEdit} onClose={closeEdit} title={t('add.title')} centered>
         <WishlistItemForm
           closeModal={closeEdit}
           isEdit

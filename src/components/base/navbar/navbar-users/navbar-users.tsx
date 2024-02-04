@@ -10,11 +10,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import type SwiperCore from 'swiper';
 
 import 'swiper/css';
-
-const options = [
-  { value: 'friends', label: 'Friends' },
-  { value: 'others', label: 'Users' },
-];
+import { useTranslations } from 'next-intl';
 
 interface INavbarUsersProps {
   closeNav?: () => void;
@@ -25,6 +21,13 @@ export const NavbarUsers: React.FC<INavbarUsersProps> = ({ closeNav }) => {
   const [search, setSearch] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [swiper, setSwiper] = useState<SwiperCore>();
+
+  const t = useTranslations('Navigation.users');
+
+  const options = [
+    { value: 'friends', label: t('options.friends') },
+    { value: 'others', label: t('options.users') },
+  ];
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
@@ -57,7 +60,7 @@ export const NavbarUsers: React.FC<INavbarUsersProps> = ({ closeNav }) => {
       <TextInput
         onChange={handleChange}
         value={search}
-        placeholder='Search for users...'
+        placeholder={t('field.label')}
         rightSection={isLoading && <Loader size={16} />}
       />
       <div className={styles.list}>

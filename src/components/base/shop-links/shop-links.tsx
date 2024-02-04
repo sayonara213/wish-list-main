@@ -1,96 +1,44 @@
-'use client';
+'use server';
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense } from 'react';
 
-import { ShopLinksItemAdd } from './shop-links-add/shop-links-item-add';
-import { ShopLinksItem, ShopLinksItemLoading } from './shop-links-item/shop-links-item';
 import styles from './shop-links.module.scss';
 
-import { TShop } from '@/types/database.types';
-
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { AnimatePresence, motion } from 'framer-motion';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Text } from '@mantine/core';
+import { ShopLinksList } from './shop-links-list/shop-links-list';
+import { Database } from '@/lib/schema';
+import { cookies } from 'next/headers';
+import { ShopLinksLoader } from './shop-links-loader/shop-links-loader';
+import { getMessages, getTranslations } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
+import { pick } from 'lodash';
 
 interface IShopLinksProps {
   userId: string;
 }
 
-export const ShopLinks: React.FC<IShopLinksProps> = ({ userId }) => {
-  const supabase = createClientComponentClient();
+export const ShopLinks: React.FC<IShopLinksProps> = async ({ userId }) => {
+  const supabase = createServerComponentClient<Database>({ cookies });
+  const t = await getTranslations('HomePage.shops');
+  const messages = await getMessages();
 
-  const [shopLinks, setShopLinks] = useState<TShop[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { data: shops, error } = await supabase.from('shops').select().eq('user_id', userId);
 
-  const fetchShopLinks = async () => {
-    setIsLoading(true);
-
-    try {
-      const { data } = await supabase.from('shops').select().eq('user_id', userId);
-      if (!data) return;
-      setShopLinks(data);
-      setIsLoading(false);
-    } catch (error) {
-      console.error('ERROR:', error);
-    }
-  };
-
-  useEffect(() => {
-    fetchShopLinks();
-  }, []);
-
-  const deleteShopLink = (id: number) => {
-    setShopLinks(shopLinks.filter((shop) => shop.id !== id));
-  };
-
-  const addShopLink = (shop: TShop) => {
-    setShopLinks([...shopLinks, shop]);
-  };
+  if (error || !shops) {
+    return null;
+  }
 
   return (
     <div className={styles.wrapper}>
       <Text size='xxl' fw='bold'>
-        Shops
+        {t('title')}
       </Text>
-      <AnimatePresence mode='popLayout'>
-        {isLoading ? (
-          <motion.div className={styles.list}>
-            <ShopLinksLoader />
-          </motion.div>
-        ) : (
-          <motion.ul className={styles.list}>
-            <motion.li
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ type: 'spring' }}
-            >
-              <ShopLinksItemAdd addLink={addShopLink} />
-            </motion.li>
-            {shopLinks.map((shop) => (
-              <motion.li
-                key={shop.id}
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.8, opacity: 0 }}
-                transition={{ type: 'spring' }}
-              >
-                <ShopLinksItem shop={shop} deleteLink={deleteShopLink} />
-              </motion.li>
-            ))}
-          </motion.ul>
-        )}
-      </AnimatePresence>
+      <Suspense fallback={<ShopLinksLoader />}>
+        <NextIntlClientProvider messages={pick(messages, 'HomePage.shops')}>
+          <ShopLinksList userId={userId} initialShops={shops} />
+        </NextIntlClientProvider>
+      </Suspense>
     </div>
-  );
-};
-
-export const ShopLinksLoader: React.FC = () => {
-  return (
-    <>
-      <ShopLinksItemLoading />
-      <ShopLinksItemLoading />
-      <ShopLinksItemLoading />
-    </>
   );
 };

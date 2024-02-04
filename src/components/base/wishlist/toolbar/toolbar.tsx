@@ -50,8 +50,8 @@ export const WishlistToolbar: React.FC = () => {
   const RenderToolbarItems = () => (
     <>
       <ToolbarSort />
-      {isOwnWishlist && <ToolbarDelete />}
       {isOwnWishlist && <ToolbarEdit isEditing={isEditing} setIsEditing={setIsEditing} />}
+      {isOwnWishlist && <ToolbarDelete />}
     </>
   );
 

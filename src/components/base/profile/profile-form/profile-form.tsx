@@ -16,6 +16,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { TextInput, Button, Input, Textarea } from '@mantine/core';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { useForm } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
+import { normalizeProfileForm } from '@/utils/profile';
+import { getValidationLocalization } from '@/utils/form';
 
 interface IProfileFormProps {
   supabase: SupabaseClient;
@@ -26,6 +29,8 @@ interface IProfileFormProps {
 export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, setProfile }) => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const t = useTranslations('ProfilePage.fields');
+  const commonT = useTranslations('Common');
 
   const initialState: IProfileForm = {
     userName: profile.user_name || '',
@@ -44,24 +49,22 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
     mode: 'onBlur',
   });
 
+  const translatedErrors = getValidationLocalization<IProfileForm>(commonT, errors);
+
   const checkUserName = async (userName: string) => {
     const { data } = await supabase.from('profiles').select('id').eq('user_name', userName);
     return data && data.length > 0;
   };
 
   const onSubmit = async (data: IProfileForm) => {
-    const fieldData = {
-      ...(data.userName && { user_name: data.userName.toLowerCase() }),
-      ...(data.fullName && { full_name: toNormalCase(data.fullName) }),
-      ...(data.bio && { bio: data.bio }),
-    };
+    const fieldData = normalizeProfileForm(data, profile);
 
     if (Object.keys(fieldData).length < 1) return;
 
     if (fieldData.user_name) {
       const isUserNameTaken = await checkUserName(fieldData.user_name);
       if (isUserNameTaken) {
-        setError('userName', { message: 'Username is already taken' });
+        setError('userName', { message: 'errors.auth.userNameTaken' });
         return;
       }
     }
@@ -73,7 +76,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
     router.refresh();
     setIsLoading(false);
 
-    error && notify('error', 'Error updating profile');
+    error && notify('error', commonT('errors.default'));
   };
 
   const handleLogOut = async () => {
@@ -83,48 +86,40 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <Input.Wrapper
-        id='full-name'
-        label='Full name'
-        description='Set your full name to let others know who you are'
-      >
+      <Input.Wrapper id='full-name' label={t('name.label')} description={t('name.description')}>
         <TextInput
-          placeholder='Full name'
+          placeholder={t('name.label')}
           {...(register && register('fullName'))}
-          error={errors['fullName']?.message}
+          error={translatedErrors['fullName']}
           style={{ marginTop: 6 }}
         />
       </Input.Wrapper>
       <Input.Wrapper
         id='username'
-        label='Username'
-        description='Set your username to let others find you with ease'
+        label={t('userName.label')}
+        description={t('userName.description')}
       >
         <TextInput
-          placeholder='Username'
+          placeholder={t('userName.label')}
           {...(register && register('userName'))}
-          error={errors['userName']?.message}
+          error={translatedErrors['userName']}
           style={{ marginTop: 6 }}
         />
       </Input.Wrapper>
-      <Input.Wrapper
-        id='bio'
-        label='Bio'
-        description='Any details about you that you want to share with others'
-      >
+      <Input.Wrapper id='bio' label={t('bio.label')} description={t('bio.description')}>
         <Textarea
-          placeholder='Bio'
+          placeholder={t('bio.label')}
           {...(register && register('bio'))}
-          error={errors['bio']?.message}
+          error={translatedErrors['bio']}
           {...(profile.bio && { defaultValue: profile.bio })}
           style={{ marginTop: 6 }}
         />
       </Input.Wrapper>
       <Button loading={isLoading} type='submit'>
-        Save
+        {t('buttons.submit')}
       </Button>
       <Button variant='light' color='red' onClick={handleLogOut} className={styles.logout}>
-        Log out
+        {t('buttons.logOut')}
       </Button>
     </form>
   );

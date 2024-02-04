@@ -10,3 +10,7 @@ export type TSharedWishlist = Database['public']['Tables']['shared_wishlists']['
 export interface ISharedWishlistJoinProfile extends TSharedWishlist {
   friend_profile: TProfile;
 }
+
+export interface IFiriendshipProfile extends TFriendship {
+  profiles: TProfile | null;
+}

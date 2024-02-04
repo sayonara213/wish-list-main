@@ -1,69 +1,24 @@
-'use client';
-
-import React, { useState } from 'react';
-
-import { useRouter } from 'next/navigation';
+import React from 'react';
+import pick from 'lodash/pick';
 
 import styles from './auth.module.scss';
 import { AuthForm } from './auth-form/auth-form';
 
 import { Logo } from '@/components/ui/icon/logo';
-import { Database } from '@/lib/schema';
-import { IAuthForm } from '@/types/form.types';
-
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 import { Text } from '@mantine/core';
 import { AuthProviders } from './auth-providers/auth-providers';
-import { Provider } from '@supabase/supabase-js';
-import { notify } from '@/utils/toast';
 
-const Auth: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSignIn, setIsSignIn] = useState(true);
+import { NextIntlClientProvider, useMessages, useTranslations } from 'next-intl';
+import Link from 'next/link';
 
-  const router = useRouter();
-  const supabase = createClientComponentClient<Database>();
+interface IAuthProps {
+  isSignIn: boolean;
+}
 
-  const switchAuth = () => {
-    setIsSignIn((prev) => !prev);
-  };
-
-  const handleAuth = async (values: IAuthForm) => {
-    setIsLoading(true);
-    const { error } = isSignIn
-      ? await supabase.auth.signInWithPassword(values)
-      : await supabase.auth.signUp(values);
-
-    setIsLoading(false);
-
-    if (error) {
-      notify('error', error.message);
-      setIsLoading(false);
-      return;
-    }
-
-    router.refresh();
-  };
-
-  const handleOAuth = async (provider: Provider) => {
-    setIsLoading(true);
-
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: provider,
-      options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,
-      },
-    });
-
-    if (error) {
-      notify('error', error.message);
-      setIsLoading(false);
-      return;
-    }
-
-    setIsLoading(false);
-  };
+const Auth: React.FC<IAuthProps> = ({ isSignIn }) => {
+  const t = useTranslations('AuthPage');
+  const messages = useMessages();
 
   return (
     <div className={styles.wrapper}>
@@ -74,18 +29,21 @@ const Auth: React.FC = () => {
         </Text>
       </div>
       <div className={styles.container}>
-        <Text size='lg'>{isSignIn ? 'Sign In' : 'Sign Up'}</Text>
-        <AuthForm isSignIn={isSignIn} handleProceed={handleAuth} isLoading={isLoading} />
-        <AuthProviders handleOAuth={handleOAuth} />
+        <Text size='lg'>{t(`${isSignIn ? 'signIn' : 'signUp'}.title`)}</Text>
+        <NextIntlClientProvider messages={pick(messages, 'AuthPage', 'Common')}>
+          <AuthForm isSignIn={isSignIn} />
+          <AuthProviders />
+        </NextIntlClientProvider>
         <Text
+          component={Link}
+          href={isSignIn ? '/auth/sign-up' : '/auth/sign-in'}
           size='sm'
           c={'dimmed'}
           ta={'right'}
           td={'underline'}
           style={{ cursor: 'pointer' }}
-          onClick={switchAuth}
         >
-          {isSignIn ? 'New to Wishy? Join Now' : 'Already have an account? Sign in here'}
+          {t(`${isSignIn ? 'signIn' : 'signUp'}.option`)}
         </Text>
       </div>
     </div>
