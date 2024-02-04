@@ -20,6 +20,7 @@ export const ToolbarDelete = () => {
   const { wishlist } = useWishlist();
   const { sharedWishlist } = useSharedWishlist();
   const t = useTranslations('WishlistPage.toolbar');
+  const commonT = useTranslations('Common');
 
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -31,11 +32,10 @@ export const ToolbarDelete = () => {
       ? await supabase.from('shared_wishlists').delete().eq('id', sharedWishlist.id)
       : await supabase.from('wishlists').delete().eq('id', wishlist.id);
     if (error) {
-      notify('error', 'Error deleting wishlist');
+      notify('error', commonT('errors.default'));
       return;
     } else {
       router.push('/');
-      notify('success', 'Wishlist deleted successfully');
     }
   };
 

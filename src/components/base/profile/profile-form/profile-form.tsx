@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -18,6 +18,7 @@ import { SupabaseClient } from '@supabase/supabase-js';
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import { normalizeProfileForm } from '@/utils/profile';
+import { getValidationLocalization } from '@/utils/form';
 
 interface IProfileFormProps {
   supabase: SupabaseClient;
@@ -29,6 +30,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const t = useTranslations('ProfilePage.fields');
+  const commonT = useTranslations('Common');
 
   const initialState: IProfileForm = {
     userName: profile.user_name || '',
@@ -47,6 +49,8 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
     mode: 'onBlur',
   });
 
+  const translatedErrors = getValidationLocalization<IProfileForm>(commonT, errors);
+
   const checkUserName = async (userName: string) => {
     const { data } = await supabase.from('profiles').select('id').eq('user_name', userName);
     return data && data.length > 0;
@@ -60,7 +64,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
     if (fieldData.user_name) {
       const isUserNameTaken = await checkUserName(fieldData.user_name);
       if (isUserNameTaken) {
-        setError('userName', { message: 'taken' });
+        setError('userName', { message: 'errors.auth.userNameTaken' });
         return;
       }
     }
@@ -72,7 +76,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
     router.refresh();
     setIsLoading(false);
 
-    error && notify('error', 'Error updating profile');
+    error && notify('error', commonT('errors.default'));
   };
 
   const handleLogOut = async () => {
@@ -80,19 +84,13 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
     router.refresh();
   };
 
-  useEffect(() => {
-    if (errors['userName']) {
-      console.log(errors['userName']);
-    }
-  }, [errors['userName']]);
-
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <Input.Wrapper id='full-name' label={t('name.label')} description={t('name.description')}>
         <TextInput
           placeholder={t('name.label')}
           {...(register && register('fullName'))}
-          error={errors['fullName']?.message && t('name.error')}
+          error={translatedErrors['fullName']}
           style={{ marginTop: 6 }}
         />
       </Input.Wrapper>
@@ -104,7 +102,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
         <TextInput
           placeholder={t('userName.label')}
           {...(register && register('userName'))}
-          error={errors['userName']?.message && t('userName.error')}
+          error={translatedErrors['userName']}
           style={{ marginTop: 6 }}
         />
       </Input.Wrapper>
@@ -112,7 +110,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({ supabase, profile, se
         <Textarea
           placeholder={t('bio.label')}
           {...(register && register('bio'))}
-          error={errors['bio'] && t('bio.error')}
+          error={translatedErrors['bio']}
           {...(profile.bio && { defaultValue: profile.bio })}
           style={{ marginTop: 6 }}
         />

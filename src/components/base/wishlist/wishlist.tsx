@@ -41,7 +41,7 @@ export const Wishlist: React.FC<IWishlistProps> = async ({
   return (
     <WishlistProvider wishlist={wishlist!} isOwn={isOwnWishlist} items={items || []}>
       <main className={styles.container}>
-        <NextIntlClientProvider messages={pick(messages, 'WishlistPage')}>
+        <NextIntlClientProvider messages={pick(messages, 'WishlistPage', 'Common')}>
           <WishlistToolbar />
           <WishlistList />
         </NextIntlClientProvider>

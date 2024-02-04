@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import styles from './confirm-modal.module.scss';
 
 import { Button, Modal, Text } from '@mantine/core';
+import { useTranslations } from 'next-intl';
 
 interface IConfirmModalProps {
   title: string;
@@ -22,6 +23,7 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = ({
   opened,
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const commonT = useTranslations('Common');
 
   const handleConfirm = async () => {
     setIsLoading(true);
@@ -35,10 +37,10 @@ export const ConfirmModal: React.FC<IConfirmModalProps> = ({
       <Text>{description}</Text>
       <div className={styles.wrapper}>
         <Button onClick={handleConfirm} loading={isLoading}>
-          Confirm
+          {commonT('buttons.confirm')}
         </Button>
         <Button onClick={onCancel} variant='outline' color='red'>
-          Cancel
+          {commonT('buttons.cancel')}
         </Button>
       </div>
     </Modal>

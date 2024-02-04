@@ -30,7 +30,7 @@ const Auth: React.FC<IAuthProps> = ({ isSignIn }) => {
       </div>
       <div className={styles.container}>
         <Text size='lg'>{t(`${isSignIn ? 'signIn' : 'signUp'}.title`)}</Text>
-        <NextIntlClientProvider messages={pick(messages, 'AuthPage')}>
+        <NextIntlClientProvider messages={pick(messages, 'AuthPage', 'Common')}>
           <AuthForm isSignIn={isSignIn} />
           <AuthProviders />
         </NextIntlClientProvider>

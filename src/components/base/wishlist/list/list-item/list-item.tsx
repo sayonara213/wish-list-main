@@ -33,6 +33,15 @@ export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item, delet
     } catch {}
   };
 
+  const containerVariants = {
+    hide: {
+      opacity: 0,
+    },
+    show: {
+      opacity: 1,
+    },
+  };
+
   return (
     <Reorder.Item
       key={item.id}
@@ -41,6 +50,10 @@ export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item, delet
       dragControls={controls}
       dragListener={false}
       className={styles.dragitem}
+      initial={false}
+      animate='show'
+      exit='hide'
+      variants={containerVariants}
     >
       <ListItemBody item={item}>
         <AnimatePresence>

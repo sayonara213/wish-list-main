@@ -1,15 +1,31 @@
 import * as yup from 'yup';
 
-const email = yup.string().email('Email is not valid').required('Email is required');
-const password = yup.string().min(6, 'Password must be at least 6 characters').required();
+yup.setLocale({
+  mixed: {
+    required: 'validation.required',
+  },
+  string: {
+    min: ({ path, min }) => ({ key: 'validation.min', values: { path: path, min: min } }),
+    max: ({ path, max }) => ({ key: 'validation.max', values: { path: path, max: max } }),
+    url: 'validation.url',
+  },
+});
+
+const email = yup.string().email('validation.email').required('validation.email');
+const password = yup
+  .string()
+  .min(6, 'validation.password')
+  .max(30, 'validation.password')
+  .required();
+
 const userName = yup.string().when('userName', {
   is: (value: string) => value?.length,
   then: (rule) => rule.min(3).max(20).required(),
 });
 const fullName = yup.string().min(3).max(30).required();
-const bio = yup.string().max(300, 'Bio must be less than 300 characters');
-export const linkUrl = yup.string().url('Link is not valid').required();
+const bio = yup.string().max(300);
 const linkName = yup.string().required();
+export const linkUrl = yup.string().url().required();
 
 export const authSchema = yup.object({
   email,
@@ -17,11 +33,7 @@ export const authSchema = yup.object({
 });
 
 export const additionalAuthSchema = yup.object({
-  fullName: yup
-    .string()
-    .min(3, 'Full name must be at least 3 characters')
-    .max(30, 'Full name must be less than 30 characters')
-    .required(),
+  fullName: yup.string().min(3).max(30).required(),
   birthDate: yup.date().required(),
 });
 
@@ -41,9 +53,9 @@ export const profileSchema = yup.object().shape(
 
 export const wishlistItemSchema = yup.object({
   name: yup.string().required(),
-  description: yup.string().optional(),
+  description: bio,
   price: yup.number().optional(),
-  link: yup.string().url('Link is not valid').optional(),
+  link: yup.string().url().optional(),
   imageUrl: yup.string().optional(),
 });
 

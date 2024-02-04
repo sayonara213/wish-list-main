@@ -20,6 +20,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
+import { getValidationLocalization } from '@/utils/form';
 
 const variants = {
   open: { opacity: 1, height: 'auto' },
@@ -35,6 +36,7 @@ export const CreateWishlistForm = () => {
   const user = useAuth();
 
   const t = useTranslations('HomePage.create.form');
+  const commonT = useTranslations('Common');
 
   const {
     register,
@@ -45,6 +47,8 @@ export const CreateWishlistForm = () => {
     resolver: yupResolver<IWishlistForm>(wishlistSchema),
     mode: 'onBlur',
   });
+
+  const translatedErrors = getValidationLocalization<IWishlistForm>(commonT, errors);
 
   const onSubmit = async (data: IWishlistForm) => {
     setIsLoading(true);
@@ -57,7 +61,7 @@ export const CreateWishlistForm = () => {
         user_id_two: data.sharedWith,
       });
       error
-        ? notify('error', 'Error creating shared wishlist')
+        ? notify('error', commonT('errors.default'))
         : push(`/shared-wishlist/${sharedWishlistId}`);
     } else {
       const { data: wishlist, error } = await supabase
@@ -70,7 +74,7 @@ export const CreateWishlistForm = () => {
         })
         .select()
         .single();
-      error ? notify('error', 'Error creating shared wishlist') : push(`/wishlist/${wishlist.id}`);
+      error ? notify('error', commonT('errors.default')) : push(`/wishlist/${wishlist.id}`);
     }
   };
 
@@ -90,14 +94,14 @@ export const CreateWishlistForm = () => {
         placeholder={t('title.label')}
         label={t('title.label')}
         description={t('title.description')}
-        error={errors.title && t('title.error')}
+        error={translatedErrors['title']}
       />
       <Textarea
         {...register('description')}
         placeholder={t('description.label')}
         label={t('description.label')}
         description={t('description.description')}
-        error={errors.description && t('description.error')}
+        error={translatedErrors['description']}
       ></Textarea>
       <Switch label={t('shared.label')} onChange={handleIsSharedChange} checked={isShared} />
       <div>

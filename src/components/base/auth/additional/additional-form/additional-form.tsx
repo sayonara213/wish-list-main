@@ -16,10 +16,12 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from '@/navigation';
 import { notify } from '@/utils/toast';
 import { useTranslations } from 'next-intl';
+import { getValidationLocalization } from '@/utils/form';
 
 export const AuthAdditionalForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const t = useTranslations('AuthPage.AuthAdditional.fields');
+  const commonT = useTranslations('Common');
 
   const supabase = createClientComponentClient<Database>();
 
@@ -35,6 +37,8 @@ export const AuthAdditionalForm = () => {
     resolver: yupResolver<IAdditionalAuthForm>(additionalAuthSchema),
     mode: 'onBlur',
   });
+
+  const translatedErrors = getValidationLocalization<IAdditionalAuthForm>(commonT, errors);
 
   const formatDate = (date: Date) => {
     const day = `0${date.getDate()}`.slice(-2);
@@ -80,7 +84,7 @@ export const AuthAdditionalForm = () => {
         <TextInput
           placeholder={t('name.label')}
           {...(register && register('fullName'))}
-          error={errors['fullName'] && t('name.error')}
+          error={translatedErrors['fullName']}
           style={{ marginTop: 6 }}
         />
       </Input.Wrapper>

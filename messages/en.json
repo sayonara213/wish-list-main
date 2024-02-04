@@ -9,14 +9,8 @@
       "option": "Already have an account? Sign in"
     },
     "fields": {
-      "email": {
-        "label": "Email",
-        "error": "Email is required"
-      },
-      "password": {
-        "label": "Password",
-        "error": "Password must be at least 6 characters"
-      }
+      "email": "Email",
+      "password": "Password"
     },
     "providers": {
       "label": "Sign in with",
@@ -28,13 +22,11 @@
       "fields": {
         "name": {
           "label": "Full Name",
-          "description": "Set your full name to let others know who you are",
-          "error": "Full name is required"
+          "description": "Set your full name to let others know who you are"
         },
         "birthday": {
           "label": "Date of Birth",
-          "description": "Let your friends know when to buy you a gift",
-          "error": "Date of birth is required"
+          "description": "Let your friends know when to buy you a gift"
         },
         "buttons": {
           "submit": "Finish",
@@ -52,8 +44,7 @@
       "form": {
         "title": {
           "label": "Title",
-          "description": "Give your wishlist a title",
-          "error": "Title is required"
+          "description": "Give your wishlist a title"
         },
         "description": {
           "label": "Description",
@@ -113,13 +104,11 @@
     "fields": {
       "name": {
         "label": "Full Name",
-        "description": "Set your full name to let others know who you are",
-        "error": "Full name is required"
+        "description": "Set your full name to let others know who you are"
       },
       "userName": {
         "label": "User name",
         "description": "Set your user name to let others find you easily",
-        "error": "User name is wrong",
         "errorTaken": "User name is already taken"
       },
       "bio": {
@@ -176,8 +165,7 @@
         "fields": {
           "name": {
             "label": "Name",
-            "description": "Give your wish a name",
-            "error": "Name is required"
+            "description": "Give your wish a name"
           },
           "description": {
             "label": "Description",
@@ -189,13 +177,11 @@
           },
           "link": {
             "label": "Link",
-            "description": "Add a link to the item, so others can buy it for you",
-            "error": "Link is wrong"
+            "description": "Add a link to the item, so others can buy it for you"
           },
           "image": {
             "label": "Image",
             "description": "Wishy will try to set image automatically when you add a link",
-            "error": "Something went wrong",
             "action": "Select image"
           },
           "save": {
@@ -203,6 +189,34 @@
           }
         }
       }
+    },
+    "item": {
+      "delete": {
+        "title": "Delete wish",
+        "description": "Are you sure you want to delete this wish?"
+      }
+    }
+  },
+  "Common": {
+    "validation": {
+      "required": "This field is required",
+      "max": "Field should be less than {max} characters",
+      "min": "Field should be more than {min} characters",
+      "email": "Enter a valid email address",
+      "password": "Password should be at least 6 characters long",
+      "url": "Enter a valid URL"
+    },
+    "errors": {
+      "default": "Something went wrong, pleasy try again later",
+      "auth": {
+        "invalidCredentials": "Wrong email or password",
+        "emailTaken": "Email is already taken"
+      }
+    },
+    "buttons": {
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "confirm": "Confirm"
     }
   }
 }

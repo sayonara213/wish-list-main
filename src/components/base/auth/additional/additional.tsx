@@ -18,7 +18,7 @@ export const AuthAdditional = () => {
     <div className={classes(container.container, styles.wrapper)}>
       <Text size='xl'>{t('title')}</Text>
       <Text size='md'>{t('sub')}</Text>
-      <NextIntlClientProvider messages={pick(messages, 'AuthPage.AuthAdditional.fields')}>
+      <NextIntlClientProvider messages={pick(messages, 'AuthPage.AuthAdditional.fields', 'Common')}>
         <AuthAdditionalForm />
       </NextIntlClientProvider>
     </div>

@@ -25,7 +25,7 @@ export const UserWishlists: React.FC<IUserWishlistsProps> = ({ wishlists }) => {
         <Text size='xxl' fw='bold'>
           {t('wishlists.title')}
         </Text>
-        <NextIntlClientProvider messages={pick(messages, 'HomePage', 'Navigation.users')}>
+        <NextIntlClientProvider messages={pick(messages, 'HomePage', 'Navigation.users', 'Common')}>
           <CreateWishlistButton modalTitle={t('create.title')} />
         </NextIntlClientProvider>
       </div>

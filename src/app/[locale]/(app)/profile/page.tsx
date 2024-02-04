@@ -27,7 +27,7 @@ const ProfilePage = async () => {
 
   return (
     <div className={styles.centerContainer}>
-      <NextIntlClientProvider messages={pick(messages, 'ProfilePage.fields')}>
+      <NextIntlClientProvider messages={pick(messages, 'ProfilePage.fields', 'Common')}>
         <Profile profile={profile} />
       </NextIntlClientProvider>
     </div>
