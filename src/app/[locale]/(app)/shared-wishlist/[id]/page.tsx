@@ -47,26 +47,24 @@ const WishlistPage = async ({
   const { wishlist_one, wishlist_two, ...sharedWishlist } = wishlistsJoin;
 
   return (
-    <div className={container.container}>
-      <section className={container.sharedWishlistWrapper}>
-        <SharedWishlist
-          sharedWishlist={sharedWishlist}
-          wishlistOne={wishlist_one}
-          wishlistTwo={wishlist_two}
-          userId={user?.id}
-        >
-          <Wishlist
-            wishlist={wishlist_one.owner_id === user.id ? wishlist_one : wishlist_two}
-            searchParams={searchParams}
-            isOwnWishlist={true}
-          />
-          <Wishlist
-            wishlist={wishlist_two.owner_id === user.id ? wishlist_one : wishlist_two}
-            searchParams={searchParams}
-            isOwnWishlist={false}
-          />
-        </SharedWishlist>
-      </section>
+    <div className={container.sharedWishlistContainer}>
+      <SharedWishlist
+        sharedWishlist={sharedWishlist}
+        wishlistOne={wishlist_one}
+        wishlistTwo={wishlist_two}
+        userId={user?.id}
+      >
+        <Wishlist
+          wishlist={wishlist_one.owner_id === user.id ? wishlist_one : wishlist_two}
+          searchParams={searchParams}
+          isOwnWishlist={true}
+        />
+        <Wishlist
+          wishlist={wishlist_two.owner_id === user.id ? wishlist_one : wishlist_two}
+          searchParams={searchParams}
+          isOwnWishlist={false}
+        />
+      </SharedWishlist>
     </div>
   );
 };

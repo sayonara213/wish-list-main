@@ -6,7 +6,7 @@ import SharedWishlistProvider from '../provider/shared-wishlist-provider';
 import { ToolbarSharedTitle } from '../wishlist/toolbar/toolbar-shared-title/toolbar-shared-title';
 
 import { TSharedWishlist, TWishlist } from '@/types/database.types';
-
+import container from '@/styles/app/app.module.scss';
 import { useTrackOnline } from '@/hooks/use-track-online';
 
 interface ISharedWishlistProps {
@@ -31,7 +31,7 @@ export const SharedWishlist: React.FC<ISharedWishlistProps> = ({
   return (
     <SharedWishlistProvider sharedWishlist={sharedWishlist} isFriendOnline={isOnline}>
       <ToolbarSharedTitle />
-      {children}
+      <section className={container.sharedWishlistWrapper}>{children}</section>
     </SharedWishlistProvider>
   );
 };

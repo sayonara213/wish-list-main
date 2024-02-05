@@ -32,7 +32,7 @@ export const WishlistList: React.FC = () => {
         </div>
       ) : (
         <Reorder.Group values={items} onReorder={reorder} className={styles.list} axis='y'>
-          <AnimatePresence>
+          <AnimatePresence initial={false} mode='popLayout'>
             {items.map((item) => (
               <WishlistListItem item={item} key={item.id} deleteServerItem={handleDeleteItem} />
             ))}

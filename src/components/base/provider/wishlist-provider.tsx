@@ -66,7 +66,7 @@ export const WishlistProvider: React.FC<IWishlistProviderProps> = ({
   const [orderChanged, setOrderChanged] = useState<boolean>(false);
 
   const addItem = (item: TWishlistItem) => {
-    const newItems = [...items, { ...item, priority: items.length }];
+    const newItems = [...wishlistItems, { ...item, priority: items.length }];
 
     setWishlistItems(newItems);
   };

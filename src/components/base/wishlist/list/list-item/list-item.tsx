@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { EditSection } from './edit-section/edit-section';
 import ListItemBody from './list-item-body/list-item-body';
@@ -20,6 +20,7 @@ export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item, delet
   const controls = useDragControls();
   const boxShadow = useRaisedShadow(y);
   const { isEditing, deleteItem, updateItem } = useWishlist();
+  const [isDragging, setIsDragging] = useState(false);
 
   const handleDrag = (event: React.PointerEvent) => {
     event.preventDefault();
@@ -50,12 +51,14 @@ export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item, delet
       dragControls={controls}
       dragListener={false}
       className={styles.dragitem}
-      initial={false}
+      initial='hide'
       animate='show'
       exit='hide'
       variants={containerVariants}
+      onDrag={() => setIsDragging(true)}
+      onDragEnd={() => setIsDragging(false)}
     >
-      <ListItemBody item={item}>
+      <ListItemBody item={item} isDragging={isDragging}>
         <AnimatePresence>
           {isEditing && (
             <EditSection
