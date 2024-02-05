@@ -15,6 +15,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 interface IListItemBodyProps {
   item: TWishlistItem;
+  isDragging?: boolean;
   children?: React.ReactNode;
 }
 
@@ -29,24 +30,10 @@ const variants = {
   },
 };
 
-const ListItemBody: React.FC<IListItemBodyProps> = ({ item, children }) => {
+const ListItemBody: React.FC<IListItemBodyProps> = ({ item, children, isDragging }) => {
   return (
     <div className={styles.container}>
-      <AnimatePresence>
-        {item.priority! < 3 && (
-          <motion.div
-            className={styles.fav}
-            variants={variants}
-            transition={{ ease: 'backInOut' }}
-            initial='hide'
-            animate='show'
-            exit='hide'
-          >
-            <CustomIcon name='star' size={18} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <div className={classes(styles.wrapper)}>
+      <div className={classes(styles.wrapper, isDragging && styles.drag)}>
         <div className={styles.pair}>
           {item.image_url && (
             <div className={styles.imageWrapper}>
@@ -54,7 +41,23 @@ const ListItemBody: React.FC<IListItemBodyProps> = ({ item, children }) => {
             </div>
           )}
           <div className={styles.main}>
-            <Text fw='bold'>{item.name}</Text>
+            <div className={styles.name}>
+              <Text fw='bold'>{item.name}</Text>
+              <AnimatePresence initial={false}>
+                {item.priority! < 3 && (
+                  <motion.div
+                    className={styles.fav}
+                    variants={variants}
+                    transition={{ ease: 'backInOut' }}
+                    initial='hide'
+                    animate='show'
+                    exit='hide'
+                  >
+                    <CustomIcon name='star' size={18} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
             {item.description && (
               <Text size='sm' c='dimmed' lineClamp={2}>
                 {item.description}
