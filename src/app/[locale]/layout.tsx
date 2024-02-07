@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Exo_2 } from 'next/font/google';
 import { cookies } from 'next/headers';
+import { Metadata } from 'next';
 
 import AuthProvider from '@/components/base/provider/auth-provider';
 import { Database } from '@/lib/schema';
@@ -9,13 +10,12 @@ import { themeMantine } from '@/styles/themeConfig';
 
 import { ColorSchemeScript, MantineProvider } from '@mantine/core';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
-import { ToastContainer } from 'react-toastify';
+import { Notifications } from '@mantine/notifications';
 
 import '@/styles/globals.scss';
 import '@mantine/core/styles.css';
 import '@mantine/dates/styles.css';
-import 'react-toastify/dist/ReactToastify.css';
-import { Metadata } from 'next';
+import '@mantine/notifications/styles.css';
 
 const inter = Exo_2({ subsets: ['latin'] });
 
@@ -65,7 +65,7 @@ export default async function RootLayout({
       <body className={`${inter.className}`} suppressHydrationWarning={true}>
         <AuthProvider accessToken={accessToken}>
           <MantineProvider theme={themeMantine}>
-            <ToastContainer />
+            <Notifications />
             {children}
           </MantineProvider>
         </AuthProvider>
