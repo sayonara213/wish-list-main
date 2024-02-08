@@ -37,9 +37,11 @@ export const WishlistListItem: React.FC<IWishlistListItemProps> = ({ item, delet
   const containerVariants = {
     hide: {
       opacity: 0,
+      x: -100,
     },
     show: {
       opacity: 1,
+      x: 0,
     },
   };
 
